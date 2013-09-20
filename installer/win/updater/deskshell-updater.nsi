@@ -80,7 +80,7 @@ versioncompare:
 
     ${VersionCompare} "$InstalledVersion" "$AvailableVersion" $0
     StrCmp $0 "2" +1 nothingnew
-    MessageBox MB_YESNO "A new version ($AvailableVersion) of ${PRODUCT_NAME} is available. Would you like to download it?" IDYES +1 IDNO nothingnew
+    MessageBox MB_YESNO "A new version ($AvailableVersion) of ${PRODUCT_NAME} is available. Would you like to download it?" IDYES +1 IDNO leave
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -108,7 +108,8 @@ versioncompare:
       ExecWait '"$R0" /S _?=$INSTDIR'
       RunUpdate:
       Exec '$TEMP\${UPDATE_NAME}.exe'
-      
+      Quit
 nothingnew:
-        Quit
+      MessageBox MB_OK "You have the latest version."
+leave:
 SectionEnd
