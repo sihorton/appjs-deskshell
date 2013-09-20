@@ -1,7 +1,7 @@
 /**
 * check for updated installer and run it.
 */
-!include "..\common\version.nsi"
+!include "..\common\config.nsi"
 !define PRODUCT_NAME "deskshell-updater"
 ;url directly to github repository to find updated installer.
 !define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/installer-version.txt"

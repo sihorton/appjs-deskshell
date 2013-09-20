@@ -5,7 +5,7 @@
 * temporary code to launch deskshell
 */
 
-!include "..\common\version.nsi"
+!include "..\common\config.nsi"
 !define PRODUCT_NAME "deskshell"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
