@@ -90,6 +90,10 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR\sys-apps"
   File /r /x ".git" "sys-apps\"
 
+  CreateDirectory "$INSTDIR\bin\win\"
+  SetOutPath "$INSTDIR\bin\win"
+  File /r /x ".git" "bin\win\"
+
   SetOutPath "$INSTDIR"
   
   ;install version info and launch / auto update.
