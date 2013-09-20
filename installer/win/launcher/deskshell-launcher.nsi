@@ -9,9 +9,7 @@
 !define PRODUCT_NAME "deskshell"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
-!include "MUI2.nsh"
-!define MUI_ABORTWARNING
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
+
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_LANGUAGE "English"
 
@@ -29,9 +27,6 @@ Function .onInit
 
 Section "MainSection" SEC01
     Var /GLOBAL MyPath
-    Var /GLOBAL InstalledVersion
-    Var /GLOBAL AvailableVersion
-    Var /GLOBAL NewInstaller
 
     ;HideWindow
     Push "$EXEPATH"

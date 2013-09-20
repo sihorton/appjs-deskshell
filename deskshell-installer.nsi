@@ -4,7 +4,11 @@
 *
 * @author: sihorton
 */
-!include "..\common\config.nsi"
+!define COMMON_DIR "installer\win\common"
+!define WIN_DIR "bin\win"
+
+!include "${COMMON_DIR}\config.nsi"
+!include "${COMMON_DIR}\register-extensions.nsh"
 !define PRODUCT_NAME "deskshell"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
@@ -17,10 +21,9 @@ WriteINIStr "${FILENAME}.url" "InternetShortcut" "URL" "${URL}"
 !insertmacro MUI_PAGE_WELCOME
 
 ; Components page
-!insertmacro MUI_PAGE_COMPONENTS
+;!insertmacro MUI_PAGE_COMPONENTS
 ; Directory page
-!define MUI_DIRECTORYPAGE_TEXT_TOP 'If installing b2g-desktop then select the directory to install to. If you have selected to only instal Gaia UI to an existing b2g-desktop client then select the directory where b2g is installed on your machine.'
-!insertmacro MUI_PAGE_DIRECTORY
+;!insertmacro MUI_PAGE_DIRECTORY
 ; Start menu page
 var ICONS_GROUP
 !define MUI_STARTMENUPAGE_NODISABLE
@@ -32,10 +35,10 @@ var ICONS_GROUP
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-!define MUI_FINISHPAGE_TEXT "In b2g-desktop Press [Home] key to return to the homescreen after launching an app."
+;!define MUI_FINISHPAGE_TEXT ""
 !define MUI_FINISHPAGE_RUN
 !define MUI_FINISHPAGE_RUN_TEXT "Run ${PRODUCT_NAME}"
-!define MUI_FINISHPAGE_RUN_FUNCTION "Launch-b2g"
+!define MUI_FINISHPAGE_RUN_FUNCTION "Launch-deskshell"
 ;!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\${PROFILE_DIR_DEST}\install-readme.txt"
 !insertmacro MUI_PAGE_FINISH
 
@@ -49,7 +52,8 @@ var ICONS_GROUP
 ; MUI end ------
 
 Name "${PRODUCT_NAME}"
-OutFile "..\${PRODUCT_NAME}_${PRODUCT_VERSION}.exe"
+;_${PRODUCT_VERSION}
+OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}-install.exe"
 InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails hide
@@ -84,18 +88,15 @@ Section "deskshell" SEC01
   CreateDirectory "$INSTDIR"
   
   SetOutPath "$INSTDIR\sys-apps"
-  File /r "apps\"
+  File /r /x ".git" "sys-apps\"
 
   SetOutPath "$INSTDIR"
   
   ;install version info and launch / auto update.
-  File "..\common\version.txt"
-  File "..\deskshell.exe"
-  File "..\deskshell-updater.exe"
-  ;install code
-  ;File /r /x ".git" "${B2G_DIR_SRC}\"
-  ;File "${PROFILE_DIR_SRC}\gkmedias.dll"
-
+  File "${COMMON_DIR}\version.txt"
+  File "${WIN_DIR}\deskshell.exe"
+  File "${COMMON_DIR}\..\deskshell-updater.exe"
+  
   ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Application"
   
 ; Shortcuts
@@ -164,12 +165,14 @@ Section Uninstall
   RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
   RMDir /r "$INSTDIR\"
 
+  ${unregisterExtension} ".desk" "DeskShell Application"
+
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
   SetAutoClose true
 SectionEnd
 
-Function Launch-b2g
+Function Launch-deskshell
   ;ExecShell "" "$INSTDIR\deskshell.lnk"
   Exec "$INSTDIR\deskshell.exe /NOUPDATE"
 FunctionEnd

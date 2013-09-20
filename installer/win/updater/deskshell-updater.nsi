@@ -10,9 +10,8 @@
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
-!include "MUI2.nsh"
-!define MUI_ABORTWARNING
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
+
+
 
 !define MUI_TEXT_INSTALLING_TITLE "Downloading"
 !define MUI_TEXT_INSTALLING_SUBTITLE "Please wait while ${PRODUCT_NAME} is being downloaded."
