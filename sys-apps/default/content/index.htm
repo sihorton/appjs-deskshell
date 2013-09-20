@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>Deskshell</title>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('http://localhost:'+location.port);
+	  socket.on('alert', function (data) {
+		console.log(data);
+		alert(data.mess);
+	  });
+	</script>
+</head>
+<body>
+	<img src="deskShell.jpg"/>
+	<hr/>
+	<p>hello world!</p>
+	<p></p>
+	<a href="page1.htm">page1</a> | <a href="page2.htm">page2</a>
+	
+	<button onclick="socket.emit('Hello',{my:'data'});">Hello Backend</button>
+	<button onclick="socket.emit('controlMe',{my:'data'});">ControlMe</button>
+	
+</body>
+</html>

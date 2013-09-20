@@ -1,13 +1,13 @@
 /**
 * this demo shows usage of a deskshell api.
 */
+
 var platformModulesDir = "../../bin/win/node_modules/";//horrible hack
 
 var deskShell = require(platformModulesDir + "/deskshell-api").api;
 var htdocs = __dirname+'/content'
 
-var running = deskShell.startApp({
-	
+var running = deskShell.startApp({	
 	htdocs:htdocs
 	/*,port:8086
 	  ,cport:8087

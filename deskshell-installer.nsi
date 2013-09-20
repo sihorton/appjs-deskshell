@@ -9,7 +9,7 @@
 
 !include "${COMMON_DIR}\config.nsi"
 !include "${COMMON_DIR}\register-extensions.nsh"
-!define PRODUCT_NAME "deskshell"
+!define PRODUCT_NAME "Deskshell"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -27,7 +27,7 @@ WriteINIStr "${FILENAME}.url" "InternetShortcut" "URL" "${URL}"
 ; Start menu page
 var ICONS_GROUP
 !define MUI_STARTMENUPAGE_NODISABLE
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER "deskshell"
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Deskshell"
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
 !define MUI_STARTMENUPAGE_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "${PRODUCT_STARTMENU_REGVAL}"
@@ -64,7 +64,7 @@ Function .onInit
   ;try to see if it is running--
   FindProcDLL::FindProc "deskshell.exe"
   IntCmp $R0 1 0 notRunning
-    MessageBox MB_OK|MB_ICONEXCLAMATION "deskshell is running. Click ok to close the process." /SD IDOK
+    MessageBox MB_OK|MB_ICONEXCLAMATION "Deskshell is running. Click ok to close the process." /SD IDOK
     KillProcDLL::KillProc "deskshell.exe"
 notRunning:
 
@@ -98,7 +98,7 @@ Section "deskshell" SEC01
   
   ;install version info and launch / auto update.
   File "${COMMON_DIR}\version.txt"
-  File "${WIN_DIR}\deskshell.exe"
+  File "deskshell.exe"
   File "${COMMON_DIR}\..\deskshell-updater.exe"
   
   ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Application"
@@ -179,6 +179,6 @@ SectionEnd
 
 Function Launch-deskshell
   ;ExecShell "" "$INSTDIR\deskshell.lnk"
-  Exec "$INSTDIR\deskshell.exe /NOUPDATE"
+  Exec "$INSTDIR\deskshell.exe"
 FunctionEnd
 
