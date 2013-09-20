@@ -82,6 +82,12 @@ Section "deskshell" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   CreateDirectory "$INSTDIR"
+  
+  SetOutPath "$INSTDIR\sys-apps"
+  File /r "apps\"
+
+  SetOutPath "$INSTDIR"
+  
   ;install version info and launch / auto update.
   File "..\common\version.txt"
   File "..\deskshell.exe"
@@ -90,6 +96,8 @@ Section "deskshell" SEC01
   ;File /r /x ".git" "${B2G_DIR_SRC}\"
   ;File "${PROFILE_DIR_SRC}\gkmedias.dll"
 
+  ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Application"
+  
 ; Shortcuts
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
   CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
