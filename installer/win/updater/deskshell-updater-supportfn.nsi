@@ -365,5 +365,4 @@ Function GetParent
     Pop $R2
     Pop $R1
     Exch $R0
-
 FunctionEnd
