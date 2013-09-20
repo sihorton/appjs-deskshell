@@ -1,2 +1,2 @@
-0.1
-http://appjs.delightfulsoftware.com/deskshell/deskshell-update-install.exe
+0.2
+http://appjs.delightfulsoftware.com/deskshell/deskshell-install.exe
