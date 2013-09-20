@@ -1,0 +1,10 @@
+Package: appjs-runtime
+Version: 0.26
+Architecture: i386
+Maintainer: sihorton <sihorton@github.com>
+Installed-Size: 76294
+Depends: bash
+Section: devel
+Priority: optional
+Homepage: http://appjs.org/
+Description: AppJS with support for packaged applications.

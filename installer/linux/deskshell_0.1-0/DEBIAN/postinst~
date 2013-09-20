@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ln -s /lib/appjs-runtime/app.sh /usr/bin/appjs
+chmod 777 /lib/appjs-runtime/data/node_modules
+xdg-mime install --mode system /lib/appjs-runtime/x-appjs.xml
+xdg-mime default appjs-runtime.desktop application/x-appjs
+update-mime-database /usr/share/mime

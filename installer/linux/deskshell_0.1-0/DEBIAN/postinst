@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ln -s /lib/deskshell/app.sh /usr/bin/deskshell
+chmod 777 /lib/deskshell/data/node_modules
+xdg-mime install --mode system /lib/deskshell/x-desk.xml
+xdg-mime default desktop.desktop application/x-desk
+update-mime-database /usr/share/mime

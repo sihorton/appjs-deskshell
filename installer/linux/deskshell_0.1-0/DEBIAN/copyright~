@@ -1,0 +1,8 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: deskshell
+Upstream-Contact: https://github.com/sihorton/
+Source: https://github.com/sihorton/appjs-deskshell
+
+Files: *
+Copyright: 2013 sihorton
+License: MIT

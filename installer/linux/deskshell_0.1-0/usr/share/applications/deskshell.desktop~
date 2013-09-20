@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=appjs-runtime
+Comment=Build desktop applications
+Exec=appjs %f
+Terminal=true
+Type=Application
+StartupNotify=true
+Icon=/lib/appjs-runtime/app.png
+Categories=Development,System,Utility
+MimeType=application/x-appjs
+Name[en_US]=deskshell

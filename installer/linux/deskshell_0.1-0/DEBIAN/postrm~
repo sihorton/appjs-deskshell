@@ -1,0 +1,4 @@
+#!/bin/sh
+
+unlink /usr/bin/appjs
+

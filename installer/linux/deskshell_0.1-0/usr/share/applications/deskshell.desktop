@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=deskShell
+Comment=Build desktop applications
+Exec=deskshell %f
+Terminal=true
+Type=Application
+StartupNotify=true
+Icon=/lib/deskshell/app.png
+Categories=Development,System,Utility
+MimeType=application/x-desk
+Name[en_US]=deskshell
+

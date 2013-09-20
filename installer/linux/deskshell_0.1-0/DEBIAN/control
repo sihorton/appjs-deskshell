@@ -1,0 +1,10 @@
+Package: deskshell
+Version: 0.1
+Architecture: i386
+Maintainer: sihorton <sihorton@github.com>
+Installed-Size: 76294
+Depends: bash
+Section: devel
+Priority: optional
+Homepage: https://github.com/sihorton/appjs-deskshell/
+Description: Deskshell desktop applications.
