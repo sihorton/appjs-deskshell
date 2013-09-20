@@ -1,7 +1,7 @@
 /**
 * this demo shows usage of a deskshell api.
 */
-var platformModulesDir = "../bin/win/node_modules/";
+var platformModulesDir = "../../bin/win/node_modules/";
 var deskShell = require(platformModulesDir + "/deskshell-api").api;
 
 var running = deskShell.startApp({
