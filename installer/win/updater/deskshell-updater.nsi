@@ -4,7 +4,7 @@
 !include "..\common\config.nsi"
 !define PRODUCT_NAME "deskshell-updater"
 ;url directly to github repository to find updated installer.
-!define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/installer-version.txt"
+!define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-version.txt"
 !define UPDATE_NAME "deskshell-update-installer"
 
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
