@@ -9,7 +9,7 @@ sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update
 sudo apt-get install nodejs
 
-the required modules can then be globally installed.
+the required modules can then be globally installed or installed into each project, or the directory above projects.
 npm install -g request
 
 binaries:

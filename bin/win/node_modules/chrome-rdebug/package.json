@@ -1,6 +1,6 @@
 {
   "name": "chrome-rdebug",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Full implementation of the chrome/webkit remote debugging protocol. Implemented to use as the bridge for AppJS v2.0",
   "main": "index.js",
   "repository": {
