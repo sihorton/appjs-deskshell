@@ -1,0 +1,69 @@
+{
+   "browser": {
+      "window_placement": {
+         "always_on_top": false,
+         "bottom": 820,
+         "left": 21,
+         "maximized": false,
+         "right": 1071,
+         "top": 44,
+         "work_area_bottom": 844,
+         "work_area_left": 0,
+         "work_area_right": 1440,
+         "work_area_top": 22
+      }
+   },
+   "countryid_at_install": 17477,
+   "default_search_provider": {
+      "enabled": true,
+      "encodings": "UTF-8",
+      "icon_url": "http://www.google.com/favicon.ico",
+      "id": "2",
+      "instant_url": "{google:baseURL}webhp?{google:RLZ}sourceid=chrome-instant&ie={inputEncoding}&ion=1{searchTerms}&nord=1",
+      "keyword": "google.de",
+      "name": "Google",
+      "prepopulate_id": "1",
+      "search_url": "{google:baseURL}search?{google:RLZ}{google:acceptedSuggestion}{google:originalQueryForSuggestion}sourceid=chrome&ie={inputEncoding}&q={searchTerms}",
+      "suggest_url": "{google:baseSuggestURL}search?client=chrome&hl={language}&q={searchTerms}"
+   },
+   "dns_prefetching": {
+      "host_referral_list": [ 2, [ "http://localhost:53439/", [ "http://localhost:53439/", 2.6138943008368893 ] ], [ "http://localhost:54160/", [ "http://localhost:54160/", 2.7693356107337426 ] ], [ "http://localhost:54170/", [ "http://localhost:54170/", 2.850489033518 ] ], [ "http://www.google.com/", [ "http://www.google.de/", 0.9786908420109265 ] ], [ "http://www.google.de/", [ "http://ssl.gstatic.com/", 0.9786908420109265, "http://www.google.com/", 0.9786908420109265, "http://www.google.de/", 6.477598448112633 ] ] ],
+      "startup_list": [ 1 ]
+   },
+   "download": {
+      "directory_upgrade": true,
+      "extensions_to_open": ""
+   },
+   "extensions": {
+      "autoupdate": {
+         "next_check": "13024353590681996"
+      },
+      "chrome_url_overrides": {
+         "bookmarks": [ "chrome-extension://eemcgdkfndhakfknompkggombfjjjeno/main.html" ]
+      }
+   },
+   "google": {
+      "services": {
+         "username": ""
+      }
+   },
+   "homepage": "http://www.google.com/",
+   "homepage_is_newtabpage": false,
+   "ntp": {
+      "pref_version": 3,
+      "promo_resource_cache_update": "1379811519.202205"
+   },
+   "plugins": {
+      "enabled_internal_pdf3": true
+   },
+   "profile": {
+      "content_settings": {
+         "pref_version": 1
+      },
+      "exited_cleanly": true
+   },
+   "tabs": {
+      "use_compact_navigation_bar": false,
+      "use_vertical_tabs": false
+   }
+}
