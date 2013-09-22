@@ -1,0 +1,90 @@
+/**
+* this demo uses more nodejs functionality to create a better application. This code will probably
+* be rolled up into a shared module in the future.
+*/
+var myApp = {
+	platformModulesDir:__dirname+"/../../bin/mac/node_modules/",
+	htdocs:"content/"
+};
+
+var freeport = require(myApp.platformModulesDir+"/freeport/lib/freeport.js");
+var rDebug = require(myApp.platformModulesDir + '/chrome-rdebug/index.js').rDebug;
+var request = require(myApp.platformModulesDir + "request/index.js");
+
+
+freeport(function(er, port) {
+	//setup a really simple server to serve the application files
+	myApp.port = port;
+	var fs = require('fs');
+	var app = require('http').createServer(function handler (req, res) {
+		if (req.url =='/')req.url = '/index.htm';
+	  fs.readFile(__dirname+"/content/" + req.url,function (err, data) {
+		if (err) {
+		  res.writeHead(500);
+		  return res.end('Error loading '+req.url);
+		}
+		res.writeHead(200);
+		res.end(data);
+	  });
+	});
+	app.listen(port);
+	console.log("serving application on port:",port);
+	
+	var io = require("socket.io").listen(app);
+	io.set('log level',1);
+	var taskChan = io
+	//.of('/channelName')
+	.on('connection', function(socket) {
+		console.log("connected");
+		socket.on('Hello',function(params,back) {
+			console.log("hello called");
+			socket.emit("alert",{mess:"hello from backend!"});
+		});
+		socket.on('controlMe',function(params,back) {
+			console.log("controlMe message recieved");
+			myApp.rDebugApi.pageNavigate("http://appjs.com").then(function() {
+				console.log("wait 5 seconds and you will return to the app");
+				setTimeout(function(){
+					myApp.rDebugApi.pageNavigate('http://localhost:'+myApp.port)
+				},5000);
+					
+			}).fail(function(err) {
+			console.log("error:"+err.error.code+" "+err.error.message);
+			});
+		});
+	});
+	freeport(function(er, cport) {
+		myApp.cport = cport;
+		//launch chrome
+		var chromePath = __dirname+"/../../bin/mac/Chromium.app/Contents/MacOS/Chromium";
+		//http://peter.sh/experiments/chromium-command-line-switches/
+		//currently these extra switches are not working, more investigation required.
+		var chromeParams = [
+			'--app=http://localhost:'+myApp.port+'/index.htm',
+			'--remote-debugging-port='+myApp.cport,
+			'--user-data-dir='+__dirname+'/../../bin/win/chrome-profile',
+			'--app-window-size=300,300',
+			'--apps-use-native-frame'
+		];
+		myApp.chrome = require('child_process').spawn(chromePath, chromeParams);
+		console.log("chrome debug port:",myApp.cport);
+		setTimeout(function(){
+			request("http://localhost:"+myApp.cport+"/json", function(error, response, body) {
+				var chromeDebugOptions = JSON.parse(body);
+				var chromeDebugUrl = chromeDebugOptions[0].webSocketDebuggerUrl;
+			
+				//bugfix for wierd portable chrome on windows.
+				if (chromeDebugUrl.indexOf('ws:///') > -1) {
+					chromeDebugUrl = chromeDebugUrl.replace('ws:///','ws://localhost:'+myApp.cport+'/');
+				}
+				console.log("websocket url",chromeDebugUrl);
+				myApp.chromeDebugUrl = chromeDebugUrl;
+				myApp.rDebugApi = rDebug.openSocket(chromeDebugUrl);
+				myApp.rDebugApi.on('*',function(event) {
+					console.log("Event:",event);
+				});
+			});
+		}, 2000);
+	});
+});
+

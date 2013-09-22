@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>global settings</key>
+	<dict>
+		<key>localizableStrings</key>
+		<array>
+			<dict>
+				<key>comments</key>
+				<string>Localizable index words</string>
+				<key>index</key>
+				<string>adobe, flash, website, browser, camera, webcam, web-cam, microphone, mic, input, privacy</string>
+				<key>title</key>
+				<string>Flash Player privacy settings</string>
+			</dict>
+			<dict>
+				<key>comments</key>
+				<string>Localizable index words</string>
+				<key>index</key>
+				<string>adobe, flash, website, browser, peer, p2p, networking, playback, drm, protected, content, video, audio</string>
+				<key>title</key>
+				<string>Flash Player media playback</string>
+			</dict>
+			<dict>
+				<key>comments</key>
+				<string>Localizable index words</string>
+				<key>index</key>
+				<string>adobe, flash, website, browser, local, data, store, storage, stored, lso, lso file, sol, shared, cookie, cookies</string>
+				<key>title</key>
+				<string>Flash Player local data</string>
+			</dict>
+			<dict>
+				<key>comments</key>
+				<string>Localizable index words</string>
+				<key>index</key>
+				<string>adobe, flash, website, browser, reset, clear, update, compatibility, trust</string>
+				<key>title</key>
+				<string>Flash Player settings</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
