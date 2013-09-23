@@ -24,5 +24,9 @@
 	<button onclick="socket.emit('Hello',{my:'data'});">Send "Hello" Message</button><br/>
 	<button onclick="socket.emit('controlMe',{my:'data'});">Send "ControlMe" Message</button><br/>
 	<p></p>
+	my websocket:<input type=text id="websocket"/><br/>
+	<script>
+		document.getElementById('websocket').value = location.port;
+	</script>
 </body>
 </html>

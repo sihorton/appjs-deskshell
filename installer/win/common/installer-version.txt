@@ -1,2 +1,2 @@
-0.4
+0.5
 http://appjs.delightfulsoftware.com/deskshell/deskshell-install.exe
