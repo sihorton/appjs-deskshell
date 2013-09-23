@@ -1,4 +1,4 @@
-Binaries for mac not done yet!
+Mac port
+========
+Extract Chromium.app.tgz before running on mac os. Chromium has been archived due to long path sizes causing problems for windows checkouts of repository.
 
-You can try installing chromium and nodejs and take it from there and then update this 
-text file and create a pull request.
