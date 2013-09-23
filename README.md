@@ -13,8 +13,12 @@ Windows:
 An installer is available for windows: [http://appjs.delightfulsoftware.com/deskshell/deskshell-install.exe].
 
 
-Mac & Linux:
+Mac:
+====
+Take a look at bin/mac folder
+
+Linux:
 ============
 
-Planned for the near future.
+Take a look at bin/linux folder
 
