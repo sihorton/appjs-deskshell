@@ -4,12 +4,14 @@
 *
 * @author: sihorton
 */
+!define PRODUCT_NAME "Deskshell"
+
 !define COMMON_DIR "installer\win\common"
 !define WIN_DIR "bin\win"
 
 !include "${COMMON_DIR}\config.nsi"
 !include "${COMMON_DIR}\register-extensions.nsh"
-!define PRODUCT_NAME "Deskshell"
+
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 

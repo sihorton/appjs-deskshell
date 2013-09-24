@@ -4,7 +4,7 @@
 */
 if (process.argv.length <3) {
 	//if no args run default application.
-	process.argv[2] = __dirname + "/../../sys-apps/default-win/default.desk";
+	process.argv[2] = __dirname + "/../../sys-apps/demo-docs/demo-docs.desk";
 }
 var Q = require("q"),fs=require("fs"),path = require("path");
 
