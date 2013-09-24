@@ -43,8 +43,18 @@
 			  <h3>Html Website</h3>
  
 <p>If you can create a simple html website then you can create a desk shell application.</p>
+<p>create a folder called something like "htdocs" or "content" or similar. Copy all of the html, css, images, javascript and other files that make up your application. Then when you start the application give it the folder containing your html site</p>
+<pre><code>var running = deskShell.startApp({
+	htdocs:<b><i>htdocs</i></b>
+	,openSocket:true
+	,launchChromium:true
+	,exitOnChromiumClose:true
+	,width:400
+})</code></pre>
+
  <a onclick="socket.emit('LaunchApp',{relpath:'content/demos/html_website/app.desk'});" class="btn btn-large btn-success">Launch Demo</a>
  <br/>
+ @ToDo: allow applications to run with no backend if they are html only. i.e. no app.js needed.
 				</div>
 			</div>
 				<hr>
