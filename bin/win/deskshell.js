@@ -4,13 +4,13 @@
 */
 if (process.argv.length <3) {
 	//if no args run default application.
-	process.argv[3] = __dirname + "/../../sys-apps/default-win/default.desk";
+	process.argv[2] = __dirname + "/../../sys-apps/default-win/default.desk";
 }
 var Q = require("q"),fs=require("fs"),path = require("path");
 
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
-deskShell.appFile = process.argv[3];
-deskShell.appDir = path.dirname(process.argv[3]) + "/";
+deskShell.appFile = process.argv[2];
+deskShell.appDir = path.dirname(process.argv[2]) + "/";
 
 deskShell.ifexists(deskShell.appFile)
 	.then(function() {
