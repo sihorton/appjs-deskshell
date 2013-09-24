@@ -16,9 +16,10 @@
                     <li><a href="../index.htm">Intro</a></li>
                     <li><a href="../start.htm">Get Started</a></li>
                     <li class="active"><a href="intro.htm">Docs</a></li>
-                    <li><a href="demos.htm">Demos</a></li>
+                    <li><a href="../demos/intro.htm">Demos</a></li>
                     <li><a href="../wiz.htm">AppWizard</a></li>
                     <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
                   </ul>
                 </div>
               </div>
@@ -27,17 +28,49 @@
 		 <div class="row">
 			 <div class="span4">
 				 <ul class="nav nav-list">
-					<li class="nav-header">Documentation?</li>
+					<li class="nav-header">Documentation</li>
 					<li ><a href="intro.htm">Intro</a></li>
 					<li class="active"><a href="desk.htm">desk files</a></li>
+					<li><a href="deskShell.htm">deskShell Api</a></li>
 					<li><a href="remoteDebug.htm">debug api</a></li>
 				</ul>
 			 </div>
 			 <div class="span8">
 				 <h3>Desk Files</h3>
+ <p>files ending with the extension .desk should be associated with the deskshell application. When launched </p>
+ Sample .desk file:
+<pre><code>{
+	"name":"default"  //a comment?
+	,"version":"0.2"
+	,"author":"sihorton"
+	,"description":"default app shown when you start deskshell"
+	,"licence":"MIT"
+	
+	,"frontend":"chromium-portable"
+	,"main":"app.js"
+	,"backend":"node"
+}
+</code></pre>
+<h2>Description</h2>
+<p>The first set of attributes are used to describe your application to the world.</p>
+<table class="table">
+	<tr><th>Attribute</th><th>explanation</th></tr>
+	<tr><td>name</td><td>application name</td></tr>
+	<tr><td>version</td><td>version of your application. In the future we could add automatic updating based on version numbers.</td></tr>
+	<tr><td>author</td><td>your name or organisations name</td></tr>
+	<tr><td>description</td><td>explanation of what your application does.</td></tr>
+	<tr><td>licence</td><td>what licence does the application have.</td></tr>
+</table>	
+
  
-<p>ToDo</p>
- 
+ <h2>Function</h2>
+<p>The first set of attributes are used to describe your application to the world.</p>
+<table class="table">
+	<tr><th>Attribute</th><th>explanation</th></tr>
+	<tr><td>frontend</td><td>what should be used to display the user interface of your application. Currently you can only enter in "chromium" here. Possible values planned for the future will be "user-browser" for default browser and then "appjs" for the appjs implementation.</td></tr>
+	<tr><td>backend</td><td>The backend ("Server") part of the application, if the application is simple html then you can enter "none" here, for nodejs enter "node" or "nodejs". In the future it is planned to add many additional backends. There will be a porting guide so if your preferred server language is not available you can write the port yourself!</td></tr>
+		<tr><td>main</td><td>The initial backend file used to start the application. For nodejs this will be the initial javascript file to run.</td></tr>
+</table>
 				</div>
 			</div>
 				<hr>

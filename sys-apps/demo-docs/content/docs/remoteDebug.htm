@@ -16,9 +16,10 @@
                     <li><a href="../index.htm">Intro</a></li>
                     <li><a href="../start.htm">Get Started</a></li>
                     <li class="active"><a href="intro.htm">Docs</a></li>
-                    <li><a href="demos.htm">Demos</a></li>
+                    <li><a href="../demos/intro.htm">Demos</a></li>
                     <li><a href="../wiz.htm">AppWizard</a></li>
                     <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
                   </ul>
                 </div>
               </div>
@@ -27,16 +28,21 @@
 		 <div class="row">
 			 <div class="span4">
 				 <ul class="nav nav-list">
-					<li class="nav-header">Documentation?</li>
+					<li class="nav-header">Documentation</li>
 					<li ><a href="intro.htm">Intro</a></li>
 					<li><a href="desk.htm">desk files</a></li>
+					<li><a href="deskShell.htm">deskShell Api</a></li>
 					<li class="active"><a href="remoteDebug.htm">debug api</a></li>
 				</ul>
 			 </div>
 			 <div class="span8">
 				 <h3>Debug API</h3>
  
-<p>ToDo.</p>
+<p>The deskShell.startApp function returns a promise, that is fullfilled with an app object. This app object has an
+rDebugApi object on it. The object implements the Remote Debugging Protocol (see <a target="blank" href="https://developers.google.com/chrome-developer-tools/docs/protocol/1.1/index">https://developers.google.com/chrome-developer-tools/docs/protocol/1.1/index</a></p>
+<p>To navigate to a new url you can do the following:</p>
+<pre><code>app.rDebugApi.pageNavigate('http://example.com/test.htm');
+</code></pre>
  
 				</div>
 			</div>

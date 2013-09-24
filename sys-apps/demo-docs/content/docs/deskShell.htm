@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell SDK</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Intro</a></li>
+                    <li><a href="../start.htm">Get Started</a></li>
+                    <li class="active"><a href="intro.htm">Docs</a></li>
+                    <li><a href="../demos/intro.htm">Demos</a></li>
+                    <li><a href="../wiz.htm">AppWizard</a></li>
+                    <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Documentation</li>
+					<li ><a href="intro.htm">Intro</a></li>
+					<li><a href="desk.htm">desk files</a></li>
+					<li class="active"><a href="desk.htm">deskShell Api</a></li>
+					<li><a href="remoteDebug.htm">debug api</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>DeskShell Api</h3>
+ <p>deshShell node applications have access to an object called "deskShell":</p>
+<pre><code>deskShell= {
+	v:0.1
+	,chromeDebugPort: 9222
+	,getFreePort: function(){return promise;}
+	,getDebugSocket: function() {return promise;}
+	,startApp: function({
+		htdocs:__dirname+"/htdocs/"
+		,openSocket:true
+		,launchChromium:true
+		,exitOnChromiumClose:true
+		,width:400
+	}) {return promise;}
+	,ifexists: function(path) {return promise;}
+	,launchApp: function(relativePath)
+	,launchAppDebug: function(relativePath)
+	,appFile:"C:\\ ... \\demo-docs\\app.desk"
+	,appDir:"C:\\ ... \\demo-docs\\"
+	,platformDir:"abs/path/to/deskshell/bin/os/directory"
+	,appDef: {
+		name:"default"
+		,version:"0.2"
+		...
+	}
+}
+</code></pre>
+<h2>Properties</h2>
+<p>deskShell contains the following properties</p>
+<table class="table">
+	<tr><th>Property</th><th>explanation</th></tr>
+	<tr><td>v</td><td>The deskshell api version number</td></tr>
+	<tr><td>chromeDebugPort</td><td>Port used for remote debug connection to chromium</td></tr>
+	<tr><td>appFile</td><td>absolute path to the .desk file for the running application</td></tr>
+	<tr><td>appDir</td><td>absolute path to the folder containing the running application.</td></tr>
+	<tr><td>platformDir</td><td>absolute path to the deskshell binary directory for the OS the app is running on.</td></tr>
+	<tr><td>appDef</td><td>Contents of the .desk file of the running application.</td></tr>
+</table>	
+
+ 
+ <h2>Methods</h2>
+<p>The first set of attributes are used to describe your application to the world.</p>
+<table class="table">
+	<tr><th>Method</th><th>explanation</th></tr>
+	<tr><td>getFreePort()</td><td>Returns a free (unused) port.</td></tr>
+	<tr><td>getDebugSocket()</td><td>Currently an internal function.</td></tr>
+	<tr><td>startApp(params)</td><td>Call to launch the "browser" frontend interface window.</td></tr>
+	
+	<tr><td>ifexists(path)</td><td>returns a promise which is fulfilled if the path exists and rejected if it does not exist.
+	<tr><td>launchApp(relPath/to/.desk/file)</td><td>Launches a deskShell application identified by the relative path to the .desk file.</td></tr>
+	<tr><td>launchAppDebug(relPath/to/.desk/file)</td><td>Launches a deskShell application identified by the relative path to the .desk file. Debug window / shell will be opened.</td></tr>
+</table>
+<h2>StartApp Params</h2>
+<p>The startApp function takes the following parameters.</p>
+<table class="table">
+	<tr><th>property</th><th>explanation</th></tr>
+	<tr><td>htdocs</td><td>Optional, if provided then a simple webserver will serve files from the given directory</td></tr>
+	<tr><td>openSocket</td><td>Optional, open a websocket so front end html application can send socket messages to the backend.</td></tr>
+	<tr><td>launchChromium</td><td><b>To be Depreciated</b>opens a chrome window, this should be set in the .desk file instead.</td></tr>
+	<tr><td>exitOnChromiumClose</td><td><b>To be Renamed</b>when the window closes node should stop execution, important as otherwise you will leave many running processes running.</td></tr>
+	
+	
+</table>
+{
+		htdocs:__dirname+"/htdocs/"
+		,openSocket:true
+		,launchChromium:true
+		,exitOnChromiumClose:true
+	}
+				</div>
+			</div>
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+		 </div>

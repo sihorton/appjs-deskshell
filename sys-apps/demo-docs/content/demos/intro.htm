@@ -4,7 +4,14 @@
 	<meta charset="utf-8"> 
 	<title>DeskShell SDK</title>
 	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
-	
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('http://localhost:'+location.port);
+	  socket.on('alert', function (data) {
+		console.log(data);
+		alert(data.mess);
+	  });
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -19,6 +26,7 @@
                     <li class="active"><a href="demos.htm">Demos</a></li>
 					<li><a href="../wiz.htm">AppWizard</a></li>
                     <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
                   </ul>
                 </div>
               </div>
@@ -30,13 +38,14 @@
 					<li class="nav-header">Demos</li>
 					<li class="active"><a href="intro.htm">Intro</a></li>
 					<li><a href="html_website.htm">html website</a></li>
+					<li><a href="launchApp.htm">launchApp</a></li>
 				</ul>
 			 </div>
 			 <div class="span8">
 				
 				 <h3>Demos</h3>
  
-<p>ToDo.</p>
+<p>Select a demo on the left to see what is possible with deskshell.</p>
  
 				</div>
 			</div>

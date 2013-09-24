@@ -37,26 +37,24 @@
 				 <ul class="nav nav-list">
 					<li class="nav-header">Demos</li>
 					<li><a href="intro.htm">Intro</a></li>
-					<li class="active"><a href="html_website.htm">html website</a></li>
-					<li><a href="launchApp.htm">launchApp</a></li>
+					<li><a href="html_website.htm">html website</a></li>
+					<li class="active"><a href="launchApp.htm">launchApp</a></li>
 				</ul>
 			 </div>
 			 <div class="span8">
-			  <h3>Html Website</h3>
+			  <h3>launchApp</h3>
  
-<p>If you can create a simple html website then you can create a desk shell application.</p>
-<p>create a folder called something like "htdocs" or "content" or similar. Copy all of the html, css, images, javascript and other files that make up your application. Then when you start the application give it the folder containing your html site</p>
-<pre><code>var running = deskShell.startApp({
-	htdocs:<b><i>htdocs</i></b>
-	,openSocket:true
-	,launchChromium:true
-	,exitOnChromiumClose:true
-	,width:400
-})</code></pre>
+<p>It is easy to launch another deskshell app, on the server side call:</p>
+<pre><code>var path = deskShell.appDir + "/../relative/path/to/app.desk";
+deskShell.launchApp(f);
+</code></pre>
+<p>deskShell.appDir holds the directory that your application is running from.</p>
+<p>You can test the functionality below, enter in a relative path to a .desk file and then click the button to start it.</p>
 
- <a onclick="socket.emit('LaunchApp',{relpath:'content/demos/html_website/app.desk'});" class="btn btn-large btn-success">Launch Demo</a>
+<input id="relpath" type="text" value="content/demos/html_website/app.desk" style="width:350px;"/><br/>
+ <a onclick="socket.emit('LaunchApp',{relpath:document.getElementById('relpath').value});" class="btn btn-large btn-success">Launch Demo</a>
  <br/>
- @ToDo: allow applications to run with no backend if they are html only. i.e. no app.js needed.
+
 				</div>
 			</div>
 				<hr>
