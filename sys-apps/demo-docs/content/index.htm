@@ -1,21 +1,58 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<title>DemoDocs</title>
-	<link rel="shortcut icon" href="/favicon.ico">
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-	  var socket = io.connect('http://localhost:'+location.port);
-	  socket.on('alert', function (data) {
-		console.log(data);
-		alert(data.mess);
-	  });
-	</script>
+	<meta charset="utf-8"> 
+	<title>DeskShell SDK</title>
+	<link rel="stylesheet" href="css/bootstrap.css"  type="text/css"/>
+	
 </head>
 <body>
-	<img src="deskShell.jpg"/>
-	<hr/>
-	<p>This is a demonstration application that also documents the deskShell project.</p>
-	<p></p>
-	
+	<div class="container">
+		<img src="deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li class="active"><a href="#">Intro</a></li>
+                    <li><a href="start.htm">Get Started</a></li>
+                    <li><a href="docs/intro.htm">Docs</a></li>
+                    <li><a href="demos/intro.htm">Demos</a></li>
+                    <li><a href="wiz.htm">AppWizard</a></li>
+                    <li><a href="package.htm">Packager</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="hero-unit">
+			<h1>DeskShell SDK</h1>
+		 
+			<p>Desk shell lets you create desktop applications that make use of web technologies
+			but can break out of the browser sandbox. Access to real databases, writing and 
+			reading from the desktop are all possible!</p>
+		 
+			<a href="start.htm" class="btn btn-large btn-success">Get Started</a>
+			<a href="http://github.com/sihorton/appjs-deskshell" target="_blank" class="btn btn-large btn-success">Website</a>
+		 </div>
+		 <div class="row">
+				<div class="span4">
+						<h4 class="muted text-center">Get Started</h4>
+						<p>Tutorial on how to create a new application.</p>
+						<a href="start.htm" class="btn"><i class="icon-user"></i> Get Started</a>
+					</div>
+					<div class="span4">
+						<h4 class="muted text-center">Docs</h4>
+						<p>API Documentation</p>
+						<a href="docs/intro.htm" class="btn btn-success"><i class="icon-star icon-white"></i> Docs</a>
+					</div>
+					<div class="span4">
+						<h4 class="muted text-center">Demos</h4>
+						<p>Example code and applications</p>
+						<a href="demos/intro.htm" class="btn btn-info">Demos</a>
+					</div>
+				</div>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
 </body>
 </html>

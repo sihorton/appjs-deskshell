@@ -3,8 +3,11 @@
 	,"version":"0.2"
 	,"author":"sihorton"
 	,"description":"default app shown when you start deskshell"
-	,"main":"app.js"
 	,"licence":"MIT"
+	
+	
+	,"htdocs":"htdocs"
+	,"main":"app.js"
 	,"frontend":"chromium-portable"
 	,"backend":"node"
 }

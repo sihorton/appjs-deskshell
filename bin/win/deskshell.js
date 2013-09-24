@@ -11,7 +11,10 @@ var Q = require("q"),fs=require("fs"),path = require("path");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
 deskShell.appFile = process.argv[2];
 deskShell.appDir = path.dirname(process.argv[2]) + "/";
-
+if (deskShell.appDir == "./") {
+	//todo fix relative path launches...
+}
+deskShell.platformDir = __dirname;
 deskShell.ifexists(deskShell.appFile)
 	.then(function() {
 		//file found.
