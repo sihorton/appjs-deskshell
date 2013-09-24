@@ -1,20 +1,58 @@
 /**
 * deskshell apple script or windows executable will run this script and pass in any command line arguments.
+* it will read the application json file, setup required environment and then run the application.
 */
-//debug for now, write all command line args to a log file.
-var fs = require('fs');
-fs.writeFile("deskshell.log", process.argv.join("\n"), function(err) {
-	if(err) {
-		console.log(err);
-	}
-});
 if (process.argv.length <3) {
-	//no arguments passed, run default app.
-	//maybe detect os and then run default for that os...
-	//as a quick demo for now just include and run...
-	//we can create default objects / api and everything here.
-	require(__dirname + "/../../sys-apps/default-win/default.desk");
-} else {
-	//again quick demo for now, just include the script.
-	require(process.argv[3]);
+	//if no args run default application.
+	process.argv[3] = __dirname + "/../../sys-apps/default-win/default.desk";
 }
+var Q = require("q"),fs=require("fs"),path = require("path");
+
+GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
+deskShell.appFile = process.argv[3];
+deskShell.appDir = path.dirname(process.argv[3]) + "/";
+
+deskShell.ifexists(deskShell.appFile)
+	.then(function() {
+		//file found.
+		var reading = Q.defer();
+		fs.readFile(deskShell.appFile, 'utf8', function (err, data) {
+			if (err) {
+				return reading.reject(err);
+			}
+			try {
+				deskShell.appDef = JSON.parse(data);
+				deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
+				
+			} catch(e) {
+				return reading.reject(e);
+			}
+			return reading.resolve();
+		});
+		return reading.promise;
+	}).then(function() {
+		
+		switch(deskShell.appDef.backend) {
+			case "node":
+			case "nodejs":
+				require(deskShell.mainFile);
+			break;
+			default:
+				return new Error("Backend not implemented:" + data.backend);
+			break;
+		}
+	}).fail(function(err) {
+		//we should popup a window or write out error to disk.
+		//maybe we can have a separate exe or similar to popup the message in windows.
+		var fs = require('fs');
+		errortext = "";
+		switch (typeof err) {
+			case "string":
+				errortext += "Error:"+err+"\n";
+			break;
+			default:
+				errortext += "Error:"+err.toString()+"\n";
+			break;
+		}
+		fs.appendFile("deskshell.log", errortext, function(err) {});
+	});
