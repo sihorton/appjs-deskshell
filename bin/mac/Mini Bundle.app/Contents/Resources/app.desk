@@ -1,0 +1,16 @@
+{
+    "name": "kioskDemo",
+    "author": "https://github.com/sihorton/",
+    "description": "A demo of using kiosk mode.",
+    "licence": "MIT",
+    "width": "400",
+    "height": "600",
+    "frontend": "chromium",
+    "backend": "node",
+    "htdocs": "htdocs",
+    "defaultLocation":"index.html",
+    "main": "app.js",
+    "version": "0.1",
+    "v": "0.1",
+	"mode":"app"
+}
