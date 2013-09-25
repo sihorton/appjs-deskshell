@@ -101,6 +101,9 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR\bin\win"
   File /r /x ".git" /x chrome-profile "bin\win\"
 
+;create directory for user apps.
+  CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
+
   SetOutPath "$INSTDIR"
   
   ;install version info and launch / auto update.
@@ -117,6 +120,9 @@ Section "deskshell" SEC01
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\deskshell-updater.lnk" "$INSTDIR\deskshell-updater.exe"
   CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
+  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\My Deskshell Apps.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
+  CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\NewAppWizard.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\app-wizard\app-wizard.desk"
+
   !insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 
