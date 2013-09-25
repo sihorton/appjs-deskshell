@@ -10,7 +10,7 @@ platform that we get support code written for. If you don't see your platform th
 Windows:
 ========
 
-An installer is available for windows: [http://appjs.delightfulsoftware.com/deskshell/deskshell-install.exe].
+An installer is available for windows: [http://appjs.delightfulsoftware.com/deskshell/].
 
 
 Mac:
