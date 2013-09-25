@@ -24,6 +24,22 @@ var running = deskShell.startApp({
 				deskShell.launchApp(require("path").normalize(params.abspath));
 			}
 		});
+		socket.on('GetAppForEdit',function(params) {
+			console.log("GetAppForEdit",params);
+			fs.readFile(params.file, 'utf8', function (err, data) {
+				if (err) {
+					socket.emit('progress',err.toString());
+				} else {
+					try {
+						var appDef = JSON.parse(data);
+						socket.emit('progress',"file loaded");
+						socket.emit('AppFileLoaded',appDef);
+					} catch(e) {
+						socket.emit('progress',e.toString());
+					}
+				}
+			});
+		});
 		socket.on('OpenFolder',function(params) {
 			console.log("openfolder",params);
 			var p;
@@ -37,6 +53,45 @@ var running = deskShell.startApp({
 			console.log('explorer '+p);
 			require('child_process').exec('explorer '+p);
 		});
+		socket.on('SaveAppDef',function(params) {
+			try {
+				var appFile = params.file;
+				delete params.file;
+				console.log("SaveAppDef",params);
+				//attempt to round-trip the application definition
+				fs.readFile(appFile, 'utf8', function (err, data) {
+					if (err) {
+						socket.emit('progress',err.toString());
+					} else {
+						try {
+							var appDef = JSON.parse(data);
+							for(var d in params) {
+								appDef[d] = params[d];
+							}
+							//save application.
+							fs.writeFile(appFile, JSON.stringify(appDef,null, 4) , function(err) {
+								try {
+									if(err) {
+										console.log(err);
+									} else {
+										socket.emit('progress','saved '+appFile);
+										socket.emit('AppUpdated',appFile);
+									}
+								} catch(e) {
+									socket.emit('progress',e.toString());
+								}
+							});
+						} catch(e) {
+							socket.emit('progress',e.toString());
+						}
+					}
+				});
+				
+			} catch(err) {
+				socket.emit('progress',err.toString());
+			}
+		});
+		
 		socket.on('newApp',function(params) {
 			try {
 				console.log("newApp",params);

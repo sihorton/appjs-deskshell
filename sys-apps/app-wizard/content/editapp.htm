@@ -4,6 +4,8 @@
 	<meta charset="utf-8"> 
 	<title>DeskShell App Wizard</title>
 	<link rel="stylesheet" href="css/bootstrap.css"  type="text/css"/>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/deskShell/clientApi.js"></script>
 	
 </head>
 <body>
@@ -23,13 +25,65 @@
          </div>
 		 
 		 <div class="hero-unit">
-			<h1>Edit app</h1>
-		 
-			<p>To Do</p>
-		 
+			<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="appFolder">Path to .desk file</label>
+				<div class="controls">
+				  <input type="text" id="appFolder">  <button type="button" class="btn" onclick="
+					deskShell.sendMessage('GetAppForEdit',{
+						file:document.getElementById('appFolder').value
+					});">Edit</button>
+				</div>
+			  </div>
+			  <hr/>
+			  <div id ="appEdit" style="display:none;">
+				<div  class="control-group">
+					<label class="control-label" for="appName">App Name</label>
+					<div class="controls">
+					  <input type="text" id="appName" placeholder="test">
+					</div>
+				  </div>
+				   <div class="control-group">
+					<label class="control-label" for="appAuthor">Author</label>
+					<div class="controls">
+					  <input type="text" id="appAuthor" placeholder="tester@test.com">
+					</div>
+				  </div>
+				  <button type="button" class="btn" onclick="
+					localStorage.deskFile = document.getElementById('appFolder').value;
+					deskShell.sendMessage('SaveAppDef',{
+						file:document.getElementById('appFolder').value
+						,name:document.getElementById('appName').value
+						,author:document.getElementById('appAuthor').value
+					});">Save</button>
+					
+					<a onclick="deskShell.socket.emit('LaunchApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Launch App</a>
+			  </div>
+			  <span id="progressDiv"></span><br/>
+			</form>
 		 </div>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script>
+		var editFile = {};
+		deskShell.ready(function(deskShell) {
+			deskShell.socket.on('progress',function(data) {
+				document.getElementById('progressDiv').innerHTML = data;
+			});
+			deskShell.socket.on('AppFileLoaded',function(app) {
+				//now allow editing the file...
+				
+				document.getElementById('appEdit').style.display = '';
+				
+				document.getElementById('appName').value = app.name;
+				document.getElementById('appAuthor').value = app.author;
+			});
+		});
+		var lastCreatedApp;
+		if (localStorage && localStorage['deskFile']) {
+			document.getElementById('appFolder').value = localStorage['deskFile'];
+		}
+	</script>
 </body>
 </html>
