@@ -1,0 +1,10 @@
+{
+	"name":"app-wizard"
+	,"version":"0.1"
+	,"author":"http://github.com/sihorton/"
+	,"description":"Wizard to help create new applications."
+	,"main":"app.js"
+	,"licence":"MIT"
+	,"frontend":"chromium-portable"
+	,"backend":"node"
+}

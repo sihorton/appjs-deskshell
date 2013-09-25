@@ -38,6 +38,8 @@
 					<li class="nav-header">Demos</li>
 					<li><a href="intro.htm">Intro</a></li>
 					<li><a href="html_website.htm">html website</a></li>
+					
+					<li class="nav-header">Snippets</li>
 					<li class="active"><a href="launchApp.htm">launchApp</a></li>
 				</ul>
 			 </div>
@@ -52,7 +54,7 @@ deskShell.launchApp(f);
 <p>You can test the functionality below, enter in a relative path to a .desk file and then click the button to start it.</p>
 
 <input id="relpath" type="text" value="content/demos/html_website/app.desk" style="width:350px;"/><br/>
- <a onclick="socket.emit('LaunchApp',{relpath:document.getElementById('relpath').value});" class="btn btn-large btn-success">Launch Demo</a>
+ <a onclick="socket.emit('LaunchApp',{relpath:document.getElementById('relpath').value});" class="btn btn-large btn-success">Launch App</a>
  <br/>
 
 				</div>
