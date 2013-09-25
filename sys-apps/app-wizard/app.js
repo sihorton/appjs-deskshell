@@ -81,13 +81,13 @@ var running = deskShell.startApp({
 								}
 							});
 						} catch(e) {
-							socket.emit('progress',e.toString());
+							socket.emit('progress',{type:"error",text:e.toString()});
 						}
 					}
 				});
 				
 			} catch(err) {
-				socket.emit('progress',err.toString());
+				socket.emit('progress',{type:"error",text:err.toString()});
 			}
 		});
 		
@@ -123,20 +123,22 @@ var running = deskShell.startApp({
 							} else {
 								socket.emit('progress','created '+appFolder);
 								fs.mkdir(appFolder+"/"+params.htdocs,function(err){
-									socket.emit('progress','created '+appFolder+"/"+params.htdocs);
+									socket.emit('progress',{type:"info",text:appFolder+"/"+params.htdocs});
+									
 									fs.writeFile(appFolder+"/"+params.htdocs+"/index.htm", "<html><title>"+params.name+"</title><body><h2>Hello World</h2><p>Edit me and add your content</p></body></html>" ); 
 									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({\n	htdocs:__dirname+'/"+params.htdocs+"/'\n	,openSocket:true\n	,launchChromium:true\n	,exitOnChromiumClose:true\n});");
 									socket.emit('AppCreated',appFolder+"/"+params.name+".desk");
+									socket.emit('progress',{type:"success",text:appFolder+"/"+params.name+".desk"});
 								});
 								
 							}
 						});
 					} catch(err) {
-						socket.emit('progress',err.toString());
+						socket.emit('progress',{type:"error",text:err.toString()});
 					}
 				});
 			} catch(err) {
-				socket.emit('progress',err.toString());
+				socket.emit('progress',{type:"error",text:err.toString()});
 			}
 		});
 	});
