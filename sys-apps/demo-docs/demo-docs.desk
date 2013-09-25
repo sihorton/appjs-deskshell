@@ -7,4 +7,5 @@
 	,"licence":"MIT"
 	,"frontend":"chromium-portable"
 	,"backend":"node"
+	,"defaultLocation":"start.htm"
 }

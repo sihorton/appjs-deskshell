@@ -30,6 +30,7 @@
 				<label class="control-label" for="appFolder">Path to .desk file</label>
 				<div class="controls">
 				  <input type="text" id="appFolder">  <button type="button" class="btn" onclick="
+				  document.getElementById('progressDiv').style.display = 'none';
 					deskShell.sendMessage('GetAppForEdit',{
 						file:document.getElementById('appFolder').value
 					});">Edit</button>
@@ -49,27 +50,78 @@
 					  <input type="text" id="appAuthor" placeholder="tester@test.com">
 					</div>
 				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="appDescription">Description</label>
+					<div class="controls">
+					  <textarea rows="3" id="appDescription"></textarea>
+					</div>
+				  </div>
+				   <div class="control-group">
+					<label class="control-label" for="appLicence">Licence</label>
+					<div class="controls">
+					<select id="appLicence">
+						<option>MIT</option>
+						<option>Closed / Proprietory</option>
+						<option>Commercial</option>
+					</select>
+					</div>
+				  <hr/>
+				  <div class="control-group">
+					<label class="control-label" for="appWidth">window size:</label>
+					<div class="controls">
+					  <input type="text" id="appWidth" value="400" style="width:40px;"> x <input type="text" id="appHeight" value="600" style="width:40px;">
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="appVersion">version:</label>
+					<div class="controls">
+					  <input type="text" id="appVersion" value="" style="width:40px;">
+					</div>
+				  </div>
 				  <button type="button" class="btn" onclick="
 					localStorage.deskFile = document.getElementById('appFolder').value;
 					deskShell.sendMessage('SaveAppDef',{
 						file:document.getElementById('appFolder').value
 						,name:document.getElementById('appName').value
 						,author:document.getElementById('appAuthor').value
+						,description:document.getElementById('appDescription').value
+						,licence:document.getElementById('appLicence').value
+						
+						,width:document.getElementById('appWidth').value
+						,height:document.getElementById('appHeight').value
+						,version:document.getElementById('appVersion').value
+						
 					});">Save</button>
 					
 					<a onclick="deskShell.socket.emit('LaunchApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Launch App</a>
 			  </div>
-			  <span id="progressDiv"></span><br/>
 			</form>
 		 </div>
+		 <div id="progressDiv" style="display:none;" class="alert alert-success"></div>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script>
 		var editFile = {};
+		var lastMessage ="";
 		deskShell.ready(function(deskShell) {
-			deskShell.socket.on('progress',function(data) {
-				document.getElementById('progressDiv').innerHTML = data;
+			deskShell.socket.on('progress',function(message) {
+				lastMessage = message;
+				document.getElementById('progressDiv').style.display = '';
+				switch(message.type) {
+					case 'success':
+						document.getElementById('progressDiv').className = "alert alert-success";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+					case 'error':
+						document.getElementById('progressDiv').className = "alert alert-error";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+					default:
+						document.getElementById('progressDiv').className = "alert alert-info";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+				}	
 			});
 			deskShell.socket.on('AppFileLoaded',function(app) {
 				//now allow editing the file...
@@ -78,6 +130,11 @@
 				
 				document.getElementById('appName').value = app.name;
 				document.getElementById('appAuthor').value = app.author;
+				document.getElementById('appWidth').value = app.width;
+				document.getElementById('appHeight').value = app.height;
+				document.getElementById('appVersion').value = app.version;
+				document.getElementById('appDescription').value = app.description;
+				document.getElementById('appLicence').value = app.licence;
 			});
 		});
 		var lastCreatedApp;

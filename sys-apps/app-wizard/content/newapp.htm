@@ -56,10 +56,17 @@
 				<select id="appLicence">
 					<option>MIT</option>
 					<option>Closed / Proprietory</option>
+					<option>Commercial</option>
 				</select>
 				</div>
 			  </div>
 			  <hr/>
+			  <div class="control-group">
+				<label class="control-label" for="appWidth">window size:</label>
+				<div class="controls">
+				  <input type="text" id="appWidth" value="400" style="width:40px;"> x <input type="text" id="appHeight" value="600" style="width:40px;">
+				</div>
+			  </div>
 			  <div class="control-group">
 				<label class="control-label" for="htdocs">htdocs</label>
 				<div class="controls">
@@ -104,6 +111,9 @@
 						,author:document.getElementById('appAuthor').value
 						,description:document.getElementById('appDescription').value
 						,licence:document.getElementById('appLicence').value
+						
+						,width:document.getElementById('appWidth').value
+						,height:document.getElementById('appHeight').value
 						,frontend:document.getElementById('appFrontend').value
 						,backend:document.getElementById('appBackend').value
 						,htdocs:document.getElementById('htdocs').value
@@ -111,13 +121,13 @@
 						,version:'0.1'
 					});">Create</button>
 					<br/>
-					<span id="progressDiv"></span><br/>
 					<span id="success" style="display:none;">
 						<a onclick="deskShell.socket.emit('LaunchApp',{abspath:lastCreatedApp});" class="btn"><i class="icon-user"></i> Launch App</a>
 						<a onclick="deskShell.socket.emit('OpenFolder',{abspath:lastCreatedApp});" class="btn btn-success"><i class="icon-star icon-white"></i> Open App Folder</a>
 					</span>
 				</div>
 			  </div>
+			  <div id="progressDiv" style="display:none;" class="alert alert-success"></div>
 			</form>
 		 </div>
 	</div>
@@ -126,8 +136,23 @@
 	<script>
 		deskShell.ready(function(deskShell) {
 			document.getElementById('appFolder').value = deskShell.userAppDir;
-			deskShell.socket.on('progress',function(data) {
-				document.getElementById('progressDiv').innerHTML = data;
+			deskShell.socket.on('progress',function(message) {
+				lastMessage = message;
+				document.getElementById('progressDiv').style.display = '';
+				switch(message.type) {
+					case 'success':
+						document.getElementById('progressDiv').className = "alert alert-success";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+					case 'error':
+						document.getElementById('progressDiv').className = "alert alert-error";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+					default:
+						document.getElementById('progressDiv').className = "alert alert-info";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+				}	
 			});
 			deskShell.socket.on('AppCreated',function(data) {
 				lastCreatedApp = data;

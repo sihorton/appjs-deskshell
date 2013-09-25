@@ -8,7 +8,8 @@ var running = deskShell.startApp({
 	,openSocket:true
 	,launchChromium:true
 	,exitOnChromiumClose:true
-	,width:400
+	,width:1024
+	,height:640
 }).then(function(app) {
 	//app.socketio holds the socket that can recieve and send messages to the client.
 	app.socketio.on('connection', function(socket) {

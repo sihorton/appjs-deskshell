@@ -9,7 +9,6 @@ var running = deskShell.startApp({
 	,openSocket:true
 	,launchChromium:true
 	,exitOnChromiumClose:true
-	,width:400
 }).then(function(app) {
 	//app.socketio holds the socket that can recieve and send messages to the client.
 	app.socketio.on('connection', function(socket) {
@@ -28,14 +27,14 @@ var running = deskShell.startApp({
 			console.log("GetAppForEdit",params);
 			fs.readFile(params.file, 'utf8', function (err, data) {
 				if (err) {
-					socket.emit('progress',err.toString());
+					socket.emit('progress',{type:"error",text:err.toString()});
 				} else {
 					try {
 						var appDef = JSON.parse(data);
-						socket.emit('progress',"file loaded");
+						
 						socket.emit('AppFileLoaded',appDef);
 					} catch(e) {
-						socket.emit('progress',e.toString());
+						socket.emit('progress',{type:"error",text:e.toString()});
 					}
 				}
 			});
@@ -61,7 +60,7 @@ var running = deskShell.startApp({
 				//attempt to round-trip the application definition
 				fs.readFile(appFile, 'utf8', function (err, data) {
 					if (err) {
-						socket.emit('progress',err.toString());
+						socket.emit('progress',{type:"error",text:err.toString()});
 					} else {
 						try {
 							var appDef = JSON.parse(data);
@@ -74,21 +73,21 @@ var running = deskShell.startApp({
 									if(err) {
 										console.log(err);
 									} else {
-										socket.emit('progress','saved '+appFile);
 										socket.emit('AppUpdated',appFile);
+										socket.emit('progress',{type:"success",text:'saved '+appFile});
 									}
 								} catch(e) {
-									socket.emit('progress',e.toString());
+									socket.emit('progress',{type:"error",text:e.toString()});
 								}
 							});
 						} catch(e) {
-							socket.emit('progress',e.toString());
+							socket.emit('progress',{type:"error",text:e.toString()});
 						}
 					}
 				});
 				
 			} catch(err) {
-				socket.emit('progress',err.toString());
+				socket.emit('progress',{type:"error",text:err.toString()});
 			}
 		});
 		
@@ -124,20 +123,22 @@ var running = deskShell.startApp({
 							} else {
 								socket.emit('progress','created '+appFolder);
 								fs.mkdir(appFolder+"/"+params.htdocs,function(err){
-									socket.emit('progress','created '+appFolder+"/"+params.htdocs);
+									socket.emit('progress',{type:"info",text:appFolder+"/"+params.htdocs});
+									
 									fs.writeFile(appFolder+"/"+params.htdocs+"/index.htm", "<html><title>"+params.name+"</title><body><h2>Hello World</h2><p>Edit me and add your content</p></body></html>" ); 
-									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({\n	htdocs:__dirname+'/"+params.htdocs+"/'\n	,openSocket:true\n	,launchChromium:true\n	,exitOnChromiumClose:true\n	,width:400\n});");
+									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({\n	htdocs:__dirname+'/"+params.htdocs+"/'\n	,openSocket:true\n	,launchChromium:true\n	,exitOnChromiumClose:true\n});");
 									socket.emit('AppCreated',appFolder+"/"+params.name+".desk");
+									socket.emit('progress',{type:"success",text:appFolder+"/"+params.name+".desk"});
 								});
 								
 							}
 						});
 					} catch(err) {
-						socket.emit('progress',err.toString());
+						socket.emit('progress',{type:"error",text:err.toString()});
 					}
 				});
 			} catch(err) {
-				socket.emit('progress',err.toString());
+				socket.emit('progress',{type:"error",text:err.toString()});
 			}
 		});
 	});

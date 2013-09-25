@@ -122,6 +122,7 @@ Section "deskshell" SEC01
   CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\My Deskshell Apps.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
   CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\NewAppWizard.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\app-wizard\app-wizard.desk"
+  CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\Docs.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\demo-docs\demo-docs.desk"
 
   !insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
