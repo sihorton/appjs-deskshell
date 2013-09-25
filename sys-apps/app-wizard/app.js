@@ -27,14 +27,14 @@ var running = deskShell.startApp({
 			console.log("GetAppForEdit",params);
 			fs.readFile(params.file, 'utf8', function (err, data) {
 				if (err) {
-					socket.emit('progress',err.toString());
+					socket.emit('progress',{type:"error",text:err.toString()});
 				} else {
 					try {
 						var appDef = JSON.parse(data);
-						socket.emit('progress',"file loaded");
+						
 						socket.emit('AppFileLoaded',appDef);
 					} catch(e) {
-						socket.emit('progress',e.toString());
+						socket.emit('progress',{type:"error",text:e.toString()});
 					}
 				}
 			});
@@ -60,7 +60,7 @@ var running = deskShell.startApp({
 				//attempt to round-trip the application definition
 				fs.readFile(appFile, 'utf8', function (err, data) {
 					if (err) {
-						socket.emit('progress',err.toString());
+						socket.emit('progress',{type:"error",text:err.toString()});
 					} else {
 						try {
 							var appDef = JSON.parse(data);
@@ -73,11 +73,11 @@ var running = deskShell.startApp({
 									if(err) {
 										console.log(err);
 									} else {
-										socket.emit('progress','saved '+appFile);
 										socket.emit('AppUpdated',appFile);
+										socket.emit('progress',{type:"success",text:'saved '+appFile});
 									}
 								} catch(e) {
-									socket.emit('progress',e.toString());
+									socket.emit('progress',{type:"error",text:e.toString()});
 								}
 							});
 						} catch(e) {
