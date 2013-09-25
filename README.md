@@ -1,20 +1,28 @@
 appjs-deskshell
 ===============
 
-Experimental project to create a desktop shell for a web application. Support windows, linux and mac 
-desktop applications. See http://appjs.delightfulsoftware.com/ for my previous work on packaging appjs for windows and linux.
+SDK for building desktop applications using html5 / css / js. A simple json file with a .desk extension launches
+a desktop app with a frontend built using web technologies. The application can communicate with a backend
+built using familiar server scripts like nodejs or php. This backend allows you to access databases,
+write to disk and do whatever you need outside of the browser sandbox.
 
-The application interface will be built in chrome html5 - so html, css etc. "Backend" logic can be written in any
-platform that we get support code written for. If you don't see your platform then add it.
 
 Windows:
 ========
 
-An installer is available for windows: [http://appjs.delightfulsoftware.com/deskshell/deskshell-install.exe].
+The quickest way to start using deskshell for windows is to download the installer. This includes an example app
+that also serves as documentation and guide for the project. http://appjs.delightfulsoftware.com/deskshell/.
 
 
-Mac & Linux:
+Mac:
+====
+Take a look at bin/mac folder. We will release an installer in the future.
+
+Linux:
 ============
 
-Planned for the near future.
+Take a look at bin/linux folder. We will release an installer in the future.
 
+
+
+See http://appjs.delightfulsoftware.com/ for my previous work on packaging appjs for windows and linux.

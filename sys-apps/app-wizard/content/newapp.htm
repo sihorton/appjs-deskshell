@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell App Wizard</title>
+	<link rel="stylesheet" href="css/bootstrap.css"  type="text/css"/>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/deskShell/clientApi.js"></script>
+	
+</head>
+<body>
+	<div class="container">
+		<img src="deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="index.htm">Start</a></li>
+                    <li><a href="intro.htm">Introduction</a></li>
+                    <li class="active"><a href="newapp.htm">New App</a></li>
+                    <li><a href="editapp.htm">Edit App</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="hero-unit">
+			<form class="form-horizontal">
+				<div class="control-group">
+				<label class="control-label" for="appFolder">App Parent Folder</label>
+				<div class="controls">
+				  <input type="text" id="appFolder" placeholder="appFolder">
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label" for="appName">App Name</label>
+				<div class="controls">
+				  <input type="text" id="appName" placeholder="test">
+				</div>
+			  </div>
+			   <div class="control-group">
+				<label class="control-label" for="appAuthor">Author</label>
+				<div class="controls">
+				  <input type="text" id="appAuthor" placeholder="tester@test.com">
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label" for="appDescription">Description</label>
+				<div class="controls">
+				  <textarea rows="3" id="appDescription"></textarea>
+				</div>
+			  </div>
+			   <div class="control-group">
+				<label class="control-label" for="appLicence">Licence</label>
+				<div class="controls">
+				<select id="appLicence">
+					<option>MIT</option>
+					<option>Closed / Proprietory</option>
+				</select>
+				</div>
+			  </div>
+			  <hr/>
+			  <div class="control-group">
+				<label class="control-label" for="htdocs">htdocs</label>
+				<div class="controls">
+				  <input type="text" id="htdocs" value="htdocs">
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label" for="appFrontend">Frontend</label>
+				<div class="controls">
+				<select id="appFrontend">
+					<option>chromium</option>
+					<option>none</option>
+				</select>
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label" for="appBackend">Backend</label>
+				<div class="controls">
+				<select id="appBackend" onchange="
+					switch(this.value) {
+						case 'none':
+							document.getElementById('appMainGroup').style.display = 'none';
+						break;
+						case 'node':
+							document.getElementById('appMainGroup').style.display = '';
+						break;
+					}
+				">
+					<option>node</option>
+					<option>none</option>
+				</select>
+				<span id="appMainGroup">main: <input id="appMain" value="app.js"></span>
+				</div>
+			  </div>
+			  
+			  <div class="control-group">
+				<div class="controls">
+				  <button type="button" class="btn" onclick="
+					deskShell.sendMessage('newApp',{
+						folder:document.getElementById('appFolder').value
+						,name:document.getElementById('appName').value
+						,author:document.getElementById('appAuthor').value
+						,description:document.getElementById('appDescription').value
+						,licence:document.getElementById('appLicence').value
+						,frontend:document.getElementById('appFrontend').value
+						,backend:document.getElementById('appBackend').value
+						,htdocs:document.getElementById('htdocs').value
+						,main:document.getElementById('appMain').value
+						,version:'0.1'
+					});">Create</button>
+					<br/>
+					<span id="progressDiv"></span><br/>
+					<span id="success" style="display:none;">
+						<a onclick="deskShell.socket.emit('LaunchApp',{abspath:lastCreatedApp});" class="btn"><i class="icon-user"></i> Launch App</a>
+						<a onclick="deskShell.socket.emit('OpenFolder',{abspath:lastCreatedApp});" class="btn btn-success"><i class="icon-star icon-white"></i> Open App Folder</a>
+					</span>
+				</div>
+			  </div>
+			</form>
+		 </div>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script>
+		deskShell.ready(function(deskShell) {
+			document.getElementById('appFolder').value = deskShell.userAppDir;
+			deskShell.socket.on('progress',function(data) {
+				document.getElementById('progressDiv').innerHTML = data;
+			});
+			deskShell.socket.on('AppCreated',function(data) {
+				lastCreatedApp = data;
+				document.getElementById('success').style.display = '';
+			});
+		});
+		var lastCreatedApp;
+	</script>
+</body>
+</html>

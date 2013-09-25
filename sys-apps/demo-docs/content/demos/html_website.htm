@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell SDK</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('http://localhost:'+location.port);
+	  socket.on('alert', function (data) {
+		console.log(data);
+		alert(data.mess);
+	  });
+	</script>
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Intro</a></li>
+                    <li><a href="../start.htm">Get Started</a></li>
+                    <li ><a href="../docs/intro.htm">Docs</a></li>
+                    <li class="active"><a href="demos.htm">Demos</a></li>
+					<li><a href="../wiz.htm">AppWizard</a></li>
+                    <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Demos</li>
+					<li><a href="intro.htm">Intro</a></li>
+					<li class="active"><a href="html_website.htm">html website</a></li>
+					
+					<li class="nav-header">Snippets</li>
+					<li><a href="launchApp.htm">launchApp</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+			  <h3>Html Website</h3>
+ 
+<p>If you can create a simple html website then you can create a desk shell application.</p>
+<p>create a folder called something like "htdocs" or "content" or similar. Copy all of the html, css, images, javascript and other files that make up your application. Then when you start the application give it the folder containing your html site</p>
+<pre><code>var running = deskShell.startApp({
+	htdocs:<b><i>htdocs</i></b>
+	,openSocket:true
+	,launchChromium:true
+	,exitOnChromiumClose:true
+	,width:400
+})</code></pre>
+
+ <a onclick="socket.emit('LaunchApp',{relpath:'content/demos/html_website/app.desk'});" class="btn btn-large btn-success">Launch Demo</a>
+ <br/>
+ @ToDo: allow applications to run with no backend if they are html only. i.e. no app.js needed.
+				</div>
+			</div>
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+		 </div>

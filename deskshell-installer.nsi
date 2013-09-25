@@ -4,12 +4,14 @@
 *
 * @author: sihorton
 */
+!define PRODUCT_NAME "Deskshell"
+
 !define COMMON_DIR "installer\win\common"
 !define WIN_DIR "bin\win"
 
 !include "${COMMON_DIR}\config.nsi"
 !include "${COMMON_DIR}\register-extensions.nsh"
-!define PRODUCT_NAME "Deskshell"
+
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -90,15 +92,24 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR\sys-apps"
   File /r /x ".git" "sys-apps\"
 
+ CreateDirectory "$INSTDIR\bin\node_modules\"
+  SetOutPath "$INSTDIR\bin\node_modules"
+  File /r /x ".git" "bin\node_modules\"
+
   CreateDirectory "$INSTDIR\bin\win\"
+  CreateDirectory "$INSTDIR\bin\win\chrome-profile\"
   SetOutPath "$INSTDIR\bin\win"
-  File /r /x ".git" "bin\win\"
+  File /r /x ".git" /x chrome-profile "bin\win\"
+
+;create directory for user apps.
+  CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
 
   SetOutPath "$INSTDIR"
   
   ;install version info and launch / auto update.
   File "${COMMON_DIR}\version.txt"
   File "deskshell.exe"
+  File "deskshell_debug.exe"
   File "${COMMON_DIR}\..\deskshell-updater.exe"
   
   ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Application"
@@ -109,6 +120,9 @@ Section "deskshell" SEC01
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\deskshell-updater.lnk" "$INSTDIR\deskshell-updater.exe"
   CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
+  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\My Deskshell Apps.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
+  CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\NewAppWizard.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\app-wizard\app-wizard.desk"
+
   !insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell SDK</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('http://localhost:'+location.port);
+	  socket.on('alert', function (data) {
+		console.log(data);
+		alert(data.mess);
+	  });
+	</script>
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Intro</a></li>
+                    <li><a href="../start.htm">Get Started</a></li>
+                    <li ><a href="../docs/intro.htm">Docs</a></li>
+                    <li class="active"><a href="demos.htm">Demos</a></li>
+					<li><a href="../wiz.htm">AppWizard</a></li>
+                    <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Demos</li>
+					<li><a href="intro.htm">Intro</a></li>
+					<li><a href="html_website.htm">html website</a></li>
+					
+					<li class="nav-header">Snippets</li>
+					<li class="active"><a href="launchApp.htm">launchApp</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+			  <h3>launchApp</h3>
+ 
+<p>It is easy to launch another deskshell app, on the server side call:</p>
+<pre><code>var path = deskShell.appDir + "/../relative/path/to/app.desk";
+deskShell.launchApp(f);
+</code></pre>
+<p>deskShell.appDir holds the directory that your application is running from.</p>
+<p>You can test the functionality below, enter in a relative path to a .desk file and then click the button to start it.</p>
+
+<input id="relpath" type="text" value="content/demos/html_website/app.desk" style="width:350px;"/><br/>
+ <a onclick="socket.emit('LaunchApp',{relpath:document.getElementById('relpath').value});" class="btn btn-large btn-success">Launch App</a>
+ <br/>
+
+				</div>
+			</div>
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+		 </div>
