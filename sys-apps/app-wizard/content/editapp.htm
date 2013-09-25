@@ -49,12 +49,23 @@
 					  <input type="text" id="appAuthor" placeholder="tester@test.com">
 					</div>
 				  </div>
+				  <hr/>
+				  <div class="control-group">
+					<label class="control-label" for="appWidth">window size:</label>
+					<div class="controls">
+					  <input type="text" id="appWidth" value="400" style="width:40px;"> x <input type="text" id="appHeight" value="600" style="width:40px;">
+					</div>
+				  </div>
 				  <button type="button" class="btn" onclick="
 					localStorage.deskFile = document.getElementById('appFolder').value;
 					deskShell.sendMessage('SaveAppDef',{
 						file:document.getElementById('appFolder').value
 						,name:document.getElementById('appName').value
 						,author:document.getElementById('appAuthor').value
+						
+						,width:document.getElementById('appWidth').value
+						,height:document.getElementById('appHeight').value
+						
 					});">Save</button>
 					
 					<a onclick="deskShell.socket.emit('LaunchApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Launch App</a>
@@ -78,6 +89,9 @@
 				
 				document.getElementById('appName').value = app.name;
 				document.getElementById('appAuthor').value = app.author;
+				document.getElementById('appWidth').value = app.width;
+				document.getElementById('appHeight').value = app.height;
+						
 			});
 		});
 		var lastCreatedApp;

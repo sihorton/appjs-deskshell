@@ -125,7 +125,7 @@ var running = deskShell.startApp({
 								fs.mkdir(appFolder+"/"+params.htdocs,function(err){
 									socket.emit('progress','created '+appFolder+"/"+params.htdocs);
 									fs.writeFile(appFolder+"/"+params.htdocs+"/index.htm", "<html><title>"+params.name+"</title><body><h2>Hello World</h2><p>Edit me and add your content</p></body></html>" ); 
-									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({\n	htdocs:__dirname+'/"+params.htdocs+"/'\n	,openSocket:true\n	,launchChromium:true\n	,exitOnChromiumClose:true\n	,width:400\n});");
+									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({\n	htdocs:__dirname+'/"+params.htdocs+"/'\n	,openSocket:true\n	,launchChromium:true\n	,exitOnChromiumClose:true\n});");
 									socket.emit('AppCreated',appFolder+"/"+params.name+".desk");
 								});
 								
