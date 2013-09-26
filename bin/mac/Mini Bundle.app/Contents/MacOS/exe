@@ -1,0 +1,5 @@
+#!/bin/bash
+# There is nothing to be done. Mac will do this fully on its own! Its like clicking the file in the finder.
+ME=$(dirname "$0")
+DS="$(system_profiler SPApplicationsDataType | grep Deskshell | grep Location | awk '{print $2}')"
+"$DS/Contents/MacOS/desk_parse" "$ME/../Resources/app.desk"

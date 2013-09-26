@@ -1,0 +1,28 @@
+{
+	"name":"{name}",
+	"version":"{version}",
+	"author":"{author}",
+	"description":"{desc}",
+	"main":"{main}",
+	"licence":"{license}",
+	"frontend":"{frontend}",
+	"backend":"{backend}",
+	"htdocs":"{htdocs}",
+	"defaultLocation":"{defLoc}",
+	"mode":"{mode}",
+	"debug":"{debug}",
+	"_":{
+		"name":"Application name",
+		"version":"Application version",
+		"author":"Author which developed this application. May be a string, or array if multiple authors developed the app",
+		"description":"A (short) description of the application",
+		"main":"The entry script which shall be handed to the backend to bootstrap the app",
+		"licence":"The licence that is applied to the app",
+		"frontend":"The frontend that should be used. Defaults to: chromium-portable",
+		"backend":"Backend, like: node or php. Default is: node",
+		"htdocs":"The location of the files to serve from the webserver",
+		"defaultLocation":"The file that shall be opened at first call.",
+		"mode":"The mode the application should be run in. Default is: app",
+		"debug":"Wether or not a console window should be displayed to show backend activity"
+	}
+}
