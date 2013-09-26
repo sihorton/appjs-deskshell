@@ -16,7 +16,7 @@ that also serves as documentation and guide for the project. http://appjs.deligh
 
 Mac:
 ====
-Take a look at bin/mac folder. We will release an installer in the future.
+Mac port instructions are here: https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac
 
 Linux:
 ============
