@@ -1,0 +1,14 @@
+{
+	"name":"default",
+	"version":"0.0",
+	"author":"Unknown",
+	"description":"Unknown",
+	"main":"app.js",
+	"licence":"MIT",
+	"frontend":"chromium-portable",
+	"backend":"node",
+	"htdocs":"htdocs",
+	"defaultLocation":"index.html",
+	"mode":"app",
+	"debug":false
+}
