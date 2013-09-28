@@ -12,7 +12,7 @@ Windows:
 
 The quickest way to start using deskshell for windows is to download the installer. This includes an example app
 that also serves as documentation and guide for the project. http://appjs.delightfulsoftware.com/deskshell/.
-
+To develop the code git clone the repository and then read the bin/win/readme.txt file for further details.
 
 Mac:
 ====
