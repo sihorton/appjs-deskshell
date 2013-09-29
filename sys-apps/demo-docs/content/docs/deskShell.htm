@@ -89,7 +89,7 @@
 	<tr><th>property</th><th>explanation</th></tr>
 	<tr><td>htdocs</td><td>Optional, if provided then a simple webserver will serve files from the given directory</td></tr>
 	<tr><td>openSocket</td><td>Optional, open a websocket so front end html application can send socket messages to the backend.</td></tr>
-	<tr><td>launchChromium</td><td><b>To be Depreciated</b>opens a chrome window, this should be set in the .desk file instead.</td></tr>
+	<tr><td>openAppWin</td><td><b>To be Depreciated</b>opens a chrome window, this should be set in the .desk file instead.</td></tr>
 	<tr><td>exitOnChromiumClose</td><td><b>To be Renamed</b>when the window closes node should stop execution, important as otherwise you will leave many running processes running.</td></tr>
 	
 	
@@ -97,7 +97,7 @@
 {
 		htdocs:__dirname+"/htdocs/"
 		,openSocket:true
-		,launchChromium:true
+		,openAppWin:true
 		,exitOnChromiumClose:true
 	}
 				</div>

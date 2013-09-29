@@ -10,4 +10,5 @@
     "width": "1024",
     "height": "600"
 	,"defaultLocation":"index.htm"
+	,"htdocs":"/content"
 }

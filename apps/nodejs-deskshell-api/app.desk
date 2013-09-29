@@ -12,7 +12,7 @@ var running = deskShell.startApp({
 	  ,chromiumPath:'..path_to_chromium_binary'
 	*/
 	,openSocket:true
-	,launchChromium:true
+	,openAppWin:true
 	
 }).then(function(app) {
 	//app.socketio holds the socket that can recieve and send messages to the client.

@@ -1,14 +1,9 @@
 /**
 * this demo shows usage of a deskshell api.
 */
-var htdocs = __dirname+'/content'
 var fs = require("fs"),path=require('path');
 
 var running = deskShell.startApp({
-	htdocs:htdocs
-	,openSocket:true
-	,launchChromium:true
-	,exitOnChromiumClose:true
 }).then(function(app) {
 	//app.socketio holds the socket that can recieve and send messages to the client.
 	app.socketio.on('connection', function(socket) {
@@ -127,7 +122,7 @@ var running = deskShell.startApp({
 									socket.emit('progress',{type:"info",text:appFolder+"/"+params.htdocs});
 									
 									fs.writeFile(appFolder+"/"+params.htdocs+"/index.htm", "<html><title>"+params.name+"</title><body><h2>Hello World</h2><p>Edit me and add your content</p></body></html>" ); 
-									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({\n	htdocs:__dirname+'/"+params.htdocs+"/'\n	,openSocket:true\n	,launchChromium:true\n	,exitOnChromiumClose:true\n});");
+									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({});");
 									socket.emit('AppCreated',appFolder+"/"+params.name+".desk");
 									socket.emit('progress',{type:"success",text:appFolder+"/"+params.name+".desk"});
 								});
