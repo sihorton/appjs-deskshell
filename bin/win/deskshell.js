@@ -41,12 +41,7 @@ deskShell.ifexists(deskShell.appFile)
 			break;
 			case "none":
 				//html only backend...
-				if (typeof deskShell.appDef['openSocket'] == undefined) deskShell.appDef['openSocket'] = true;
-				
-				var running = deskShell.startApp({
-					launchChromium:true
-					,exitOnChromiumClose:true
-				});
+				var running = deskShell.startApp({});
 			break;
 			default:
 				return new Error("Backend not implemented:" + deskShell.appDef.backend);
