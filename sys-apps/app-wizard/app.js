@@ -137,6 +137,20 @@ var running = deskShell.startApp({
 				socket.emit('progress',{type:"error",text:err.toString()});
 			}
 		});
+		socket.on('appExe',function(params) {
+			try {
+				console.log("appExe",params);
+				fs.readFile(__dirname+"/app.sample.nsi", 'utf8', function (err, data) {
+					fs.writeFile(params.folder+"/app.nsi", data,function(err) {
+						socket.emit('AppExeCreated',params.folder+"/app.nsi");
+						socket.emit('progress',{type:"success",text:params.folder+"/app.nsi"});
+					}); 
+							
+				});
+			} catch(err) {
+				socket.emit('progress',{type:"error",text:err.toString()});
+			}
+		});
 	});
 	
 });

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell App Wizard</title>
+	<link rel="stylesheet" href="css/bootstrap.css"  type="text/css"/>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/deskShell/clientApi.js"></script>
+	
+</head>
+<body>
+	<div class="container">
+		<img src="deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="index.htm">Start</a></li>
+                    <li><a href="intro.htm">Introduction</a></li>
+                    <li><a href="newapp.htm">New App</a></li>
+                    <li><a href="editapp.htm">Edit App</a></li>
+                    <li class="active"><a href="exe-launcher.htm">Exe Launcher</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 <p>It is possible to create an executable for your application so you can have a custom icon and custom properties information for your application. This wizard will create an nsis compilation file for your executable.
+				</p>
+				
+		 <div class="hero-unit">
+			<form class="form-horizontal">
+				<div class="control-group">
+				<label class="control-label" for="appFolder">App Folder</label>
+				<div class="controls">
+				  <input type="text" id="appFolder" placeholder="appFolder">
+				</div>
+			  </div>
+			 
+			  
+			  <div class="control-group">
+				<div class="controls">
+				  <button type="button" class="btn" onclick="
+					deskShell.sendMessage('appExe',{
+						folder:document.getElementById('appFolder').value
+					});">Create</button>
+					<br/>
+					<span id="success" style="display:none;">
+						
+					</span>
+				</div>
+			  </div>
+			  <div id="progressDiv" style="display:none;" class="alert alert-success"></div>
+			</form>
+		 </div>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script>
+		deskShell.ready(function(deskShell) {
+			deskShell.socket.on('progress',function(message) {
+				lastMessage = message;
+				document.getElementById('progressDiv').style.display = '';
+				switch(message.type) {
+					case 'success':
+						document.getElementById('progressDiv').className = "alert alert-success";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+					case 'error':
+						document.getElementById('progressDiv').className = "alert alert-error";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+					default:
+						document.getElementById('progressDiv').className = "alert alert-info";
+						document.getElementById('progressDiv').innerHTML = message.text;
+					break;
+				}	
+			});
+			deskShell.socket.on('AppExeCreated',function(data) {
+				lastCreatedApp = data;
+				document.getElementById('success').style.display = '';
+			});
+		});
+		var lastCreatedApp;
+	</script>
+</body>
+</html>
