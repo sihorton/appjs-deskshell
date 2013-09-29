@@ -13,6 +13,12 @@ var running = deskShell.startApp({
 			console.log("Launching App",f);
 			deskShell.launchApp(f);
 		});
+		socket.on('LaunchAppDebug',function(params,back) {
+		console.log(params);
+			var f = require("path").normalize(deskShell.appDir + params.relpath);
+			console.log("Launching App",f);
+			deskShell.launchAppDebug(f);
+		});
 		socket.on('controlMe',function(params,back) {
 			console.log("controlMe message recieved");
 			app.rDebugApi.pageNavigate("http://appjs.com").then(function() {

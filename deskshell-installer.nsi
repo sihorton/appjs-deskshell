@@ -113,7 +113,9 @@ Section "deskshell" SEC01
   File "${COMMON_DIR}\..\deskshell-updater.exe"
   
   ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Application"
-  
+  ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-debug" "DeskShell Application Debug"
+  ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-back" "DeskShell Backend Application"
+
 ; Shortcuts
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
   CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
