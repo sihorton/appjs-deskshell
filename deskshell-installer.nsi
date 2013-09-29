@@ -39,7 +39,7 @@ var ICONS_GROUP
 ; Finish page
 ;!define MUI_FINISHPAGE_TEXT ""
 !define MUI_FINISHPAGE_RUN
-!define MUI_FINISHPAGE_RUN_TEXT "Run sample ${PRODUCT_NAME} app"
+!define MUI_FINISHPAGE_RUN_TEXT "Run ${PRODUCT_NAME} docs and demos app"
 !define MUI_FINISHPAGE_RUN_FUNCTION "Launch-deskshell"
 ;!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\${PROFILE_DIR_DEST}\install-readme.txt"
 !insertmacro MUI_PAGE_FINISH

@@ -42,20 +42,21 @@
 					<li class="nav-header">Apps</li>
 						<li><a href="html_website.htm">html website</a></li>
 						<li><a href="gaffa_todo.htm">Gaffa Todo</a></li>
-						<li class="active"><a href="svg_clock.htm">SVG Clock Animation</a></li>
+						<li><a href="svg_clock.htm">SVG Clock Animation</a></li>
 						<li><a href="kioskDemo.htm">kiosk demo</a></li>
-						<li><a href="soundDemo.htm">sound demo</a></li>
-					
+						<li class="active"><a href="soundDemo.htm">sound demo</a></li>
+						
 					<li class="nav-header">Snippets</li>
 						<li><a href="launchApp.htm">launchApp</a></li>
 						<li><a href="webrtc.htm">WebRTC</a></li>
 				</ul>
 			 </div>
 			 <div class="span8">
-			  <h3>svg clock animation</h3>
-        <p>Demo taken from <a target=blank href="http://html5demos.com/svg-clock">html5demos</a></p>
-		<img src="svg_clock/screen.png"/><br/><br/>
-				<a onclick="socket.emit('LaunchApp',{relpath:'content/demos/svg_clock/svg_clock.desk'});" class="btn btn-success">Launch Demo</a>
+			  <h3>Sound Demo</h3>
+        <p>This demo uses <a target="blank" href="http://www.schillmania.com/projects/soundmanager2/" title="SoundManager 2 home">SoundManager 2</a> to play music and have a nice visualisation. Also demonstrates running a flash file.</p>
+		<img src="soundDemo/screen.png"/><br/><br/>
+				<a onclick="socket.emit('LaunchApp',{relpath:'content/demos/soundDemo/soundDemo.desk'});" class="btn btn-success">Launch Demo</a>
+				<p>Note: to save download space the mp3 is loaded from the network so you should be online to view this demo.</p>
         </div>
 			</div>
 				<hr>
