@@ -5,3 +5,5 @@
 /bin/mac/Deskshell.app
 /installer/win/deskshell-install.exe
 /installer/win/deskshell-updater.exe
+
+/bin/win/deskshell-env.js

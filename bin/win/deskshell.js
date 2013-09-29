@@ -7,7 +7,6 @@ if (process.argv.length <3) {
 	process.argv[2] = __dirname + "/../../sys-apps/demo-docs/demo-docs.desk";
 }
 var Q = require("q"),fs=require("fs"),path = require("path");
-
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
 deskShell.appFile = process.argv[2];
 deskShell.appDir = path.dirname(process.argv[2]) + "/";
@@ -17,6 +16,25 @@ if (deskShell.appDir == "./") {
 deskShell.platformDir = __dirname;
 deskShell.ifexists(deskShell.appFile)
 	.then(function() {
+		var loadingenv = Q.defer();
+		try {
+			deskShell.env = require(__dirname+"/deskshell-env.js");
+			loadingenv.resolve();
+		} catch(e) {
+			//env setup was not found...
+			//create it..
+			var os = require('os');
+			fs.readFile(__dirname+"/deskshell-env.js.sample."+os.platform(), 'utf8', function (err, data) {
+				if (err) return loadingenv.reject(err);
+				deskShell.env = JSON.parse(data);
+				fs.writeFile(__dirname+"/deskshell-env.js","module.exports="+ JSON.stringify(deskShell.env,null,4) , 'utf8', function (err, data) {
+					if (err) return loadingenv.reject(err);
+					loadingenv.resolve();
+				});
+			});
+		}
+		return loadingenv.promise;
+	}).then(function() {
 		//file found.
 		var reading = Q.defer();
 		fs.readFile(deskShell.appFile, 'utf8', function (err, data) {

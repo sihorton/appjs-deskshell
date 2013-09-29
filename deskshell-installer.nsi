@@ -99,7 +99,7 @@ Section "deskshell" SEC01
   CreateDirectory "$INSTDIR\bin\win\"
   CreateDirectory "$INSTDIR\bin\win\chrome-profile\"
   SetOutPath "$INSTDIR\bin\win"
-  File /r /x ".git" /x chrome-profile "bin\win\"
+  File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
 
 ;create directory for user apps.
   CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
