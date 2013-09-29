@@ -64,12 +64,15 @@
 	<tr><th>Attribute</th><th>explanation</th></tr>
 	<tr><td>name</td><td>application name</td></tr>
 	<tr><td>version</td><td>version of your application. In the future we could add automatic updating based on version numbers.</td></tr>
-	<tr><td>author</td><td>your name or organisations name</td></tr>
+	<tr><td>author</td><td>your name or organisations name / email</td></tr>
 	<tr><td>description</td><td>explanation of what your application does.</td></tr>
 	<tr><td>licence</td><td>what licence does the application have.</td></tr>
 	<tr><td>width</td><td>width of window in pixels</td></tr>
 	<tr><td>height</td><td>height of window in pixels</td></tr>
-	<tr><td>defaultLocation</td><td>starting url for application</td></tr>
+	<tr><td>defaultLocation</td><td>if you navigate to '/' then default location will be added to find the requested url. e.g. index.htm or index.php etc.</td></tr>
+	<tr><td>appSocket</td><td><b>true</b>/false, if true opens a socket that the application front end can send messages from / to. Saves some time if you don't open it but it also prevents messages to the backend from working.</td></tr>
+	<tr><td>launchChromium</td><td><b>true</b>/false, if true opens the application window. Only reason to have false here is if you want to run an application with no user interface window.</td></tr>
+	<tr><td>exitOnChromiumClose</td><td><b>true</b>/false, automatically exits the backend when the application window closes.</td></tr>
 	
 </table>	
 

@@ -6,10 +6,9 @@
     "width": "400",
     "height": "400",
     "frontend": "chromium",
-    "backend": "node",
+    "backend": "none",
     "htdocs": "htdocs",
     "defaultLocation": "index.htm",
-    "main": "app.js",
     "version": "0.1",
     "v": "0.1"
 }

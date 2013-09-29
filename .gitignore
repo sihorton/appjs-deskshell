@@ -3,3 +3,5 @@
 /bin/win/chrome-profile
 
 /bin/mac/Deskshell.app
+/installer/win/deskshell-install.exe
+/installer/win/deskshell-updater.exe

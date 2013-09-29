@@ -1,10 +1,4 @@
 /**
-* very simple html website
+* todo list demo
 */
-console.log("deskShell ["+ deskShell + "]");
-var running = deskShell.startApp({
-	htdocs:__dirname+"/htdocs/"
-	,openSocket:true
-	,launchChromium:true
-	,exitOnChromiumClose:true
-});
+var running = deskShell.startApp({});

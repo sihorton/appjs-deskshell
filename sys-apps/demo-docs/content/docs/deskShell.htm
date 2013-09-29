@@ -44,13 +44,7 @@
 	,chromeDebugPort: 9222
 	,getFreePort: function(){return promise;}
 	,getDebugSocket: function() {return promise;}
-	,startApp: function({
-		htdocs:__dirname+"/htdocs/"
-		,openSocket:true
-		,launchChromium:true
-		,exitOnChromiumClose:true
-		,width:400
-	}) {return promise;}
+	,startApp: function(params) {return promise;}
 	,ifexists: function(path) {return promise;}
 	,launchApp: function(relativePath)
 	,launchAppDebug: function(relativePath)
@@ -83,7 +77,7 @@
 	<tr><th>Method</th><th>explanation</th></tr>
 	<tr><td>getFreePort()</td><td>Returns a free (unused) port.</td></tr>
 	<tr><td>getDebugSocket()</td><td>Currently an internal function.</td></tr>
-	<tr><td>startApp(params)</td><td>Call to launch the "browser" frontend interface window.</td></tr>
+	<tr><td>startApp(params)</td><td>Call to launch the "browser" frontend interface window. Params that you pass in will over ride parameters defined in the application .desk file.</td></tr>
 	
 	<tr><td>ifexists(path)</td><td>returns a promise which is fulfilled if the path exists and rejected if it does not exist.
 	<tr><td>launchApp(relPath/to/.desk/file)</td><td>Launches a deskShell application identified by the relative path to the .desk file.</td></tr>

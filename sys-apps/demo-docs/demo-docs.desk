@@ -8,4 +8,7 @@
 	,"frontend":"chromium-portable"
 	,"backend":"node"
 	,"defaultLocation":"index.htm"
+	,"width":1024
+	,"height":640
+	,"htdocs":"/content"
 }

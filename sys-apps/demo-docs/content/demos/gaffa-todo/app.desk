@@ -10,5 +10,6 @@
     "backend": "node",
     "defaultLocation": "index.htm",
     "width": "600",
-    "height": "460"
+    "height": "460",
+	"appSocket":true
 }
