@@ -5,10 +5,10 @@
     "description": "Simple app showing an html website inside deskshell.",
     "licence": "MIT",
     "htdocs": "htdocs",
-    "main": "app.js",
     "frontend": "chromium-portable",
-    "backend": "node",
+    "backend": "none",
     "width": "300",
     "height": "300",
     "defaultLocation": "index.htm"
+	,"appSocket":false
 }
