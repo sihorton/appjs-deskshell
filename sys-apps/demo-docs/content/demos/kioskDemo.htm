@@ -41,17 +41,18 @@
           <li class="nav-header">Apps</li>
           <li><a href="html_website.htm">html website</a></li>
           <li><a href="gaffa_todo.htm">Gaffa Todo</a></li>
-		  <li class="active"><a href="svg_clock.htm">SVG Clock Animation</a></li>
-          <li><a href="kioskDemo.htm">kiosk demo</a></li>
+		  <li><a href="svg_clock.htm">SVG Clock Animation</a></li>
+          <li class="active"><a href="kioskDemo.htm">kiosk demo</a></li>
 		  <li class="nav-header">Snippets</li>
           <li><a href="launchApp.htm">launchApp</a></li>
           <li><a href="webrtc.htm">WebRTC</a></li>
         </ul>
 			 </div>
 			 <div class="span8">
-			  <h3>svg clock animation</h3>
-        <p>Demo taken from <a target=blank href="http://html5demos.com/svg-clock">html5demos</a></p>
-				<a onclick="socket.emit('LaunchApp',{relpath:'content/demos/svg_clock/svg_clock.desk'});" class="btn btn-success">Launch Demo</a>
+			  <h3>Kiosk Demo</h3>
+        <p>By setting mode:kiosk in the application .desk file it will be launched fullscreen without any chrome. If the user does not have access to the keyboard then they cannot exit.</p>
+<p>Note that currently there is some kind of chrome bug so if you launch this demo and have an already open chrome browser sometimes it launches within that instead of going full screen.</p>
+				<a onclick="socket.emit('LaunchApp',{relpath:'content/demos/kioskDemo/kioskDemo.desk'});" class="btn btn-success">Launch Demo</a>
         </div>
 			</div>
 				<hr>
