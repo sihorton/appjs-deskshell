@@ -7,5 +7,4 @@ var running = deskShell.startApp({
 	,openSocket:true
 	,launchChromium:true
 	,exitOnChromiumClose:true
-	,width:300
 });
