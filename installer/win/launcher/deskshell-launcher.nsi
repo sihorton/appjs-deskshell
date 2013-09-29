@@ -1,12 +1,9 @@
 /**
-* launch boot2gecko and check for updates.
-*/
-/**
-* temporary code to launch deskshell
+* launch deskshell and open console.
 */
 
 !include "..\common\config.nsi"
-!include "..\common\LogicLib.nsh"
+;!include "..\common\LogicLib.nsh"
 !define PRODUCT_NAME "deskshell"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
