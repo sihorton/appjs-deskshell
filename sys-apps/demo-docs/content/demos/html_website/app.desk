@@ -10,5 +10,4 @@
 	,"main":"app.js"
 	,"frontend":"chromium-portable"
 	,"backend":"node"
-	,"defaultLocation":"index.htm"
 }
