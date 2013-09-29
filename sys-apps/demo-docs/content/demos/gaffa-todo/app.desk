@@ -1,0 +1,13 @@
+{
+	"name":"default"
+	,"version":"0.1"
+	,"author":"smaud"
+	,"description":"todo app using gaffa.js - it's all js"
+	,"licence":"MIT"
+	
+	
+	,"htdocs":"htdocs"
+	,"main":"app.js"
+	,"frontend":"chromium-portable"
+	,"backend":"node"
+}
