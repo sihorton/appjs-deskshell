@@ -26,7 +26,6 @@ deskShell.ifexists(deskShell.appFile)
 			try {
 				deskShell.appDef = JSON.parse(data);
 				deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
-				
 			} catch(e) {
 				return reading.reject(e);
 			}
@@ -40,8 +39,17 @@ deskShell.ifexists(deskShell.appFile)
 			case "nodejs":
 				require(deskShell.mainFile);
 			break;
+			case "none":
+				//html only backend...
+				if (typeof deskShell.appDef['openSocket'] == undefined) deskShell.appDef['openSocket'] = true;
+				
+				var running = deskShell.startApp({
+					launchChromium:true
+					,exitOnChromiumClose:true
+				});
+			break;
 			default:
-				return new Error("Backend not implemented:" + data.backend);
+				return new Error("Backend not implemented:" + deskShell.appDef.backend);
 			break;
 		}
 	}).fail(function(err) {
@@ -55,6 +63,7 @@ deskShell.ifexists(deskShell.appFile)
 			break;
 			default:
 				errortext += "Error:"+err.toString()+"\n";
+				console.log(err);
 			break;
 		}
 		fs.appendFile("deskshell.log", errortext, function(err) {});
