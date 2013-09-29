@@ -73,6 +73,12 @@
 					</div>
 				  </div>
 				  <div class="control-group">
+					<label class="control-label" for="htdocs">htdocs</label>
+					<div class="controls">
+					  <input type="text" id="htdocs" value="htdocs"> defaultLocation:<input type="text" id="defaultLocation" value="index.htm">
+					</div>
+				  </div>
+				  <div class="control-group">
 					<label class="control-label" for="appVersion">version:</label>
 					<div class="controls">
 					  <input type="text" id="appVersion" value="" style="width:40px;">
@@ -90,7 +96,8 @@
 						,width:document.getElementById('appWidth').value
 						,height:document.getElementById('appHeight').value
 						,version:document.getElementById('appVersion').value
-						
+						,defaultLocation:document.getElementById('defaultLocation').value
+						,htdocs:document.getElementById('htdocs').value
 					});">Save</button>
 					
 					<a onclick="deskShell.socket.emit('LaunchApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Launch App</a>
@@ -135,6 +142,8 @@
 				document.getElementById('appVersion').value = app.version;
 				document.getElementById('appDescription').value = app.description;
 				document.getElementById('appLicence').value = app.licence;
+				document.getElementById('defaultLocation').value = app['defaultLocation']||'index.htm';
+				document.getElementById('htdocs').value = app['htdocs']||'htdocs';
 			});
 		});
 		var lastCreatedApp;

@@ -70,7 +70,7 @@
 			  <div class="control-group">
 				<label class="control-label" for="htdocs">htdocs</label>
 				<div class="controls">
-				  <input type="text" id="htdocs" value="htdocs">
+				  <input type="text" id="htdocs" value="htdocs"> defaultLocation:<input type="text" id="defaultLocation" value="index.htm">
 				</div>
 			  </div>
 			  <div class="control-group">
@@ -117,6 +117,7 @@
 						,frontend:document.getElementById('appFrontend').value
 						,backend:document.getElementById('appBackend').value
 						,htdocs:document.getElementById('htdocs').value
+						,defaultLocation:document.getElementById('defaultLocation').value
 						,main:document.getElementById('appMain').value
 						,version:'0.1'
 					});">Create</button>
