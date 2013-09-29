@@ -1,13 +1,14 @@
 {
-	"name":"default"
-	,"version":"0.2"
-	,"author":"sihorton"
-	,"description":"default app shown when you start deskshell"
-	,"licence":"MIT"
-	
-	
-	,"htdocs":"htdocs"
-	,"main":"app.js"
-	,"frontend":"chromium-portable"
-	,"backend":"node"
+    "name": "html_website",
+    "version": "0.3",
+    "author": "sihorton",
+    "description": "Simple app showing an html website inside deskshell.",
+    "licence": "MIT",
+    "htdocs": "htdocs",
+    "main": "app.js",
+    "frontend": "chromium-portable",
+    "backend": "node",
+    "width": "300",
+    "height": "300",
+    "defaultLocation": "index.htm"
 }
