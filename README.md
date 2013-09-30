@@ -31,6 +31,8 @@ registers the .desk files and from then on you can click on a .desk file to run 
 
 Mac port instructions are here: https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac
 
+There is a pre-built binary also available for the mac: http://appjs.delightfulsoftware.com/deskshell/ 
+
 Linux:
 ============
 
