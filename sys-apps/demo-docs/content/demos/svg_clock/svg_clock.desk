@@ -1,0 +1,14 @@
+{
+    "name": "svg_clock",
+    "author": "sihorton",
+    "description": "http://html5demos.com/svg-clock\nported to deskShell.",
+    "licence": "MIT",
+    "width": "400",
+    "height": "400",
+    "frontend": "chromium",
+    "backend": "none",
+    "htdocs": "htdocs",
+    "defaultLocation": "index.htm",
+    "version": "0.1",
+    "v": "0.1"
+}

@@ -12,10 +12,17 @@ Windows:
 
 The quickest way to start using deskshell for windows is to download the installer. This includes an example app
 that also serves as documentation and guide for the project. http://appjs.delightfulsoftware.com/deskshell/.
-
+To develop the code git clone the repository and then read the bin/win/readme.txt file for further details.
 
 Mac:
 ====
+On mac git clone the repository, cd to bin/mac and then run
+
+tar xvfz deskshell.mac.tgz
+
+This will give you a deskshell app bundle, click on it to register .desk files. After first run you should be able 
+to click .desk files to launch applications.
+
 Mac port instructions are here: https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac
 
 Linux:

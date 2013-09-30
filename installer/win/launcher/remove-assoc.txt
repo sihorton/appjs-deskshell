@@ -1,0 +1,7 @@
+To remove all associations open admin console and type in:
+
+assoc .desk-debug=
+assoc .desk-back=
+assoc .desk=
+
+This will wipe all registered associations for each file type.

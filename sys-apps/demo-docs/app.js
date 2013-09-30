@@ -1,15 +1,8 @@
 /**
 * this demo shows usage of a deskshell api.
 */
-var htdocs = __dirname+'/content'
 
 var running = deskShell.startApp({
-	htdocs:htdocs
-	,openSocket:true
-	,launchChromium:true
-	,exitOnChromiumClose:true
-	,width:1024
-	,height:640
 }).then(function(app) {
 	//app.socketio holds the socket that can recieve and send messages to the client.
 	app.socketio.on('connection', function(socket) {
@@ -19,6 +12,12 @@ var running = deskShell.startApp({
 			var f = require("path").normalize(deskShell.appDir + params.relpath);
 			console.log("Launching App",f);
 			deskShell.launchApp(f);
+		});
+		socket.on('LaunchAppDebug',function(params,back) {
+		console.log(params);
+			var f = require("path").normalize(deskShell.appDir + params.relpath);
+			console.log("Launching App",f);
+			deskShell.launchAppDebug(f);
 		});
 		socket.on('controlMe',function(params,back) {
 			console.log("controlMe message recieved");
