@@ -2,6 +2,7 @@
 * deskshell apple script or windows executable will run this script and pass in any command line arguments.
 * it will read the application json file, setup required environment and then run the application.
 */
+process.title = "Deskshell";
 var Q = require("q"),fs=require("fs"),path = require("path");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
 deskShell.defaultApp = false;

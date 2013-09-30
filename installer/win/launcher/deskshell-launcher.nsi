@@ -2,15 +2,16 @@
 * launch deskshell and open console.
 */
 
-!include "..\common\config.nsi"
-;!include "..\common\LogicLib.nsh"
+
 !define PRODUCT_NAME "deskshell"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
-
+!include "..\common\config.nsi"
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_LANGUAGE "English"
 
+
+;!include "..\common\LogicLib.nsh"
 !include "SupportFunctions.nsi"
 
 RequestExecutionLevel user

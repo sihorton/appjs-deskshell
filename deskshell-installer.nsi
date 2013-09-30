@@ -188,7 +188,9 @@ Section Uninstall
   RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
   RMDir /r "$INSTDIR\"
 
-  ${unregisterExtension} ".desk" "DeskShell Application"
+   ${unregisterExtension} ".desk" "DeskShell Application"
+   ${unregisterExtension} ".desk-debug" "DeskShell Application Debug"
+   ${unregisterExtension} ".desk-back" "DeskShell Backend Application"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
