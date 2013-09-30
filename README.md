@@ -16,6 +16,13 @@ To develop the code git clone the repository and then read the bin/win/readme.tx
 
 Mac:
 ====
+On mac git clone the repository, cd to bin/mac and then run
+
+tar xvfz deskshell.mac.tgz
+
+This will give you a deskshell app bundle, click on it to register .desk files. After first run you should be able 
+to click .desk files to launch applications.
+
 Mac port instructions are here: https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac
 
 Linux:
