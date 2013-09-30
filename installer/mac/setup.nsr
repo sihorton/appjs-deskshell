@@ -1,0 +1,63 @@
+/**
+* nodejs file to setup mac outputs.
+*/
+var fs = require("fs-extra"),Q = require("q");
+
+var mac_src = __dirname+"/../../bin/mac/";
+var mac_bin = "/deskshell-xtra-mac.tar.gz";
+	
+Q.nfapply(fs.mkdir,[__dirname+"/Deskshell.app"])
+.then(function() {
+	console.log("creating Deskshell.app");
+	return Q.nfapply(fs.mkdir,[__dirname+"/Deskshell.app/Contents/"]);
+}).then(function() {
+	return Q.nfapply(fs.copy,[mac_src+"deskshell_bundle/MacOS",__dirname+"/Deskshell.app/Contents/MacOS"]);
+}).then(function() {
+	return Q.nfapply(fs.copy,[mac_src+"/deskshell_bundle/node_modules",__dirname+"/Deskshell.app/Contents/node_modules"]);
+}).then(function() {
+	return Q.nfapply(fs.copy,[mac_src+"/deskshell_bundle/Info.plist",__dirname+"/Deskshell.app/Contents/Info.plist"]);
+}).then(function() {
+	return Q.nfapply(fs.copy,[mac_src+"/deskshell_bundle/PkgInfo",__dirname+"/Deskshell.app/Contents/PkgInfo"]);
+}).then(function() {
+	var gettingFile = Q.defer();
+	fs.exists(__dirname+mac_bin,function(found) {
+		if (found) {
+			gettingFile.resolve();
+		} else {
+			var request = require('request'),
+			zlib = require('zlib'),
+			fs = require('fs'),
+			out = fs.createWriteStream(__dirname+mac_bin);
+			console.log('downloading chromium binary to '+mac_bin);
+			console.log('this may take a long while');
+			var showProgress = setInterval(function() {
+				process.stdout.write(".");
+			},2000);
+			request('http://appjs.delightfulsoftware.com/deskshell/'+mac_bin).pipe(out);
+			out.on('progress',function(progress) {
+				console.log("progress",progress);
+			});
+			out.on('finish', function(){
+				clearInterval(showProgress);
+				console.log('file downloaded');
+				gettingFile.resolve();
+			});
+		}
+	});
+	return gettingFile.promise;
+}).then(function() {
+	console.log('Extracting a lot of files, will take some time');
+	var showProgress = setInterval(function() {
+		process.stdout.write(".");
+	},2000);
+	var targz = require('tar.gz');
+	var compress = new targz().extract(__dirname+mac_bin, 'Deskshell.app/Contents/', function(err){
+		clearInterval(showProgress);
+		if(err)
+			console.log(err);
+			
+			console.log('Extraction complete');
+	});
+}).fail(function(err) {
+	console.log(err);
+});
