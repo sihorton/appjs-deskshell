@@ -1,10 +1,6 @@
 # The Mac port
 
-Hey, this is my, Ingwie Phoenix's, area of the appjs-deskshell project! In here, you will find the binaries needed for Mac to have a clean port. To use the included chromium, you need to
-
-    tar xvfz deskshell.mac.tgz
-
-And that should do it.
+Read the main readme for instructions on setting up the checked out source code to run apps.
 
 ## What to add? (ToDo)
 - Adding PHP-backend (will require pthreads)
