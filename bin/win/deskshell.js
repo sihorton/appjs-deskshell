@@ -2,12 +2,14 @@
 * deskshell apple script or windows executable will run this script and pass in any command line arguments.
 * it will read the application json file, setup required environment and then run the application.
 */
-if (process.argv.length <3) {
-	//if no args run default application.
-	process.argv[2] = __dirname + "/../../sys-apps/demo-docs/demo-docs.desk";
-}
 var Q = require("q"),fs=require("fs"),path = require("path");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
+deskShell.defaultApp = false;
+if (process.argv.length <3) {
+	//if no args run default application.
+	deskShell.defaultApp = true;
+	process.argv[2] = __dirname + "/../../sys-apps/demo-docs/demo-docs.desk";
+}
 deskShell.appFile = process.argv[2];
 deskShell.appDir = path.dirname(process.argv[2]) + "/";
 if (deskShell.appDir == "./") {
@@ -35,6 +37,23 @@ deskShell.ifexists(deskShell.appFile)
 		}
 		return loadingenv.promise;
 	}).then(function() {
+		if (deskShell.defaultApp) {
+			//running default app, so also check for updates.
+			var request = require("request");
+			request("http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-version.txt", function(error, response, body) {
+				if (error) return console.log("update failed:"+error);
+				var lines = body.split("\n");
+				fs.readFile(__dirname+"/../../version.txt", 'utf8', function (err, data) {
+					var lines2 = data.split("\n");
+					console.log("checking if upgrade needed:",lines[0]+">"+lines2[0]);
+					if (upgradeNeeded(lines[0],lines2[0])) {
+						require('child_process').exec(__dirname+"/../../deskshell-updater.exe /S",function(error, stdout, stderr) {
+							if (error) console.log(error);
+						});
+					}
+				});
+			});
+		}
 		//file found.
 		var reading = Q.defer();
 		fs.readFile(deskShell.appFile, 'utf8', function (err, data) {
@@ -81,3 +100,35 @@ deskShell.ifexists(deskShell.appFile)
 		}
 		fs.appendFile("deskshell.log", errortext, function(err) {});
 	});
+	
+/**
+* Compare requested version number against installed version number
+* and return true if an upgrade is needed.
+* UpgradeNeeded("0.3.2345.5","0.3")=>true
+* UpgradeNeeded("0.3.2345.5","0.3.2345")=>true
+* UpgradeNeeded("0.3.2345.5","0.3.2345.5")=>false
+* UpgradeNeeded("0.3.2345.5","0.4")=>false
+*/
+function upgradeNeeded(requested,installed) {
+		var req = requested.replace("v","").split(".");
+		var got = installed.replace("v","").split(".");
+		var diff = req.length - got.length;
+		if (diff > 0) {
+			for(var i = diff;diff>0;diff--) {
+				got.push(0);
+			}
+		} else {
+			for(var i = diff;diff<0;diff++) {
+				req.push(0);
+			}
+		}
+		for(var p=0;p<req.length;p++) {
+			if (req[p] == "x") return false;
+			var r = parseFloat(req[p]);
+			var g = parseFloat(got[p]);
+			if (r > g) return true;
+			if (r < g) return false;
+			//if equal compare next figure
+		}
+		return false;
+}

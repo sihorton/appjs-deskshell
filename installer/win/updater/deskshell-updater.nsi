@@ -3,6 +3,8 @@
 */
 !include "..\common\config.nsi"
 !define PRODUCT_NAME "deskshell-updater"
+!define PRODUCT_UPDATE_NAME "deskshell"
+
 ;url directly to github repository to find updated installer.
 !define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-version.txt"
 !define UPDATE_NAME "deskshell-update-installer"
@@ -14,7 +16,7 @@
 
 
 !define MUI_TEXT_INSTALLING_TITLE "Downloading"
-!define MUI_TEXT_INSTALLING_SUBTITLE "Please wait while ${PRODUCT_NAME} is being downloaded."
+!define MUI_TEXT_INSTALLING_SUBTITLE "Please wait while ${PRODUCT_UPDATE_NAME} is being downloaded."
 
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_LANGUAGE "English"
@@ -22,6 +24,7 @@
 !include "deskshell-updater-supportfn.nsi"
 
 RequestExecutionLevel admin
+;RequestExecutionLevel user
 Caption "${PRODUCT_NAME}"
 Name "${PRODUCT_NAME}"
 OutFile "../${PRODUCT_NAME}.exe"
@@ -80,7 +83,7 @@ versioncompare:
 
     ${VersionCompare} "$InstalledVersion" "$AvailableVersion" $0
     StrCmp $0 "2" +1 nothingnew
-    MessageBox MB_YESNO "A new version ($AvailableVersion) of ${PRODUCT_NAME} is available. Would you like to download it?" IDYES +1 IDNO leave
+    MessageBox MB_YESNO "A new version ($AvailableVersion) of ${PRODUCT_UPDATE_NAME} is available. Would you like to download it?" IDYES +1 IDNO leave
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;

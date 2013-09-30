@@ -52,7 +52,8 @@ var ICONS_GROUP
 !insertmacro MUI_LANGUAGE "English"
 
 ; MUI end ------
-
+;RequestExecutionLevel admin
+RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
 ;_${PRODUCT_VERSION}
 OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}-install.exe"
@@ -75,7 +76,7 @@ notRunning:
 ; Check to see if already installed
   ReadRegStr $R0 ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString"
   IfFileExists $R0 +1 NotInstalled
-  MessageBox MB_YESNO "${PRODUCT_NAME} is already installed, should we uninstall the existing version first?$\nNo will install over the top of the existing version." IDYES Uninstall IDNO NotInstalled
+  ;MessageBox MB_YESNO "${PRODUCT_NAME} is already installed, should we uninstall the existing version first?$\nNo will install over the top of the existing version." IDYES Uninstall IDNO NotInstalled
 Uninstall:
   ExecWait '"$R0" /S _?=$INSTDIR'
   Delete "$R0"

@@ -1,6 +1,6 @@
 {
 	"name":"default"
-	,"version":"0.2"
+	,"version":"0.8.4"
 	,"author":"sihorton"
 	,"description":"default app shown when you start deskshell"
 	,"main":"app.js"
