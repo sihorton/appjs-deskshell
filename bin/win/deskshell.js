@@ -17,6 +17,8 @@ if (deskShell.appDir == "./") {
 	//todo fix relative path launches...
 }
 deskShell.platformDir = __dirname;
+deskShell.installDir = path.normalize(__dirname+"/../../");
+
 deskShell.ifexists(deskShell.appFile)
 	.then(function() {
 		var loadingenv = Q.defer();

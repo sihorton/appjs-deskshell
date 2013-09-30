@@ -1,3 +1,4 @@
 {
 	"chromeDebugPort":9223
+	,chromiumPath:"GoogleChromePortable/App/Chrome-bin/chrome.exe"
 }
