@@ -5,6 +5,11 @@
 process.title = "Deskshell";
 var Q = require("q"),fs=require("fs"),path = require("path");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
+deskShell.platformDir = __dirname;
+deskShell.installDir = path.normalize(__dirname+"/../../");
+deskShell.sysAppsDir = path.normalize(__dirname+"/../../sys-apps");
+deskShell.envPath = __dirname+"/deskshell-env.js";
+/*
 deskShell.defaultApp = false;
 if (process.argv.length <3) {
 	//if no args run default application.
@@ -13,14 +18,13 @@ if (process.argv.length <3) {
 }
 deskShell.appFile = process.argv[2];
 deskShell.appDir = path.dirname(process.argv[2]) + "/";
+*/
 if (deskShell.appDir == "./") {
 	//todo fix relative path launches...
 }
-deskShell.platformDir = __dirname;
-deskShell.installDir = path.normalize(__dirname+"/../../");
 
-deskShell.ifexists(deskShell.appFile)
-	.then(function() {
+
+/*
 		var loadingenv = Q.defer();
 		try {
 			deskShell.env = require(__dirname+"/deskshell-env.js");
@@ -39,25 +43,44 @@ deskShell.ifexists(deskShell.appFile)
 			});
 		}
 		return loadingenv.promise;
+	})*/
+	
+	deskShell
+	.loadEnv()
+	.then(function() {
+		deskShell.defaultApp = false;
+		if (process.argv.length <3) {
+			//if no args run default application.
+			deskShell.defaultApp = true;
+			process.argv[2] = deskShell.platformDir+deskShell.env.defaultApp;
+		}
+		deskShell.appFile = process.argv[2];
+		deskShell.appDir = path.dirname(process.argv[2]) + "/";
+		return deskShell.ifexists(deskShell.appFile);
 	}).then(function() {
 		if (deskShell.defaultApp) {
 			//running default app, so also check for updates.
-			var request = require("request");
-			request("http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-version.txt", function(error, response, body) {
-				if (error) return console.log("update failed:"+error);
-				var lines = body.split("\n");
-				fs.readFile(__dirname+"/../../version.txt", 'utf8', function (err, data) {
-					var lines2 = data.split("\n");
-					console.log("checking if upgrade needed:",lines[0]+">"+lines2[0]);
-					if (upgradeNeeded(lines[0],lines2[0])) {
-						//require('child_process').exec(__dirname+"/../../deskshell-updater.exe",function(error, stdout, stderr) {
-						console.log("upgrade available, launching updater.");
-						require('child_process').exec(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath),function(error, stdout, stderr) {
-							if (error) console.log("upgrade failed.");
-						});
-					}
+			if (deskShell.env['checkForPlatformUpdates']) {
+				var request = require("request");
+				request(deskShell.env.platformUpdateVersionUrl, function(error, response, body) {
+					if (error) return console.log("update failed:"+error);
+					var lines = body.split("\n");
+					fs.readFile(__dirname+"/../../version.txt", 'utf8', function (err, data) {
+						var lines2 = data.split("\n");
+						console.log("checking if upgrade available:",lines[0].replace(/\r/, '')+">"+lines2[0]);
+						if (upgradeNeeded(lines[0],lines2[0])) {
+							//require('child_process').exec(__dirname+"/../../deskshell-updater.exe",function(error, stdout, stderr) {
+							console.log("upgrade available, launching updater.");
+							console.log(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath));
+							require('child_process').exec(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath),function(error, stdout, stderr) {
+								if (error) console.log("upgrade failed.");
+							});
+						} else {
+							console.log("no upgrade available.");
+						}
+					});
 				});
-			});
+			}
 		}
 		//file found.
 		var reading = Q.defer();
