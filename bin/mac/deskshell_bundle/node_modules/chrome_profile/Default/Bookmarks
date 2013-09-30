@@ -1,0 +1,30 @@
+{
+   "checksum": "8a3210492c9332217fac0136ead47ddc",
+   "roots": {
+      "bookmark_bar": {
+         "children": [  ],
+         "date_added": "0",
+         "date_modified": "0",
+         "id": "1",
+         "name": "Lesezeichenleiste",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "0",
+         "date_modified": "0",
+         "id": "2",
+         "name": "Andere Lesezeichen",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "0",
+         "date_modified": "0",
+         "id": "3",
+         "name": "Synchronisierte Lesezeichen",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}

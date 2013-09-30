@@ -1,0 +1,58 @@
+#!/usr/bin/php -q
+<?php
+/* IN MY WORLD AGAIN.
+   Now, we first had to do some applescript which now makes us have $argv[1] be JUST a .desk file - which is a JSON file.
+   With some Info.plist trickery, the chrome-tracks are removed, and it now says Deskshell everywhere - except the version string.
+   We now gonna parse the .desk declaration into actions. For that, we dont even need a class...
+   Yes, I am a procoder, but I am now returning to the oldschool coding for this one time
+   So lads and gents, here we go!
+*/
+
+// Debug
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Preperation
+$file = $argv[1];
+define( "Contents", 	realpath( dirname(__FILE__)."/.." ) );
+define( "Resources", 	realpath( dirname(__FILE__)."/../Resources" ) );
+define( "Frameworks", 	realpath( dirname(__FILE__)."/../Frameworks" ) );
+define( "MacOS", 		realpath( dirname(__FILE__) ) );
+
+// Just for this stage of development - change this later!
+$decl = Contents."/../../../../desk.decl";
+$declDefs = $decl."-defs";
+
+// Load the .desk declaration
+$declVals = json_decode(file_get_contents($declDefs));
+$desk = json_decode(file_get_contents($file));
+if(count($desk) >= count($declVals)) {
+	// its smaller. Fix the remaining parts.
+	foreach($declVals as $key=>$val) {
+		if(!isset($desk->$key)) $desk->$key=$val;
+	}
+}
+
+// Check if we were called with --verbose or -v to keep the terminal open
+$opt=getopt("v",array("verbose"));
+$desk->debug = ( isset($opt['v']) || isset($opt['verbose']) ? true : $desk->debug );
+$vs = ($desk->debug ? " &":null);
+
+// Vars to fill
+$cmd = array();
+
+switch(strtolower($desk->backend)) {
+	case "node": 
+		$cmd[]=escapeshellarg(MacOS."/node"); 
+		$cmd[]=escapeshellarg(MacOS."/deskshell.js");
+		$cmd[]=escapeshellarg(realpath($file));
+		
+		// We have everything. Time to kick in the binary and its frontend.
+		system(implode(" ", $cmd).$vs);
+	break;
+	case "php":
+		include "deskshell.php";
+		Deskshell::main($desk);
+	break;
+	default: die("No vaild backend specified!"); break;
+}
