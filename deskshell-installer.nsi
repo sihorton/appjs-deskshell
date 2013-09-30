@@ -101,6 +101,7 @@ Section "deskshell" SEC01
   CreateDirectory "$INSTDIR\bin\win\chrome-profile\"
   SetOutPath "$INSTDIR\bin\win"
   File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
+  File "${COMMON_DIR}\..\deskshell-updater.exe"
 
 ;create directory for user apps.
   CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
@@ -111,7 +112,6 @@ Section "deskshell" SEC01
   File "${COMMON_DIR}\version.txt"
   File "deskshell.exe"
   File "deskshell_debug.exe"
-  File "${COMMON_DIR}\..\deskshell-updater.exe"
   
   ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Application"
   ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-debug" "DeskShell Application Debug"
@@ -198,7 +198,6 @@ Section Uninstall
 SectionEnd
 
 Function Launch-deskshell
-  ;ExecShell "" "$INSTDIR\deskshell.lnk"
   Exec "$INSTDIR\deskshell.exe"
 FunctionEnd
 

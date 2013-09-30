@@ -1,4 +1,5 @@
 {
 	"chromeDebugPort":9223
-	,chromiumPath:"GoogleChromePortable/App/Chrome-bin/chrome.exe"
+	,"chromiumPath":"GoogleChromePortable/App/Chrome-bin/chrome.exe"
+	,"updaterPath":"deskshell-updater.exe"
 }
