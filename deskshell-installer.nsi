@@ -99,9 +99,11 @@ Section "deskshell" SEC01
 
   CreateDirectory "$INSTDIR\bin\win\"
   CreateDirectory "$INSTDIR\bin\win\chrome-profile\"
+
   SetOutPath "$INSTDIR\bin\win"
   File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
   File "${COMMON_DIR}\..\deskshell-updater.exe"
+  File "${COMMON_DIR}\installer-version.txt"
 
 ;create directory for user apps.
   CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
@@ -109,7 +111,6 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR"
   
   ;install version info and launch / auto update.
-  File "${COMMON_DIR}\version.txt"
   File "deskshell.exe"
   File "deskshell_debug.exe"
   

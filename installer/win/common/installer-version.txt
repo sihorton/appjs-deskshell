@@ -1,2 +1,2 @@
-0.8.6
+0.8.8
 http://appjs.delightfulsoftware.com/deskshell/?download=deskshell-install.exe

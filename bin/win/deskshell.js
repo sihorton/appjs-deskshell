@@ -9,41 +9,6 @@ deskShell.platformDir = __dirname;
 deskShell.installDir = path.normalize(__dirname+"/../../");
 deskShell.sysAppsDir = path.normalize(__dirname+"/../../sys-apps");
 deskShell.envPath = __dirname+"/deskshell-env.js";
-/*
-deskShell.defaultApp = false;
-if (process.argv.length <3) {
-	//if no args run default application.
-	deskShell.defaultApp = true;
-	process.argv[2] = __dirname + "/../../sys-apps/demo-docs/demo-docs.desk";
-}
-deskShell.appFile = process.argv[2];
-deskShell.appDir = path.dirname(process.argv[2]) + "/";
-*/
-if (deskShell.appDir == "./") {
-	//todo fix relative path launches...
-}
-
-
-/*
-		var loadingenv = Q.defer();
-		try {
-			deskShell.env = require(__dirname+"/deskshell-env.js");
-			loadingenv.resolve();
-		} catch(e) {
-			//env setup was not found...
-			//create it..
-			var os = require('os');
-			fs.readFile(__dirname+"/deskshell-env.js.sample."+os.platform(), 'utf8', function (err, data) {
-				if (err) return loadingenv.reject(err);
-				deskShell.env = JSON.parse(data);
-				fs.writeFile(__dirname+"/deskshell-env.js","module.exports="+ JSON.stringify(deskShell.env,null,4) , 'utf8', function (err, data) {
-					if (err) return loadingenv.reject(err);
-					loadingenv.resolve();
-				});
-			});
-		}
-		return loadingenv.promise;
-	})*/
 	
 	deskShell
 	.loadEnv()
@@ -65,11 +30,10 @@ if (deskShell.appDir == "./") {
 				request(deskShell.env.platformUpdateVersionUrl, function(error, response, body) {
 					if (error) return console.log("update failed:"+error);
 					var lines = body.split("\n");
-					fs.readFile(__dirname+"/../../version.txt", 'utf8', function (err, data) {
+					fs.readFile(__dirname+"/installer-version.txt", 'utf8', function (err, data) {
 						var lines2 = data.split("\n");
 						console.log("checking if upgrade available:",lines[0].replace(/\r/, '')+">"+lines2[0]);
 						if (upgradeNeeded(lines[0],lines2[0])) {
-							//require('child_process').exec(__dirname+"/../../deskshell-updater.exe",function(error, stdout, stderr) {
 							console.log("upgrade available, launching updater.");
 							console.log(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath));
 							require('child_process').exec(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath),function(error, stdout, stderr) {
