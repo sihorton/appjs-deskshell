@@ -6,8 +6,6 @@ process.title = "Deskshell";
 var Q = require("q"),fs=require("fs"),path = require("path");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
 deskShell.platformDir = __dirname;
-deskShell.installDir = path.normalize(__dirname+"/../../");
-deskShell.sysAppsDir = path.normalize(__dirname+"/../../sys-apps");
 deskShell.envPath = __dirname+"/deskshell-env.js";
 	
 	deskShell
