@@ -106,9 +106,9 @@ versioncompare:
 
     doinstall:
     ;run uninstaller.
-      ReadRegStr $R0 ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString"
-      IfFileExists $R0 +1 RunUpdate
-      ExecWait '"$R0" /S _?=$INSTDIR'
+      ;ReadRegStr $R0 ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString"
+      ;IfFileExists $R0 +1 RunUpdate
+      ;ExecWait '"$R0" /S _?=$INSTDIR'
       RunUpdate:
       Exec '$TEMP\${UPDATE_NAME}.exe'
       Quit

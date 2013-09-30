@@ -52,8 +52,8 @@ var ICONS_GROUP
 !insertmacro MUI_LANGUAGE "English"
 
 ; MUI end ------
-;RequestExecutionLevel admin
-RequestExecutionLevel user
+RequestExecutionLevel admin
+;RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
 ;_${PRODUCT_VERSION}
 OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}-install.exe"

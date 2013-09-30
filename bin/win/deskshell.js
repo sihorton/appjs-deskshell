@@ -47,7 +47,7 @@ deskShell.ifexists(deskShell.appFile)
 					var lines2 = data.split("\n");
 					console.log("checking if upgrade needed:",lines[0]+">"+lines2[0]);
 					if (upgradeNeeded(lines[0],lines2[0])) {
-						require('child_process').exec(__dirname+"/../../deskshell-updater.exe /S",function(error, stdout, stderr) {
+						require('child_process').exec(__dirname+"/../../deskshell-updater.exe",function(error, stdout, stderr) {
 							if (error) console.log(error);
 						});
 					}
