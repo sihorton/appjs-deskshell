@@ -1,7 +1,7 @@
 /**
 * check for updated installer and run it.
 */
-!include "..\common\config.nsi"
+
 !define PRODUCT_NAME "deskshell-updater"
 !define PRODUCT_UPDATE_NAME "deskshell"
 

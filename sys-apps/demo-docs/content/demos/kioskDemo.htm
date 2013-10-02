@@ -55,6 +55,8 @@
         <p>By setting mode:kiosk in the application .desk file it will be launched fullscreen without any chrome. If the user does not have access to the keyboard then they cannot exit.</p>
 <p>Note that currently there is some kind of chrome bug so if you launch this demo and have an already open chrome browser sometimes it launches within that instead of going full screen.</p>
 				<a onclick="socket.emit('LaunchApp',{relpath:'content/demos/kioskDemo/kioskDemo.desk'});" class="btn btn-success">Launch Demo</a>
+				
+				<a onclick="socket.emit('OpenFolder',{relpath:'content/demos/kioskDemo/kioskDemo.desk'});" class="btn btn-info"><i class="icon-star icon-white"></i> View Source</a>
         </div>
 			</div>
 				<hr>

@@ -49,7 +49,11 @@ set DIR=%cd%\..\..\Deskshell
 %DIR%\bin\win\node.exe %DIR%\bin\win\deskshell.js %cd%\app.desk
 pause
 </code></pre>
-  <a href="https://github.com/sihorton/appjs-deskshell/wiki" class="btn btn-large btn-success" target="blank">Project Wiki</a>
+ <h3>Fixed Port</h3>
+ <p>It is possible to run your application on a fixed port, this won't allow it have multiple instances,
+ but it does make it easier to connect chrome and chrome debug tools or another browser / dev tools
+ to the application port and then debug. Note that if you do this the application should function but the 
+ chrome remote debugging api calls will go to the deskshell window not your browser window.</p>
 				</div>
 			</div>
 		
