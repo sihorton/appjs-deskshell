@@ -19,6 +19,19 @@ var running = deskShell.startApp({
 			console.log("Launching App",f);
 			deskShell.launchAppDebug(f);
 		});
+		socket.on('OpenFolder',function(params) {
+			console.log("openfolder",params);
+			var p;
+			if (params.relpath) {
+				p = require("path").normalize(deskShell.appDir + params.relpath);
+			}
+			if (params.abspath) {
+				p = require("path").normalize(params.abspath);
+			}
+			p=require("path").dirname(p);
+			console.log('explorer '+p);
+			require('child_process').exec('explorer '+p);
+		});
 		socket.on('controlMe',function(params,back) {
 			console.log("controlMe message recieved");
 			app.rDebugApi.pageNavigate("http://appjs.com").then(function() {

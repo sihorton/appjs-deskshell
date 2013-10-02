@@ -8,3 +8,6 @@
 
 /bin/win/deskshell-env.js
 /installer/win/dev-assoc.exe
+/installer/mac/deskshell-xtra-mac.tar.gz
+
+/installer/mac/Deskshell.app
