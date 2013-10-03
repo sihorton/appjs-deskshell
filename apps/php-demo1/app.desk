@@ -1,0 +1,16 @@
+{
+    "name": "PHP demo",
+    "author": "https://github.com/IngwiePhoenix/",
+    "description": "A light demo to demonstrate the PHP backend",
+    "licence": "MIT",
+    "width": "400",
+    "height": "600",
+    "frontend": "chromium",
+    "backend": "php",
+    "htdocs": "htdocs",
+    "defaultLocation":"index.php",
+    "main": "app.php",
+    "version": "0.1",
+    "v": "0.1",
+	"mode":"app"
+}

@@ -1,0 +1,3 @@
+#!/bin/bash
+ME=$(dirname "$0")
+"$ME/php" "$ME/desk_parse" ${*:1}

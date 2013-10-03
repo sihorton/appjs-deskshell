@@ -1,0 +1,14 @@
+{
+    "name": "Soundtest",
+    "author": "https://github.com/sihorton",
+    "description": "Test of sound in deskshell.",
+    "licence": "MIT",
+    "frontend": "chromium",
+    "backend": "none",
+    "htdocs": "htdocs",
+	"defaultLocation":"index.htm",
+    "version": "0.1",
+    "v": "0.1",
+	"width":500,
+	"height":330
+}

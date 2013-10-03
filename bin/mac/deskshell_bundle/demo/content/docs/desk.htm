@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell SDK</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Intro</a></li>
+                    <li><a href="../start.htm">Get Started</a></li>
+                    <li class="active"><a href="intro.htm">Docs</a></li>
+                    <li><a href="../demos/intro.htm">Demos</a></li>
+                    <li><a href="../wiz.htm">AppWizard</a></li>
+                    <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Documentation</li>
+					<li ><a href="intro.htm">Intro</a></li>
+					<li class="active"><a href="desk.htm">desk files</a></li>
+					<li><a href="deskShell.htm">deskShell Api</a></li>
+					<li><a href="deskShellClient.htm">deskShell Client Api</a></li>
+					<li><a href="remoteDebug.htm">debug api</a></li>
+					<li><a href="debugging.htm">debugging errors</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>Desk Files</h3>
+ <p>Files with a .desk extension will be run by deskshell when you click on them. The files are simple utf-8 text files with a json file format.</p>
+ Sample .desk file:
+<pre><code>{
+	"name":"default"  
+	,"version":"0.2"
+	,"author":"sihorton"
+	,"description":"default app shown when you start deskshell"
+	,"licence":"MIT"
+	
+	,"frontend":"chromium-portable"
+	,"main":"app.js"
+	,"backend":"node"
+	,"width":1024
+	,"height":500
+	,"defaultLocation":"index.htm"
+	,"appSocket":true
+	,"openAppWin":true
+	,"exitOnAppWinClose":true
+}
+</code></pre>
+<h2>Description</h2>
+<p>The first set of attributes are used to describe your application to the world.</p>
+<table class="table">
+	<tr><th>Attribute</th><th>explanation</th></tr>
+	<tr><td>name</td><td>application name</td></tr>
+	<tr><td>version</td><td>version of your application. In the future we could add automatic updating based on version numbers.</td></tr>
+	<tr><td>author</td><td>your name or organisations name / email</td></tr>
+	<tr><td>description</td><td>explanation of what your application does.</td></tr>
+	<tr><td>licence</td><td>what licence does the application have.</td></tr>
+	<tr><td>width</td><td>width of window in pixels</td></tr>
+	<tr><td>height</td><td>height of window in pixels</td></tr>
+	<tr><td>defaultLocation</td><td>if you navigate to '/' then default location will be added to find the requested url. e.g. index.htm or index.php etc.</td></tr>
+	<tr><td>appSocket</td><td><b>true</b>/false, if true opens a socket that the application front end can send messages from / to. Saves some time if you don't open it but it also prevents messages to the backend from working.</td></tr>
+	<tr><td>openAppWin</td><td><b>true</b>/false, if true opens the application window. Only reason to have false here is if you want to run an application with no user interface window.</td></tr>
+	<tr><td>exitOnAppWinClose</td><td><b>true</b>/false, automatically exits the backend when the application window closes.</td></tr>
+	
+</table>	
+
+ 
+ <h2>Function</h2>
+<p>The first set of attributes are used to describe your application to the world.</p>
+<table class="table">
+	<tr><th>Attribute</th><th>explanation</th></tr>
+	<tr><td>frontend</td><td>what should be used to display the user interface of your application. Currently you can only enter in "chromium" here. Possible values planned for the future will be "user-browser" for default browser and then "appjs" for the appjs implementation.</td></tr>
+	<tr><td>backend</td><td>The backend ("Server") part of the application, if the application is simple html then you can enter "none" here, for nodejs enter "node" or "nodejs". In the future it is planned to add many additional backends. There will be a porting guide so if your preferred server language is not available you can write the port yourself!</td></tr>
+		<tr><td>main</td><td>The initial backend file used to start the application. For nodejs this will be the initial javascript file to run.</td></tr>
+</table>
+				</div>
+			</div>
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+		 </div>
