@@ -1,4 +1,3 @@
-#!/usr/bin/php -q
 <?php
 /* IN MY WORLD AGAIN.
    Now, we first had to do some applescript which now makes us have $argv[1] be JUST a .desk file - which is a JSON file.
@@ -13,11 +12,15 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Preperation
-$file = $argv[1];
+$self = array_shift($argv); // Cut ourself out
 define( "Contents", 	realpath( dirname(__FILE__)."/.." ) );
 define( "Resources", 	realpath( dirname(__FILE__)."/../Resources" ) );
 define( "Frameworks", 	realpath( dirname(__FILE__)."/../Frameworks" ) );
 define( "MacOS", 		realpath( dirname(__FILE__) ) );
+$file = implode(" ",$argv);
+if(!file_exists($file)) {
+	$file=Contents."/demo/demo-docs.desk";
+}
 
 // Just for this stage of development - change this later!
 $decl = Contents."/../../../../desk.decl";
@@ -52,7 +55,7 @@ switch(strtolower($desk->backend)) {
 	break;
 	case "php":
 		include "deskshell.php";
-		Deskshell::main($desk);
+		Deskshell::main($desk, dirname($file));
 	break;
 	default: die("No vaild backend specified!"); break;
 }

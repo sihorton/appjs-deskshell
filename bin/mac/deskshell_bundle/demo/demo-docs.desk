@@ -1,0 +1,14 @@
+{
+	"name":"default"
+	,"version":"0.8.4"
+	,"author":"sihorton"
+	,"description":"default app shown when you start deskshell"
+	,"main":"app.js"
+	,"licence":"MIT"
+	,"frontend":"chromium-portable"
+	,"backend":"node"
+	,"defaultLocation":"index.htm"
+	,"width":1024
+	,"height":640
+	,"htdocs":"/content"
+}

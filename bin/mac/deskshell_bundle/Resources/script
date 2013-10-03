@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Launching wrapper..."
+$(dirname "$0")/../MacOS/wrapper $*
+exit 0

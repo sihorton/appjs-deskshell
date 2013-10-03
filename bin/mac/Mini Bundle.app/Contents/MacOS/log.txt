@@ -1,0 +1,1 @@
+/Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app /Users/Ingwie/Library/Developer/Xcode/DerivedData/Deskshell-test-fmdbeenlpxjnrdexbpwfrweqbkjd/Build/Products/Debug/Deskshell-test.app
