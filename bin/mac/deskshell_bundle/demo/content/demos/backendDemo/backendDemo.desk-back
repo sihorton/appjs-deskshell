@@ -1,0 +1,15 @@
+{
+    "name": "backendDemo",
+    "author": "sihorton",
+    "description": "Demo app that does not open any application window.",
+    "licence": "MIT",
+    "width": "400",
+    "height": "600",
+    "frontend": "none",
+    "backend": "node",
+    "htdocs": "htdocs",
+    "defaultLocation": "index.htm",
+    "main": "app.js",
+    "version": "0.1",
+    "v": "0.1"
+}

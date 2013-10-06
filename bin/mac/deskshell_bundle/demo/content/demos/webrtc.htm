@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>DeskShell SDK</title>
+  <link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+  <link href="fancy.css" rel="stylesheet" type="text/css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="messenger.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:'+location.port);
+    socket.on('alert', function (data) {
+    console.log(data);
+    alert(data.mess);
+    });
+  </script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+  <script src="http://simplewebrtc.com/latest.js"></script>
+  <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+
+  <style>
+  #video,#otherPeer { border-radius: 5px; width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <img src="../deskShell.jpg"/>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="../index.htm">Intro</a></li>
+            <li><a href="../start.htm">Get Started</a></li>
+            <li ><a href="../docs/intro.htm">Docs</a></li>
+            <li class="active"><a href="intro.htm">Demos</a></li>
+            <li><a href="../wiz.htm">AppWizard</a></li>
+            <li><a href="../package.htm">Packager</a></li>
+            <li><a href="../todo.htm">Todo</a></li>
+          </ul>
+          </div>
+      </div>
+    </div>
+     
+    <div class="row">
+      <div class="span4">
+        <ul class="nav nav-list">
+          <li class="nav-header">Demos</li>
+			<li><a href="intro.htm">Intro</a></li>
+          
+			<li class="nav-header">Apps</li>
+			  <li><a href="html_website.htm">html website</a></li>
+			  <li><a href="gaffa_todo.htm">Gaffa Todo</a></li>
+			  <li><a href="svg_clock.htm">SVG Clock Animation</a></li>
+			  <li><a href="kioskDemo.htm">kiosk demo</a></li>
+			  <li><a href="soundDemo.htm">sound demo</a></li>
+
+			<li class="nav-header">Snippets</li>
+			  <li><a href="launchApp.htm">launchApp</a></li>
+			  <li class="active"><a href="webrtc.htm">WebRTC Video</a></li>
+        </ul>
+        <hr>
+       
+      </div>
+ 
+      <div class="row">
+        <div class="span4">
+          <div class="row">
+            <div class="span4">
+              <h3>WebRTC Video</h3>
+              Based on <a href="https://hacks.mozilla.org/2013/07/webrtc-and-the-early-api/">early API</a><br>
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="well well-small text-small" id='room'></div>
+              <div class="well well-small text-small">    
+                <label>Join a room</label>
+                <input type="text" id="new_room" placeholder="Enter room id ... ">
+              </div>
+          </div>
+        </div>
+        <div class="span4"> 
+          <div class="well">
+            <video id="video" autoplay></video>
+            <video id="otherPeer" autoplay></video>
+          </div>
+        </div>    
+            
+      </div>
+    </div>
+  </div>
+
+<script>
+
+
+// get a reference to our FireBase database. You should create your own
+// and replace the URL.
+var dbRef = new Firebase("https://deskshell.firebaseIO.com/");
+var roomRef = dbRef.child("rooms");
+
+// shims!
+var PeerConnection = window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+var SessionDescription = window.mozRTCSessionDescription || window.RTCSessionDescription;
+var IceCandidate = window.mozRTCIceCandidate || window.RTCIceCandidate;
+navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+
+// generate a unique-ish string
+function id () {
+  return (Math.random() * 10000 + 10000 | 0).toString();
+}
+
+// a nice wrapper to send data to FireBase
+function send (room, key, data) {
+  roomRef.child(room).child(key).set(data);
+}
+
+// wrapper function to receive data from FireBase
+function recv (room, type, cb) {
+  roomRef.child(room).child(type).on("value", function (snapshot, key) {
+    var data = snapshot.val();
+    if (data) { cb(data); }
+  });
+}
+
+// generic error handler
+function errorHandler (err) {
+  console.error(err);
+}
+
+
+function roomUpdate (d){
+    var _id = document.getElementById("room");
+    var _content = document.createTextNode("Your ROOM id is: " +d );
+    _id.appendChild(_content);
+}
+
+
+// determine what type of peer we are,
+// offerer or answerer.
+var ROOM = location.hash.substr(1);
+var type = "answerer";
+var otherType = "offerer";
+
+// no room number specified, so create one
+// which makes us the offerer
+if (!ROOM) {
+  
+  ROOM = id();
+  type = "offerer";
+  otherType = "answerer";
+  roomUpdate(ROOM);
+  //document.write("<a href='#"+ROOM+"'>Send link to other peer</a>");
+}
+
+
+// generate a unique-ish room number
+var ME = id();
+
+// options for the PeerConnection
+var server = {
+  iceServers: [
+    {url: "stun:23.21.150.121"},
+    {url: "stun:stun.l.google.com:19302"}
+   
+  ]
+};
+
+var options = {
+  optional: [
+    {DtlsSrtpKeyAgreement: true}
+  ]
+}
+
+// create the PeerConnection
+var pc = new PeerConnection(server, options);
+
+pc.onicecandidate = function (e) {
+  // take the first candidate that isn't null
+  if (!e.candidate) { return; }
+  pc.onicecandidate = null;
+
+  // request the other peers ICE candidate
+  recv(ROOM, "candidate:" + otherType, function (candidate) {
+    pc.addIceCandidate(new IceCandidate(JSON.parse(candidate)));
+  });
+
+  // send our ICE candidate
+  send(ROOM, "candidate:"+type, JSON.stringify(e.candidate));
+};
+
+// grab the video elements from the document
+var video = document.getElementById("video");
+var video2 = document.getElementById("otherPeer");
+
+// get the user's media, in this case just video
+navigator.getUserMedia({video: true}, function (stream) {
+  // set one of the video src to the stream
+  video.src = URL.createObjectURL(stream);
+
+  // add the stream to the PeerConnection
+  pc.addStream(stream);
+
+  // now we can connect to the other peer
+  connect();
+}, errorHandler);
+
+// when we get the other peer's stream, add it to the second
+// video element.
+pc.onaddstream = function (e) {
+  video2.src = URL.createObjectURL(e.stream);
+};
+
+// constraints on the offer SDP. Easier to set these
+// to true unless you don't want to receive either audio
+// or video.
+var constraints = {
+  mandatory: {
+        OfferToReceiveAudio: true,
+        OfferToReceiveVideo: true
+    }
+};
+
+// start the connection!
+function connect () {
+  if (type === "offerer") {
+    // create the offer SDP
+    pc.createOffer(function (offer) {
+      pc.setLocalDescription(offer);
+
+      // send the offer SDP to FireBase
+      send(ROOM, "offer", JSON.stringify(offer));
+
+      // wait for an answer SDP from FireBase
+      recv(ROOM, "answer", function (answer) {
+        pc.setRemoteDescription(
+          new SessionDescription(JSON.parse(answer))
+        );
+      });
+    }, errorHandler, constraints);
+
+  } else {
+    // answerer needs to wait for an offer before
+    // generating the answer SDP
+    recv(ROOM, "offer", function (offer) {
+      pc.setRemoteDescription(
+        new SessionDescription(JSON.parse(offer))
+      );
+
+      // now we can generate our answer SDP
+      pc.createAnswer(function (answer) {
+        pc.setLocalDescription(answer);
+
+        // send it to FireBase
+        send(ROOM, "answer", JSON.stringify(answer));
+      }, errorHandler, constraints);  
+    }); 
+  }
+}
+</script>
+
+
+
+  
+</body>

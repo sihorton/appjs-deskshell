@@ -1,0 +1,428 @@
+Browser: Browser Object
+(
+    [htport] => 6853
+    [crport] => 7974
+    [desk] => stdClass Object
+        (
+            [name] => PHP demo
+            [author] => https://github.com/IngwiePhoenix/
+            [description] => A light demo to demonstrate the PHP backend
+            [licence] => MIT
+            [width] => 400
+            [height] => 600
+            [frontend] => chromium
+            [backend] => php
+            [htdocs] => htdocs
+            [defaultLocation] => index.php
+            [main] => app.php
+            [version] => 0.1
+            [v] => 0.1
+            [mode] => app
+            [debug] => 
+        )
+
+)
+
+
+
+Server: Server Object
+(
+    [htdocs] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/htdocs
+    [defaultLocation] => index.php
+    [port] => 6853
+    [glob] => Array
+        (
+            [_GET] => Array
+                (
+                )
+
+            [_POST] => Array
+                (
+                )
+
+            [_COOKIE] => Array
+                (
+                )
+
+            [_FILES] => Array
+                (
+                )
+
+            [argv] => Array
+                (
+                    [0] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+                )
+
+            [argc] => 2
+            [_SERVER] => Array
+                (
+                    [SHELL] => /bin/bash
+                    [TMPDIR] => /var/folders/r0/k8ytfc6j0fl13f3sh7jtkz440000gn/T/
+                    [Apple_PubSub_Socket_Render] => /tmp/launch-MZqiMf/Render
+                    [USER] => Ingwie
+                    [COMMAND_MODE] => unix2003
+                    [SSH_AUTH_SOCK] => /tmp/launch-syOwbW/Listeners
+                    [Apple_Ubiquity_Message] => /tmp/launch-oSdktc/Apple_Ubiquity_Message
+                    [__CF_USER_TEXT_ENCODING] => 0x1F5:0:3
+                    [PATH] => /usr/bin:/bin:/usr/sbin:/sbin
+                    [PWD] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources
+                    [COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/INGWIE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET] => /tmp/launch-uR7FXq/ServiceProcessSocket
+                    [HOME] => /Users/Ingwie
+                    [SHLVL] => 2
+                    [LOGNAME] => Ingwie
+                    [DISPLAY] => /tmp/launch-shxTlX/org.macosforge.xquartz:0
+                    [_] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/php
+                    [PHP_SELF] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                    [SCRIPT_NAME] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                    [SCRIPT_FILENAME] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                    [PATH_TRANSLATED] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                    [DOCUMENT_ROOT] => 
+                    [REQUEST_TIME_FLOAT] => 1380816320.9298
+                    [REQUEST_TIME] => 1380816320
+                    [argv] => Array
+                        (
+                            [0] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                            [1] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+                        )
+
+                    [argc] => 2
+                )
+
+            [self] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+            [file] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+            [decl] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/../../../../desk.decl
+            [declDefs] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/../../../../desk.decl-defs
+            [declVals] => stdClass Object
+                (
+                    [name] => default
+                    [version] => 0.0
+                    [author] => Unknown
+                    [description] => Unknown
+                    [main] => app.js
+                    [licence] => MIT
+                    [frontend] => chromium-portable
+                    [backend] => node
+                    [htdocs] => htdocs
+                    [defaultLocation] => index.html
+                    [mode] => app
+                    [debug] => 
+                )
+
+            [desk] => stdClass Object
+                (
+                    [name] => PHP demo
+                    [author] => https://github.com/IngwiePhoenix/
+                    [description] => A light demo to demonstrate the PHP backend
+                    [licence] => MIT
+                    [width] => 400
+                    [height] => 600
+                    [frontend] => chromium
+                    [backend] => php
+                    [htdocs] => htdocs
+                    [defaultLocation] => index.php
+                    [main] => app.php
+                    [version] => 0.1
+                    [v] => 0.1
+                    [mode] => app
+                    [debug] => 
+                )
+
+            [val] => 
+            [key] => debug
+            [opt] => Array
+                (
+                )
+
+            [vs] => 
+            [cmd] => Array
+                (
+                )
+
+            [_ENV] => Array
+                (
+                    [SHELL] => /bin/bash
+                    [TMPDIR] => /var/folders/r0/k8ytfc6j0fl13f3sh7jtkz440000gn/T/
+                    [Apple_PubSub_Socket_Render] => /tmp/launch-MZqiMf/Render
+                    [USER] => Ingwie
+                    [COMMAND_MODE] => unix2003
+                    [SSH_AUTH_SOCK] => /tmp/launch-syOwbW/Listeners
+                    [Apple_Ubiquity_Message] => /tmp/launch-oSdktc/Apple_Ubiquity_Message
+                    [__CF_USER_TEXT_ENCODING] => 0x1F5:0:3
+                    [PATH] => /usr/bin:/bin:/usr/sbin:/sbin
+                    [PWD] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources
+                    [COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/INGWIE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET] => /tmp/launch-uR7FXq/ServiceProcessSocket
+                    [HOME] => /Users/Ingwie
+                    [SHLVL] => 2
+                    [LOGNAME] => Ingwie
+                    [DISPLAY] => /tmp/launch-shxTlX/org.macosforge.xquartz:0
+                    [_] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/php
+                )
+
+            [GLOBALS] => Array
+                (
+                    [_GET] => Array
+                        (
+                        )
+
+                    [_POST] => Array
+                        (
+                        )
+
+                    [_COOKIE] => Array
+                        (
+                        )
+
+                    [_FILES] => Array
+                        (
+                        )
+
+                    [argv] => Array
+                        (
+                            [0] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+                        )
+
+                    [argc] => 2
+                    [_SERVER] => Array
+                        (
+                            [SHELL] => /bin/bash
+                            [TMPDIR] => /var/folders/r0/k8ytfc6j0fl13f3sh7jtkz440000gn/T/
+                            [Apple_PubSub_Socket_Render] => /tmp/launch-MZqiMf/Render
+                            [USER] => Ingwie
+                            [COMMAND_MODE] => unix2003
+                            [SSH_AUTH_SOCK] => /tmp/launch-syOwbW/Listeners
+                            [Apple_Ubiquity_Message] => /tmp/launch-oSdktc/Apple_Ubiquity_Message
+                            [__CF_USER_TEXT_ENCODING] => 0x1F5:0:3
+                            [PATH] => /usr/bin:/bin:/usr/sbin:/sbin
+                            [PWD] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources
+                            [COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/INGWIE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET] => /tmp/launch-uR7FXq/ServiceProcessSocket
+                            [HOME] => /Users/Ingwie
+                            [SHLVL] => 2
+                            [LOGNAME] => Ingwie
+                            [DISPLAY] => /tmp/launch-shxTlX/org.macosforge.xquartz:0
+                            [_] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/php
+                            [PHP_SELF] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                            [SCRIPT_NAME] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                            [SCRIPT_FILENAME] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                            [PATH_TRANSLATED] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                            [DOCUMENT_ROOT] => 
+                            [REQUEST_TIME_FLOAT] => 1380816320.9298
+                            [REQUEST_TIME] => 1380816320
+                            [argv] => Array
+                                (
+                                    [0] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                                    [1] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+                                )
+
+                            [argc] => 2
+                        )
+
+                    [self] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                    [file] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+                    [decl] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/../../../../desk.decl
+                    [declDefs] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/../../../../desk.decl-defs
+                    [declVals] => stdClass Object
+                        (
+                            [name] => default
+                            [version] => 0.0
+                            [author] => Unknown
+                            [description] => Unknown
+                            [main] => app.js
+                            [licence] => MIT
+                            [frontend] => chromium-portable
+                            [backend] => node
+                            [htdocs] => htdocs
+                            [defaultLocation] => index.html
+                            [mode] => app
+                            [debug] => 
+                        )
+
+                    [desk] => stdClass Object
+                        (
+                            [name] => PHP demo
+                            [author] => https://github.com/IngwiePhoenix/
+                            [description] => A light demo to demonstrate the PHP backend
+                            [licence] => MIT
+                            [width] => 400
+                            [height] => 600
+                            [frontend] => chromium
+                            [backend] => php
+                            [htdocs] => htdocs
+                            [defaultLocation] => index.php
+                            [main] => app.php
+                            [version] => 0.1
+                            [v] => 0.1
+                            [mode] => app
+                            [debug] => 
+                        )
+
+                    [val] => 
+                    [key] => debug
+                    [opt] => Array
+                        (
+                        )
+
+                    [vs] => 
+                    [cmd] => Array
+                        (
+                        )
+
+                    [_ENV] => Array
+                        (
+                            [SHELL] => /bin/bash
+                            [TMPDIR] => /var/folders/r0/k8ytfc6j0fl13f3sh7jtkz440000gn/T/
+                            [Apple_PubSub_Socket_Render] => /tmp/launch-MZqiMf/Render
+                            [USER] => Ingwie
+                            [COMMAND_MODE] => unix2003
+                            [SSH_AUTH_SOCK] => /tmp/launch-syOwbW/Listeners
+                            [Apple_Ubiquity_Message] => /tmp/launch-oSdktc/Apple_Ubiquity_Message
+                            [__CF_USER_TEXT_ENCODING] => 0x1F5:0:3
+                            [PATH] => /usr/bin:/bin:/usr/sbin:/sbin
+                            [PWD] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources
+                            [COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/INGWIE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET] => /tmp/launch-uR7FXq/ServiceProcessSocket
+                            [HOME] => /Users/Ingwie
+                            [SHLVL] => 2
+                            [LOGNAME] => Ingwie
+                            [DISPLAY] => /tmp/launch-shxTlX/org.macosforge.xquartz:0
+                            [_] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/php
+                        )
+
+                    [GLOBALS] => Array
+                        (
+                            [_GET] => Array
+                                (
+                                )
+
+                            [_POST] => Array
+                                (
+                                )
+
+                            [_COOKIE] => Array
+                                (
+                                )
+
+                            [_FILES] => Array
+                                (
+                                )
+
+                            [argv] => Array
+                                (
+                                    [0] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+                                )
+
+                            [argc] => 2
+                            [_SERVER] => Array
+                                (
+                                    [SHELL] => /bin/bash
+                                    [TMPDIR] => /var/folders/r0/k8ytfc6j0fl13f3sh7jtkz440000gn/T/
+                                    [Apple_PubSub_Socket_Render] => /tmp/launch-MZqiMf/Render
+                                    [USER] => Ingwie
+                                    [COMMAND_MODE] => unix2003
+                                    [SSH_AUTH_SOCK] => /tmp/launch-syOwbW/Listeners
+                                    [Apple_Ubiquity_Message] => /tmp/launch-oSdktc/Apple_Ubiquity_Message
+                                    [__CF_USER_TEXT_ENCODING] => 0x1F5:0:3
+                                    [PATH] => /usr/bin:/bin:/usr/sbin:/sbin
+                                    [PWD] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources
+                                    [COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/INGWIE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET] => /tmp/launch-uR7FXq/ServiceProcessSocket
+                                    [HOME] => /Users/Ingwie
+                                    [SHLVL] => 2
+                                    [LOGNAME] => Ingwie
+                                    [DISPLAY] => /tmp/launch-shxTlX/org.macosforge.xquartz:0
+                                    [_] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/php
+                                    [PHP_SELF] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                                    [SCRIPT_NAME] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                                    [SCRIPT_FILENAME] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                                    [PATH_TRANSLATED] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                                    [DOCUMENT_ROOT] => 
+                                    [REQUEST_TIME_FLOAT] => 1380816320.9298
+                                    [REQUEST_TIME] => 1380816320
+                                    [argv] => Array
+                                        (
+                                            [0] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                                            [1] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+                                        )
+
+                                    [argc] => 2
+                                )
+
+                            [self] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/desk_parse
+                            [file] => /Users/Ingwie/Work/appjs-deskshell/apps/php-demo1/app.desk
+                            [decl] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/../../../../desk.decl
+                            [declDefs] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/../../../../desk.decl-defs
+                            [declVals] => stdClass Object
+                                (
+                                    [name] => default
+                                    [version] => 0.0
+                                    [author] => Unknown
+                                    [description] => Unknown
+                                    [main] => app.js
+                                    [licence] => MIT
+                                    [frontend] => chromium-portable
+                                    [backend] => node
+                                    [htdocs] => htdocs
+                                    [defaultLocation] => index.html
+                                    [mode] => app
+                                    [debug] => 
+                                )
+
+                            [desk] => stdClass Object
+                                (
+                                    [name] => PHP demo
+                                    [author] => https://github.com/IngwiePhoenix/
+                                    [description] => A light demo to demonstrate the PHP backend
+                                    [licence] => MIT
+                                    [width] => 400
+                                    [height] => 600
+                                    [frontend] => chromium
+                                    [backend] => php
+                                    [htdocs] => htdocs
+                                    [defaultLocation] => index.php
+                                    [main] => app.php
+                                    [version] => 0.1
+                                    [v] => 0.1
+                                    [mode] => app
+                                    [debug] => 
+                                )
+
+                            [val] => 
+                            [key] => debug
+                            [opt] => Array
+                                (
+                                )
+
+                            [vs] => 
+                            [cmd] => Array
+                                (
+                                )
+
+                            [_ENV] => Array
+                                (
+                                    [SHELL] => /bin/bash
+                                    [TMPDIR] => /var/folders/r0/k8ytfc6j0fl13f3sh7jtkz440000gn/T/
+                                    [Apple_PubSub_Socket_Render] => /tmp/launch-MZqiMf/Render
+                                    [USER] => Ingwie
+                                    [COMMAND_MODE] => unix2003
+                                    [SSH_AUTH_SOCK] => /tmp/launch-syOwbW/Listeners
+                                    [Apple_Ubiquity_Message] => /tmp/launch-oSdktc/Apple_Ubiquity_Message
+                                    [__CF_USER_TEXT_ENCODING] => 0x1F5:0:3
+                                    [PATH] => /usr/bin:/bin:/usr/sbin:/sbin
+                                    [PWD] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources
+                                    [COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/INGWIE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET] => /tmp/launch-uR7FXq/ServiceProcessSocket
+                                    [HOME] => /Users/Ingwie
+                                    [SHLVL] => 2
+                                    [LOGNAME] => Ingwie
+                                    [DISPLAY] => /tmp/launch-shxTlX/org.macosforge.xquartz:0
+                                    [_] => /Users/Ingwie/Work/appjs-deskshell/bin/mac/Deskshell.app/Contents/Resources/../MacOS/php
+                                )
+
+                            [GLOBALS] => 
+                        )
+
+                )
+
+        )
+
+    [stdout] => Resource id #20
+)
+
+
+

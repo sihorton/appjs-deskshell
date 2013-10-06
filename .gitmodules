@@ -1,0 +1,3 @@
+[submodule "bin/mac/Deskshell.app/Contents/php_modules/phpws"]
+	path = bin/mac/Deskshell.app/Contents/php_modules/phpws
+	url = https://github.com/Devristo/phpws.git
