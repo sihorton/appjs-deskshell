@@ -12,7 +12,7 @@ Try it out now with the following download:
 + [MacOS](http://deskshell.org?download=MacInstall)
 + Linux coming soon.
 
-Developing:
+Source Code:
 ========
 
 The quickest way to start is to download the distributable for your platform and try making some applications. 
