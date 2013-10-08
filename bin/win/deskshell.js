@@ -29,16 +29,20 @@ deskShell.envPath = __dirname+"/deskshell-env.js";
 					if (error) return console.log("update failed:"+error);
 					var lines = body.split("\n");
 					fs.readFile(__dirname+"/installer-version.txt", 'utf8', function (err, data) {
-						var lines2 = data.split("\n");
-						console.log("checking if upgrade available:",lines[0].replace(/\r/, '')+">"+lines2[0]);
-						if (upgradeNeeded(lines[0],lines2[0])) {
-							console.log("upgrade available, launching updater.");
-							console.log(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath));
-							require('child_process').exec(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath),function(error, stdout, stderr) {
-								if (error) console.log("upgrade failed.");
-							});
+						if (err) {
+							//installer version not defined, you are probably running from a git checkout.
 						} else {
-							console.log("no upgrade available.");
+							var lines2 = data.split("\n");
+							console.log("checking if upgrade available:",lines[0].replace(/\r/, '')+">"+lines2[0]);
+							if (upgradeNeeded(lines[0],lines2[0])) {
+								console.log("upgrade available, launching updater.");
+								console.log(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath));
+								require('child_process').exec(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath),function(error, stdout, stderr) {
+									if (error) console.log("upgrade failed.");
+								});
+							} else {
+								console.log("no upgrade available.");
+							}
 						}
 					});
 				});
