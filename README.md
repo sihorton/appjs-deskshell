@@ -1,4 +1,4 @@
-deskshell
+Deskshell
 =========
 
 Deskshell is a SDK that provides a shell (as in egg shell) around web applications so that they can run on the 
