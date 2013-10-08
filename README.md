@@ -6,12 +6,15 @@ a desktop app with a frontend built using web technologies. The application can 
 built using familiar server scripts like nodejs or php. This backend allows you to access databases,
 write to disk and do whatever you need outside of the browser sandbox.
 
+Download:
++ [Windows](http://deskshell.org?download=WindowsInstall)
++ [MacOS](http://deskshell.org?download=MacInstall)
 
 Windows:
 ========
 
 The quickest way to start using deskshell for windows is to download the installer. This includes an example app
-that also serves as documentation and guide for the project. http://appjs.delightfulsoftware.com/deskshell/.
+that also serves as documentation and guide for the project. http://deskshell.org/.
 To develop the code git clone the repository and then read the bin/win/readme.txt file for further details.
 
 Mac:
