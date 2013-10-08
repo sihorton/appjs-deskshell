@@ -14,9 +14,13 @@ Try it out now with the following download:
 
 Community:
 ========
-We are a very diverse community that welcomes people who have english as a second language and would love this project
-to be your first accepted commit to an open source project. There are many things that are not strictly coding that you
-can do, maybe you can write an example app, improve our documentation, answer questions on the forums or write a tutorial.
+We are a very diverse community that welcomes people who have english as a second language. We are open and welcoming
+to new people both experienced super hackers and newbies alike. We would love this project
+to be your first accepted commit to an open source project. 
+There are also many things that are not strictly coding that you
+can do, maybe you can write an example app, improve our documentation, answer questions on the forums or write a 
+tutorial. Mostly just have fun making apps and when you see something that could be better have a go at improving
+it and then share it with the community.
 
 Join us on the [mailing list](https://groups.google.com/d/forum/appjs-dev)
 
@@ -34,4 +38,13 @@ Then look at the readme for your platform (
 [MacOS Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac) | 
 [Linux Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/linux)
 )
+
+AppJS:
+=======
+
+This project grew out of the excellent work of [Milani](https://github.com/milani), [Benvie](https://github.com/Benvie) 
+and others on the [appjs](https://github.com/appjs/appjs/) project. It is very similar in spirit and nature but
+the source code is based in javascript rather than C++ which the majority of our users are more familiar with. This 
+expands the pool of programmers that can contribute to the project and makes it more accessible for beginners. If you
+have C++ skills then you are welcome to help us on creating and improving an embedded chromium frontend for deskshell.
 
