@@ -1,2 +1,2 @@
-0.8.9
-http://appjs.delightfulsoftware.com/deskshell/?download=deskshell-install.exe
+0.8.10
+http://deskshell.org/?download=WindowsInstall
