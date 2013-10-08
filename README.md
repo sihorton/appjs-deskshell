@@ -12,6 +12,14 @@ Try it out now with the following download:
 + [MacOS](http://deskshell.org?download=MacInstall)
 + Linux coming soon.
 
+Community:
+========
+We are a very diverse community that welcomes people who have english as a second language and would love this project
+to be your first accepted commit to an open source project. There are many things that are not strictly coding that you
+can do, maybe you can write an example app, improve our documentation, answer questions on the forums or write a tutorial.
+
+Join us on the [mailing list](https://groups.google.com/d/forum/appjs-dev)
+
 Source Code:
 ========
 
