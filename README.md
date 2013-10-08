@@ -1,33 +1,29 @@
-appjs-deskshell
-===============
+deskshell
+=========
 
-SDK for building desktop applications using html5 / css / js. A simple json file with a .desk extension launches
-a desktop app with a frontend built using web technologies. The application can communicate with a backend
-built using familiar server scripts like nodejs or php. This backend allows you to access databases,
-write to disk and do whatever you need outside of the browser sandbox.
+Deskshell is a SDK that provides a shell (as in egg shell) around web applications so that they can run on the 
+desktop. It gives you a modern HTML5 / CSS / JS frontend for your user interface, but then allows full backend 
+functionality written in popular server scripting languages that anyone can pick up like node or php 
+(more choices coming soon). This makes it possible to read and write directly to disk, 
+access databases, communicate with servers and solve the task at hand.
 
-Download:
+Try it out now with the following download:
 + [Windows](http://deskshell.org?download=WindowsInstall)
 + [MacOS](http://deskshell.org?download=MacInstall)
++ Linux coming soon.
 
-Windows:
+Developing:
 ========
 
-The quickest way to start using deskshell for windows is to download the installer. This includes an example app
-that also serves as documentation and guide for the project. http://deskshell.org/.
-To develop the code git clone the repository and then read the bin/win/readme.txt file for further details.
+The quickest way to start is to download the distributable for your platform and try making some applications. 
+The distributable will launch an example application that also serves as documentation and guide for the project.
+To get deskshell source code:
 
-Mac:
-====
-Please see the main instructions for the mac port here: https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac
+    git clone https://github.com/sihorton/appjs-deskshell.git
+    
+Then look at the readme for your platform (
+[Windows Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/win) | 
+[MacOS Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac) | 
+[Linux Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/linux)
+)
 
-You can checkout the repository using git and then run the installer/mac/bootstrap.sh script.
-
-Linux:
-============
-
-Take a look at bin/linux folder. We will release an installer in the future.
-
-
-
-See http://appjs.delightfulsoftware.com/ for my previous work on packaging appjs for windows and linux.
