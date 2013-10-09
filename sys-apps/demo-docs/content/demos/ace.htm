@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>DeskShell SDK</title>
+  <link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+  <link href="fancy.css" rel="stylesheet" type="text/css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="messenger.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:'+location.port);
+    socket.on('alert', function (data) {
+    console.log(data);
+    alert(data.mess);
+    });
+  </script>
+
+<!--
+        
+-->
+</head>
+<body>
+  <div class="container">
+  <img src="../deskShell.jpg"/>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="../index.htm">Intro</a></li>
+            <li><a href="../start.htm">Get Started</a></li>
+            <li ><a href="../docs/intro.htm">Docs</a></li>
+            <li class="active"><a href="demos.htm">Demos</a></li>
+            <li><a href="../wiz.htm">AppWizard</a></li>
+            <li><a href="../package.htm">Packager</a></li>
+            <li><a href="../todo.htm">Todo</a></li>
+          </ul>
+          </div>
+      </div>
+    </div>
+     
+    <div class="row">
+      <div class="span4">
+         <ul class="nav nav-list">
+        <li class="nav-header">Demos</li>
+          <li><a href="intro.htm">Intro</a></li>
+        
+        <li class="nav-header">Apps</li>
+          <li><a href="html_website.htm">html website</a></li>
+          <li><a href="gaffa_todo.htm">Gaffa Todo</a></li>
+          <li><a href="svg_clock.htm">SVG Clock Animation</a></li>
+          <li><a href="kioskDemo.htm">kiosk demo</a></li>
+          <li><a href="soundDemo.htm">sound demo</a></li>
+          <li><a href="backendDemo.htm">backend demo</a></li>
+          <li><a href="leaflet.htm">Leaflet.js</a></li>
+          <li  class="active"><a href="ace.htm">ACE editor</a></li>
+          <li><a href="revealjs.htm">Reveal.js</a></li>
+        
+        <li class="nav-header">Snippets</li>
+          <li><a href="launchApp.htm">launchApp</a></li>
+          <li><a href="webrtc.htm">WebRTC</a></li>
+        </ul>
+        <hr>
+       
+      </div>
+ 
+      <div class="row">
+        <div class="span8">
+          <h3>ACE code editor</h3>
+          <p>Ace is an embeddable code editor written in JavaScript.</p>
+          <blockquote>
+            <p>It matches the features and performance of native editors such as Sublime, Vim and TextMate. It can be easily embedded in any web page and JavaScript application. Ace is maintained as the primary editor for Cloud9 IDE and is the successor of the Mozilla Skywriter (Bespin) project.</p>
+            <small>ACE <a href="http://ace.c9.io/#nav=about">website</a></small>
+          </blockquote>
+          <a onclick="socket.emit('LaunchApp',{relpath:'content/demos/ace/app.desk'});" class="btn btn-success">Launch Demo</a>
+           <a onclick="socket.emit('OpenFolder',{relpath:'content/demos/ace/app.desk'});" class="btn btn-info"><i class="icon-star icon-white"></i> View Source</a>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+
+
+</body>

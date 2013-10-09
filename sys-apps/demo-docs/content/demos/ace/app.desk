@@ -1,0 +1,16 @@
+{
+	"name":"default"
+	,"version":"0.1"
+	,"author":"smaud"
+	,"description":"ACE code editor"
+	,"licence":"MIT"
+	
+	
+	,"htdocs":"htdocs"
+	,"main":"app.js"
+	,"frontend":"chromium-portable"
+	,"backend":"node"
+	,"defaultLocation": "index.htm",
+    
+	"appSocket":true
+}

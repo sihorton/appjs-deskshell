@@ -1,0 +1,17 @@
+{
+	"name":"default"
+	,"version":"0.1"
+	,"author":"smaud"
+	,"description":"Reveal.js - HTML presenations"
+	,"licence":"MIT"
+	
+	
+	,"htdocs":"htdocs"
+	,"main":"app.js"
+	,"frontend":"chromium-portable"
+	,"backend":"node"
+	,"defaultLocation": "index.htm",
+    	"width": "800",
+    	"height": "500",
+	"appSocket":true
+}

@@ -21,6 +21,12 @@
 
   <style>
   #video,#otherPeer { border-radius: 5px; width: 100%; }
+ 
+ /*
+   
+  #console { width: 290px; height: 228px; padding: 2px; font-family: consolas; color: grey; font-size: 12px; overflow: auto}
+  #console { height: 40px; overflow: auto}
+  */
   </style>
 </head>
 <body>
@@ -33,7 +39,7 @@
             <li><a href="../index.htm">Intro</a></li>
             <li><a href="../start.htm">Get Started</a></li>
             <li ><a href="../docs/intro.htm">Docs</a></li>
-            <li class="active"><a href="intro.htm">Demos</a></li>
+            <li class="active"><a href="demos.htm">Demos</a></li>
             <li><a href="../wiz.htm">AppWizard</a></li>
             <li><a href="../package.htm">Packager</a></li>
             <li><a href="../todo.htm">Todo</a></li>
@@ -45,33 +51,38 @@
     <div class="row">
       <div class="span4">
         <ul class="nav nav-list">
-          <li class="nav-header">Demos</li>
-			<li><a href="intro.htm">Intro</a></li>
-          
-			<li class="nav-header">Apps</li>
-			  <li><a href="html_website.htm">html website</a></li>
-			  <li><a href="gaffa_todo.htm">Gaffa Todo</a></li>
-			  <li><a href="svg_clock.htm">SVG Clock Animation</a></li>
-			  <li><a href="kioskDemo.htm">kiosk demo</a></li>
-			  <li><a href="soundDemo.htm">sound demo</a></li>
-
-			<li class="nav-header">Snippets</li>
-			  <li><a href="launchApp.htm">launchApp</a></li>
-			  <li class="active"><a href="webrtc.htm">WebRTC Video</a></li>
+        <li class="nav-header">Demos</li>
+          <li><a href="intro.htm">Intro</a></li>
+        
+        <li class="nav-header">Apps</li>
+          <li><a href="html_website.htm">html website</a></li>
+          <li><a href="gaffa_todo.htm">Gaffa Todo</a></li>
+          <li><a href="svg_clock.htm">SVG Clock Animation</a></li>
+          <li><a href="kioskDemo.htm">kiosk demo</a></li>
+          <li><a href="soundDemo.htm">sound demo</a></li>
+          <li><a href="backendDemo.htm">backend demo</a></li>
+          <li><a href="leaflet.htm">Leaflet.js</a></li>
+          <li><a href="ace.htm">ACE editor</a></li>
+          <li><a href="revealjs.htm">Reveal.js</a></li>
+        
+        <li class="nav-header">Snippets</li>
+          <li><a href="launchApp.htm">launchApp</a></li>
+          <li class="active"><a href="webrtc.htm">WebRTC</a></li>
         </ul>
-        <hr>
-       
-      </div>
+       </div>
  
       <div class="row">
-        <div class="span4">
+        <div class="span8">
           <div class="row">
             <div class="span4">
               <h3>WebRTC Video</h3>
-              Based on <a href="https://hacks.mozilla.org/2013/07/webrtc-and-the-early-api/">early API</a><br>
+              <video id="video" width="400" height="300" draggable="true" autoplay></video>
+              <br>
+              <p>Based on <a href="https://hacks.mozilla.org/2013/07/webrtc-and-the-early-api/">early API</a><br><p>
             </div>
-            
           </div>
+          <!-- TODO implement a chat room at later date ... we'll get there one day --> 
+          <!--
           <div class="row">
             <div class="well well-small text-small" id='room'></div>
               <div class="well well-small text-small">    
@@ -79,19 +90,40 @@
                 <input type="text" id="new_room" placeholder="Enter room id ... ">
               </div>
           </div>
+          -->
         </div>
-        <div class="span4"> 
-          <div class="well">
-            <video id="video" autoplay></video>
-            <video id="otherPeer" autoplay></video>
-          </div>
-        </div>    
-            
       </div>
     </div>
   </div>
 
 <script>
+  var video = document.querySelector('video');
+  var canvas = document.querySelector('canvas');
+  var ctx = canvas.getContext('2d');
+  var localMediaStream = null;
+
+  function snapshot() {
+    if (localMediaStream) {
+      ctx.drawImage(video, 0, 0);
+      // "image/webp" works in Chrome 18. In other browsers, this will fall back to image/png.
+      document.querySelector('img').src = canvas.toDataURL('image/webp');
+    }
+  }
+
+  video.addEventListener('click', snapshot, false);
+
+  // Not showing vendor prefixes or code that works cross-browser.
+  navigator.getUserMedia({video: true}, function(stream) {
+    video.src = window.URL.createObjectURL(stream);
+    localMediaStream = stream;
+  }, onFailSoHard);
+
+</script>
+
+
+<script>
+
+
 
 
 // get a reference to our FireBase database. You should create your own
@@ -107,7 +139,8 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || 
 
 // generate a unique-ish string
 function id () {
-  return (Math.random() * 10000 + 10000 | 0).toString();
+  //return (Math.random() * 10000 + 10000 | 0).toString();
+  return 'appjs-deskshell-webrtc-wall';
 }
 
 // a nice wrapper to send data to FireBase
@@ -149,7 +182,7 @@ if (!ROOM) {
   ROOM = id();
   type = "offerer";
   otherType = "answerer";
-  roomUpdate(ROOM);
+  //roomUpdate(ROOM);
   //document.write("<a href='#"+ROOM+"'>Send link to other peer</a>");
 }
 
