@@ -3,7 +3,8 @@
 * it will read the application json file, setup required environment and then run the application.
 */
 process.title = "Deskshell";
-var Q = require("q"),fs=require("fs"),path = require("path");
+var Q = require("q"),fs=require("fs"),path = require("path")
+,appfs = require(__dirname + "/node_modules/sihorton-vfs/sihorton-vfs.js");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
 deskShell.platformDir = __dirname;
 deskShell.envPath = __dirname+"/deskshell-env.js";
@@ -50,18 +51,40 @@ deskShell.envPath = __dirname+"/deskshell-env.js";
 		}
 		//file found.
 		var reading = Q.defer();
-		fs.readFile(deskShell.appFile, 'utf8', function (err, data) {
-			if (err) {
-				return reading.reject(err);
-			}
-			try {
-				deskShell.appDef = JSON.parse(data);
-				deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
-			} catch(e) {
-				return reading.reject(e);
-			}
-			return reading.resolve();
-		});
+		if (path.extname(deskShell.appFile) == ".appfs") {
+			console.log("package file");
+			deskShell.packageFile = true;
+			appfs.Mount(deskShell.appFile,function(vfs) {			
+				vfs.readFile("app.desk", 'utf8', function (err, data) {
+					if (err) {
+						return reading.reject(err);
+					}
+					try {
+						deskShell.appDef = JSON.parse(data);
+						deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
+						console.log(deskShell.appDef);
+						return reading.reject("ok so far!");
+					} catch(e) {
+						return reading.reject(e);
+					}
+					return reading.resolve();
+				});
+			});
+		} else {
+			deskShell.packageFile = false;
+			fs.readFile(deskShell.appFile, 'utf8', function (err, data) {
+				if (err) {
+					return reading.reject(err);
+				}
+				try {
+					deskShell.appDef = JSON.parse(data);
+					deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
+				} catch(e) {
+					return reading.reject(e);
+				}
+				return reading.resolve();
+			});
+		}
 		return reading.promise;
 	}).then(function() {
 		
