@@ -55,7 +55,8 @@ deskShell.envPath = __dirname+"/deskshell-env.js";
 			console.log("package file");
 			deskShell.packageFile = true;
 			appfs.Mount(deskShell.appFile,function(vfs) {			
-				vfs.readFile("app.desk", 'utf8', function (err, data) {
+				deskShell.appfs = vfs;
+				deskShell.appfs.readFile("app.desk", 'utf8', function (err, data) {
 					if (err) {
 						return reading.reject(err);
 					}
@@ -63,7 +64,6 @@ deskShell.envPath = __dirname+"/deskshell-env.js";
 						deskShell.appDef = JSON.parse(data);
 						deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
 						console.log(deskShell.appDef);
-						return reading.reject("ok so far!");
 					} catch(e) {
 						return reading.reject(e);
 					}
@@ -72,6 +72,7 @@ deskShell.envPath = __dirname+"/deskshell-env.js";
 			});
 		} else {
 			deskShell.packageFile = false;
+			deskShell.appfs = fs;
 			fs.readFile(deskShell.appFile, 'utf8', function (err, data) {
 				if (err) {
 					return reading.reject(err);
@@ -91,7 +92,18 @@ deskShell.envPath = __dirname+"/deskshell-env.js";
 		switch(deskShell.appDef.backend) {
 			case "node":
 			case "nodejs":
-				require(deskShell.mainFile);
+				if (deskShell.packageFile) {
+					deskShell.appfs.readFile(deskShell.appFile, 'utf8', function (err, data) {
+						try {
+							eval(data);
+						} catch(e) {
+							throw e;
+						}
+					});
+				} else {
+					require(deskShell.mainFile);
+					
+				}
 			break;
 			case "none":
 				//html only backend...
