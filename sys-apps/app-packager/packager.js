@@ -71,7 +71,7 @@ fs.stat(process.argv[2], function(err, stats) {
 										//console.log(files[filepos].name);
 										var reader = fs.createReadStream(files[filepos].path);
 										var packageFile = path.relative(appFolder,files[filepos].path);
-										var writer = vfs.createWriteStream(packageFile);
+										var writer = vfs.createWriteStream(packageFile.replace("\\","/"));
 										writer.on('close',function() {
 											console.log("wrote "+packageFile);
 											addAnotherFile();
