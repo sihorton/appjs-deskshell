@@ -4,7 +4,14 @@
 	<meta charset="utf-8"> 
 	<title>DeskShell SDK</title>
 	<link rel="stylesheet" href="css/bootstrap.css"  type="text/css"/>
-	
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('http://localhost:'+location.port);
+	  socket.on('alert', function (data) {
+		console.log(data);
+		alert(data.mess);
+	  });
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -29,10 +36,10 @@
 			 <div class="hero-unit">
 				<h1>Packager</h1>
 			 
-				<p>In the future deskshell will provide a method to package up your application into a single file for easy deployment to users.</p>
+				<p>When you have a working application you can package it for deployment.</p>
 			 
-				<a href="#" class="btn btn-large btn-success">Not Implemented Yet!</a>
-			 </div>
+	<a onclick="socket.emit('LaunchApp',{relpath:'/../app-packager/app-packager.desk'});" class="btn btn-large btn-success">Package Now!</a>
+		 </div>
 			 
 				<hr>
 					<div class="footer">

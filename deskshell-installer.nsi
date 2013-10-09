@@ -114,7 +114,8 @@ Section "deskshell" SEC01
   File "deskshell.exe"
   File "deskshell_debug.exe"
   
-  ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Application"
+  ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Source Application"
+  ${registerExtension} "$INSTDIR\deskshell.exe" ".appfs" "DeskShell Application"
   ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-debug" "DeskShell Application Debug"
   ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-back" "DeskShell Backend Application"
 
@@ -189,7 +190,8 @@ Section Uninstall
   RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
   RMDir /r "$INSTDIR\"
 
-   ${unregisterExtension} ".desk" "DeskShell Application"
+   ${unregisterExtension} ".desk" "DeskShell Source Application"
+   ${unregisterExtension} ".appfs" "DeskShell Application"
    ${unregisterExtension} ".desk-debug" "DeskShell Application Debug"
    ${unregisterExtension} ".desk-back" "DeskShell Backend Application"
 
