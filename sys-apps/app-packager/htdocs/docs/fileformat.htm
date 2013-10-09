@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell Packager</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Start</a></li>
+                    <li  class="active"><a href="docs/intro.htm">Docs</a></li>
+                    <li><a href="../editapp.htm">Edit App</a></li>
+                    <li><a href="../package.htm">Package App</a></li>
+                 </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Documentation</li>
+					<li><a href="intro.htm">Intro</a></li>
+					<li class="active"><a href="fileformat.htm">file format</a></li>
+					<li><a href="api.htm">api</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>File format</h3>
+				 <p>
+				 It is important that you understand the main concept of packaged applications 
+				 so you understand their limitations. Deskshell provides you with a virtual file
+				 system (AppFS) that contains all of your application files. The api that you get
+				 works in the same way as the nodejs fs module. It has the same methods and parameters
+				 wherever possible. This means that you can exchange the AppFS module for the fs module.
+				 When you run and application from disk this is exactly what happens, the AppFS module
+				 just passes all commands onto the fs module.
+				 </p>
+				 <p>
+				 When you run from inside a packaged app however instead of looking for files on disk
+				 AppFS will serve files from inside the package file. If you read files then you should not
+				 mark any difference when you app is running from your local folder or when it is running
+				 from a package file. However writing is a different case. The file format for a packaged
+				 application is an append only file format. This means that everytime you write to a file
+				 the WHOLE FILE gets added to the end of the package file. So if you modify the same file
+				 three times, the file will exist in the package file 3 times but you will only be able
+				 to access the last version of it. It is possible to compact the package file and what 
+				 will then occur is that the entire package file will be copied but all repeated files
+				 will be disguarded.
+				 </p>
+				 <p>
+				 This design lets us have high performance for reading files which is all you need to
+				 do once you have deployed your application.
+				 </p>
+				 <p>
+				 As long as you understand this limitation then you won't run into any problems. You can 
+				 still write to the local disk as much as you want, just use the standard fs module as you
+				 normally would.
+				 </p>
+				 <p>
+				 The technical details of the file format are extremely simple. The file just contains one
+				 file after the other appended one after the other. Then at the very end of the file there is
+				 a contents listing that specifies the offset and filename for each file.
+				 </p>
+				 <p>* TODO: we need to make the webserver by default include files from both the package
+				 application and direct on disk, maybe have a special /local directory or similar
+				 that always goes to the local folder.</p>
+			</div>
+		</div>
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+</div>
