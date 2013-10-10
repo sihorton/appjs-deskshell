@@ -1,3 +1,0 @@
-to build:
-
-dpkg-deb --build deskshell_0.1-0
