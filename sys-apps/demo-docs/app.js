@@ -1,6 +1,7 @@
 /**
 * this demo shows usage of a deskshell api.
 */
+var htdocs = __dirname+'/content'
 
 var running = deskShell.startApp({
 }).then(function(app) {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>DeskShell SDK</title>
+  <link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+  <link href="fancy.css" rel="stylesheet" type="text/css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="messenger.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:'+location.port);
+    socket.on('alert', function (data) {
+    console.log(data);
+    alert(data.mess);
+    });
+  </script>
+ 
+  <link rel="stylesheet" href="leaflet/htdocs/css/leaflet.css" />
+  <script src="leaflet/htdocs/js/leaflet.js"></script>
+  <style>
+  #video,#otherPeer { border-radius: 5px; width: 100%; }
+ #map { height: 180px; }
+ /*
+   
+  #console { width: 290px; height: 228px; padding: 2px; font-family: consolas; color: grey; font-size: 12px; overflow: auto}
+  #console { height: 40px; overflow: auto}
+  */
+  </style>
+</head>
+<body>
+  <div class="container">
+  <img src="../deskShell.jpg"/>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="../index.htm">Intro</a></li>
+            <li><a href="../start.htm">Get Started</a></li>
+            <li ><a href="../docs/intro.htm">Docs</a></li>
+            <li class="active"><a href="demos.htm">Demos</a></li>
+            <li><a href="../wiz.htm">AppWizard</a></li>
+            <li><a href="../package.htm">Packager</a></li>
+            <li><a href="../todo.htm">Todo</a></li>
+          </ul>
+          </div>
+      </div>
+    </div>
+     
+    <div class="row">
+      <div class="span4">
+         <ul class="nav nav-list">
+        <li class="nav-header">Demos</li>
+          <li><a href="intro.htm">Intro</a></li>
+        
+        <li class="nav-header">Apps</li>
+          <li><a href="html_website.htm">html website</a></li>
+          <li><a href="gaffa_todo.htm">Gaffa Todo</a></li>
+          <li><a href="svg_clock.htm">SVG Clock Animation</a></li>
+          <li><a href="kioskDemo.htm">kiosk demo</a></li>
+          <li><a href="soundDemo.htm">sound demo</a></li>
+          <li><a href="backendDemo.htm">backend demo</a></li>
+          <li class="active"><a href="leaflet.htm">Leaflet.js</a></li>
+          <li><a href="ace.htm">ACE editor</a></li>
+          <li><a href="revealjs.htm">Reveal.js</a></li>
+        
+        <li class="nav-header">Snippets</li>
+          <li><a href="launchApp.htm">launchApp</a></li>
+          <li><a href="webrtc.htm">WebRTC</a></li>
+        </ul>
+        <hr>
+       
+      </div>
+ 
+      <div class="row">
+        <div class="span8">
+          <h3>Leaflet.js</h3>
+          <p>An Open-Source JavaScript Library for Mobile-Friendly Interactive Maps</p>
+          <blockquote>
+            <p>Leaflet is a modern open-source JavaScript library for mobile-friendly interactive maps. It is developed by Vladimir Agafonkin with a team of dedicated contributors. Weighing just about 31 KB of JS, it has all the features most developers ever need for online maps.</p>
+            <small>Leaflet <a href="http://leafletjs.com/index.html">Website</a></small>
+          </blockquote>
+          <a onclick="socket.emit('LaunchApp',{relpath:'content/demos/leaflet/app.desk'});" class="btn btn-success">Launch Demo</a>
+          <a onclick="socket.emit('OpenFolder',{relpath:'content/demos/leaflet/app.desk'});" class="btn btn-info"><i class="icon-star icon-white"></i> View Source</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

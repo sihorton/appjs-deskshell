@@ -1,0 +1,15 @@
+{
+		"name":"default"
+		,"version":"0.1"
+		,"author":"smaud"
+		,"description":"leaflet.js - Open source maps"
+		,"licence":"MIT"
+		,"htdocs":"htdocs"
+		,"main":"app.js"
+		,"frontend":"chromium-portable"
+		,"backend":"node"
+		,"defaultLocation": "index.htm",
+		"width": "635",
+		"height": "455",
+		"appSocket":true
+}
