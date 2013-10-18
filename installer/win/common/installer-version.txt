@@ -1,2 +1,2 @@
-0.8.10
+0.8.11
 http://deskshell.org/?download=WindowsInstall

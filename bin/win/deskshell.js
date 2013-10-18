@@ -56,7 +56,7 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 			console.log("handler file");
 			deskShell.appLaunchFile = deskShell.appFile;
 			var appHandler = deskShell.env.appHandlers[path.extname(deskShell.appFile)];
-			deskShell.appFile = deskShell.installDir+"handlers/"+appHandler.app;
+			deskShell.appFile = deskShell.installDir+"plugins/"+appHandler.app;
 			deskShell.appDir = path.dirname(deskShell.appFile)+"/";
 			
 			console.log("launching handler:",deskShell.appFile);

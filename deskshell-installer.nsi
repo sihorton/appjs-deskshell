@@ -196,6 +196,7 @@ Section Uninstall
   RMDir /r "$INSTDIR\sys-apps"
   Delete "$INSTDIR\deskshell.exe"
   Delete "$INSTDIR\deskshell_debug.exe"
+  Delete "$INSTDIR\uninst.exe"
 
    ${unregisterExtension} ".desk" "DeskShell Source Application"
    ${unregisterExtension} ".appfs" "DeskShell Application"
