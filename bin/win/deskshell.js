@@ -51,26 +51,15 @@ deskShell.envPath = __dirname+"/deskshell-env.js";
 		}
 		//file found.
 		var reading = Q.defer();
-		if (path.extname(deskShell.appFile) == ".appfs") {
-			console.log("package file");
-			deskShell.packageFile = true;
-			appfs.Mount(deskShell.appFile,function(vfs) {			
-				deskShell.appfs = vfs;
-				deskShell.appfs.readFile("app.desk", 'utf8', function (err, data) {
-					if (err) {
-						return reading.reject(err);
-					}
-					try {
-						deskShell.appDef = JSON.parse(data);
-						deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
-						console.log(deskShell.appDef);
-					} catch(e) {
-						return reading.reject(e);
-					}
-					return reading.resolve();
-				});
-			});
-		} else {
+		if (deskShell.env.appHandlers && deskShell.env.appHandlers[path.extname(deskShell.appFile)]) {
+			console.log("handler file");
+			deskShell.appLaunchFile = deskShell.appFile;
+			var appHandler = deskShell.env.appHandlers[path.extname(deskShell.appFile)];
+			deskShell.appFile = __dirname+"/../../handlers/"+appHandler.app;
+			deskShell.appDir = path.dirname(__dirname+"/../../handlers/"+appHandler.app)+"/";
+			
+			console.log("launching handler:",deskShell.appFile);
+			//ideally handlers would actually be a package file.
 			deskShell.packageFile = false;
 			deskShell.appfs = fs;
 			fs.readFile(deskShell.appFile, 'utf8', function (err, data) {
@@ -85,6 +74,42 @@ deskShell.envPath = __dirname+"/deskshell-env.js";
 				}
 				return reading.resolve();
 			});
+		} else {
+			if (path.extname(deskShell.appFile) == ".appfs") {
+				console.log("package file");
+				deskShell.packageFile = true;
+				appfs.Mount(deskShell.appFile,function(vfs) {			
+					deskShell.appfs = vfs;
+					deskShell.appfs.readFile("app.desk", 'utf8', function (err, data) {
+						if (err) {
+							return reading.reject(err);
+						}
+						try {
+							deskShell.appDef = JSON.parse(data);
+							deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
+							console.log(deskShell.appDef);
+						} catch(e) {
+							return reading.reject(e);
+						}
+						return reading.resolve();
+					});
+				});
+			} else {
+				deskShell.packageFile = false;
+				deskShell.appfs = fs;
+				fs.readFile(deskShell.appFile, 'utf8', function (err, data) {
+					if (err) {
+						return reading.reject(err);
+					}
+					try {
+						deskShell.appDef = JSON.parse(data);
+						deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
+					} catch(e) {
+						return reading.reject(e);
+					}
+					return reading.resolve();
+				});
+			}
 		}
 		return reading.promise;
 	}).then(function() {
