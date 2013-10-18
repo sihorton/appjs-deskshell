@@ -6,8 +6,9 @@ process.title = "Deskshell";
 var Q = require("q"),fs=require("fs"),path = require("path")
 ,appfs = require(__dirname + "/node_modules/sihorton-vfs/sihorton-vfs.js");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
-deskShell.platformDir = __dirname;
-deskShell.envPath = __dirname+"/../../deskshell-env.js";
+deskShell.platformDir = __dirname+"/";
+deskShell.installDir = path.normalize(__dirname + "/../../")+"/";
+deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 	
 	deskShell
 	.loadEnv()
@@ -16,7 +17,7 @@ deskShell.envPath = __dirname+"/../../deskshell-env.js";
 		if (process.argv.length <3) {
 			//if no args run default application.
 			deskShell.defaultApp = true;
-			process.argv[2] = deskShell.platformDir+deskShell.env.defaultApp;
+			process.argv[2] = deskShell.installDir+deskShell.env.defaultApp;
 		}
 		deskShell.appFile = process.argv[2];
 		deskShell.appDir = path.dirname(process.argv[2]) + "/";
@@ -55,8 +56,8 @@ deskShell.envPath = __dirname+"/../../deskshell-env.js";
 			console.log("handler file");
 			deskShell.appLaunchFile = deskShell.appFile;
 			var appHandler = deskShell.env.appHandlers[path.extname(deskShell.appFile)];
-			deskShell.appFile = __dirname+"/../../handlers/"+appHandler.app;
-			deskShell.appDir = path.dirname(__dirname+"/../../handlers/"+appHandler.app)+"/";
+			deskShell.appFile = deskShell.installDir+"handlers/"+appHandler.app;
+			deskShell.appDir = path.dirname(deskShell.appFile)+"/";
 			
 			console.log("launching handler:",deskShell.appFile);
 			//ideally handlers would actually be a package file.
