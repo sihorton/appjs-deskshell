@@ -89,6 +89,9 @@ Section "deskshell" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   CreateDirectory "$INSTDIR"
+;create a little text file to tell deskshell it is the first time it is run after an install
+;here we can then update the environment config and options.
+;  File "${COMMON_DIR}\first-run.txt"
   
   SetOutPath "$INSTDIR\sys-apps"
   File /r /x ".git" "sys-apps\"
@@ -104,6 +107,7 @@ Section "deskshell" SEC01
   File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
   File "${COMMON_DIR}\..\deskshell-updater.exe"
   File "${COMMON_DIR}\installer-version.txt"
+  
 
 ;create directory for user apps.
   CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
@@ -188,7 +192,10 @@ Section Uninstall
   Delete "$DESKTOP\${PRODUCT_NAME}.lnk"
 
   RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
-  RMDir /r "$INSTDIR\"
+  RMDir /r "$INSTDIR\bin"
+  RMDir /r "$INSTDIR\sys-apps"
+  Delete "$INSTDIR\deskshell.exe"
+  Delete "$INSTDIR\deskshell_debug.exe"
 
    ${unregisterExtension} ".desk" "DeskShell Source Application"
    ${unregisterExtension} ".appfs" "DeskShell Application"

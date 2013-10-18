@@ -7,7 +7,7 @@ var Q = require("q"),fs=require("fs"),path = require("path")
 ,appfs = require(__dirname + "/node_modules/sihorton-vfs/sihorton-vfs.js");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
 deskShell.platformDir = __dirname;
-deskShell.envPath = __dirname+"/deskshell-env.js";
+deskShell.envPath = __dirname+"/../../deskshell-env.js";
 	
 	deskShell
 	.loadEnv()
