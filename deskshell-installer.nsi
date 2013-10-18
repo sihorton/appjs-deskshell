@@ -127,7 +127,7 @@ Section "deskshell" SEC01
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
   CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\deskshell-updater.lnk" "$INSTDIR\deskshell-updater.exe"
+  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\deskshell-updater.lnk" "$INSTDIR\bin\win\deskshell-updater.exe"
   CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\My Deskshell Apps.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
   CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\NewAppWizard.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\app-wizard\app-wizard.desk"
@@ -194,6 +194,7 @@ Section Uninstall
   RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
   RMDir /r "$INSTDIR\bin"
   RMDir /r "$INSTDIR\sys-apps"
+  RMDir "$INSTDIR\bin"
   Delete "$INSTDIR\deskshell.exe"
   Delete "$INSTDIR\deskshell_debug.exe"
   Delete "$INSTDIR\uninst.exe"
