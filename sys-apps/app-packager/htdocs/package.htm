@@ -102,7 +102,8 @@
 						,htdocs:document.getElementById('htdocs').value
 					});">Save</button>
 					
-					<a onclick="deskShell.socket.emit('LaunchApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Launch App</a>
+					<a onclick="deskShell.socket.emit('PackageApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Package App</a>
+					<a onclick="deskShell.socket.emit('LaunchPackagedApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Launch Packaged App</a>
 			  </div>
 			</form>
 		 </div>
