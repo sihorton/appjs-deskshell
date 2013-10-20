@@ -122,7 +122,12 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 					
 					deskShell.appfs.readFile(deskShell.mainFile, 'utf8', function (err, data) {
 						try {
+							process.chdir(deskShell.appDir);
+							var oldDir = __dirname;
+							console.log(oldDir);
+							__dirname = deskShell.appDir;
 							eval(data.toString());
+							__dirname = oldDir;
 						} catch(e) {
 							throw e;
 						}
