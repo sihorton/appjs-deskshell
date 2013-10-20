@@ -87,7 +87,7 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 						}
 						try {
 							deskShell.appDef = JSON.parse(data);
-							deskShell.mainFile = deskShell.appDir + deskShell.appDef.main;
+							deskShell.mainFile = deskShell.appDef.main;
 							console.log(deskShell.appDef);
 						} catch(e) {
 							return reading.reject(e);
@@ -119,9 +119,10 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 			case "node":
 			case "nodejs":
 				if (deskShell.packageFile) {
-					deskShell.appfs.readFile(deskShell.appFile, 'utf8', function (err, data) {
+					
+					deskShell.appfs.readFile(deskShell.mainFile, 'utf8', function (err, data) {
 						try {
-							eval(data);
+							eval(data.toString());
 						} catch(e) {
 							throw e;
 						}
