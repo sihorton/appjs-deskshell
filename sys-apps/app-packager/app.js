@@ -207,7 +207,6 @@ var running = deskShell.startApp({
 						,'deploy':'deploy'
 						,'.git':'.git'
 					}
-					console.log(appFolder);
 					walk(appFolder,function(err,files) {
 						if (err) {
 							process.stdout.write('Error:' + err);
@@ -223,9 +222,10 @@ var running = deskShell.startApp({
 										//console.log(files[filepos].name);
 										var reader = fs.createReadStream(files[filepos].path);
 										var packageFile = path.relative(appFolder,files[filepos].path);
-										var writer = vfs.createWriteStream(packageFile.replace("\\","/"));
+										var writepackageFile = packageFile.split("\\").join("/");
+										var writer = vfs.createWriteStream(writepackageFile);
 										writer.on('close',function() {
-											console.log("wrote "+packageFile);
+											console.log("wrote** "+writepackageFile);
 											addAnotherFile();
 										});
 										reader.pipe(writer);
