@@ -123,7 +123,6 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 						try {
 							process.chdir(deskShell.appDir);
 							var oldDir = __dirname;
-							console.log(oldDir);
 							__dirname = deskShell.appDir;
 							eval(data.toString());
 							__dirname = oldDir;
