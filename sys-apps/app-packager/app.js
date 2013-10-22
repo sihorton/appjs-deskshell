@@ -1,6 +1,7 @@
 var path = require("path")
 	,fs = require("fs")
 	,appfs = require("sihorton-vfs")
+	,path = require("path")
 ;
 
 var config = {
@@ -213,8 +214,9 @@ var running = deskShell.startApp({
 						} else {
 							//we should now have a complete list of files to add to package...
 							//delete existing and create new package file...
-							fs.unlink(appFolder+'/'+config.deployFolder+'/app.appfs',function() {
-							appfs.Mount(appFolder+'/'+config.deployFolder+'/app.appfs',function(vfs) {
+							var packagef = '/'+config.deployFolder+'/app.appfs';
+							fs.unlink(appFolder+packagef,function() {
+							appfs.Mount(appFolder+packagef,function(vfs) {
 								var filepos=files.length;
 								var addAnotherFile = function() {
 									filepos--;
@@ -225,7 +227,7 @@ var running = deskShell.startApp({
 										var writepackageFile = packageFile.split("\\").join("/");
 										var writer = vfs.createWriteStream(writepackageFile);
 										writer.on('close',function() {
-											console.log("wrote** "+writepackageFile);
+											socket.emit("packageProgress",{text:"added "+writepackageFile});
 											addAnotherFile();
 										});
 										reader.pipe(writer);
@@ -233,6 +235,8 @@ var running = deskShell.startApp({
 										console.log(vfs.dirs);
 										vfs._writeFooter(function() {
 											console.log("wrote footer");
+											socket.emit("packageProgress",{text:"package created: "+packagef});
+											
 										});
 									}
 								}
@@ -249,6 +253,88 @@ var running = deskShell.startApp({
 			
 			
 			
+		});
+		socket.on('PackageAppExe',function(params) {
+			var path = require("path");
+			if (params.relpath) {
+				//deskShell.launchApp(require("path").normalize(deskShell.appDir + params.relpath));
+				appFolder = path.dirname(require("path").normalize(deskShell.appDir + params.relpath));
+				appFolder = path.resolve(appFolder);
+				appPackage = path.resolve(deskShell.appDir + params.relpath);
+			
+			}
+			if (params.abspath) {
+				//deskShell.launchApp(require("path").normalize(params.abspath));
+				appFolder = path.dirname(require("path").normalize(params.abspath));
+				appFolder = path.resolve(appFolder);
+				appPackage = path.resolve(params.abspath);
+			
+			}
+			console.log(appFolder);
+			console.log(appPackage);
+			var path=require("path")
+			appfs = require("sihorton-vfs")
+			fs = require("fs")
+			Q = require("q");
+			;
+			var exec = require('child_process').exec,
+			child;
+
+			var nsis = "D:\\portable\\PortableApps\\NSISPortable\\App\\NSIS\\makensis.exe";
+			var nsisFile = appFolder+"\\app.nsi";
+			
+			var appfsFile = appFolder+"\\deploy\\app.appfs";
+			var outf = appFolder+"\\deploy\\app.appfs.temp.appfs";
+
+			var exeFile = appFolder+"\\deploy\\app.exe";
+			var exeFile2 = appFolder+"\\deploy\\app.exe";
+			console.log("creating exe");
+			socket.emit("packageProgress",{text:"compiling: "+nsisFile});
+										
+			child = exec('"'+nsis+'" "'+nsisFile+'"',function(error,stdout,sterr) {
+				if (error) {
+					console.log(error);
+				} else {
+					console.log(stdout);
+					console.log(sterr);
+
+						
+						
+					var stats = fs.statSync(exeFile);
+					socket.emit("packageProgress",{text:"copying package"});
+					var out = fs.createWriteStream(outf);
+					fs.createReadStream(appfsFile).pipe(out);
+					out.on('close',function() {
+						appfs.Mount(outf,function(vfs) {			
+							console.log("opening appfs");
+							//console.log(vfs.dirs);
+							socket.emit("packageProgress",{text:"adjusting file offsets"});
+			
+							vfs.moveOffset(stats.size,function() {
+								//we now have a completed package...
+								//create exe.
+								console.log("creating exe package");
+								socket.emit("packageProgress",{text:"merging package into exe"});
+			
+								console.log('copy /b "'+exeFile+'"+"'+outf+'" "'+exeFile2+'"');
+								child = exec('copy /b "'+exeFile+'"+"'+outf+'" "'+exeFile2+'"',function(error,stdout,sterr) {
+									if (error) {
+										console.log(error);
+									} else {
+										console.log(stdout);
+										console.log(sterr);
+										//clean up
+										fs.unlink(outf);
+										console.log("exe created" + exeFile);
+										socket.emit("packageProgress",{text:"exe created: "+exeFile});
+											
+									}
+								});
+							});
+						})
+					});
+				}
+			});
 		});
 	});
 	

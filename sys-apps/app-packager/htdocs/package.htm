@@ -103,7 +103,9 @@
 					});">Save</button>
 					
 					<a onclick="deskShell.socket.emit('PackageApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Package App</a>
+					<a onclick="deskShell.socket.emit('PackageAppExe',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Create Exe</a>
 					<a onclick="deskShell.socket.emit('LaunchPackagedApp',{abspath:getElementById('appFolder').value});" class="btn"><i class="icon-user"></i> Launch Packaged App</a>
+					<pre><div id="packageProgress" style="height:200px;overflow:auto;"></div></pre>
 			  </div>
 			</form>
 		 </div>
@@ -115,6 +117,12 @@
 		var editFile = {};
 		var lastMessage ="";
 		deskShell.ready(function(deskShell) {
+			deskShell.socket.on('packageProgress',function(message) {
+				//console.log(message);
+				//document.getElementById('packageProgress').innerHTML += message.text;
+				document.getElementById('packageProgress').appendChild(document.createTextNode(message.text+"\n"));
+					
+			});
 			deskShell.socket.on('progress',function(message) {
 				lastMessage = message;
 				document.getElementById('progressDiv').style.display = '';
