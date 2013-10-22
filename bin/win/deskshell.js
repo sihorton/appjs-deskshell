@@ -76,7 +76,7 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 				return reading.resolve();
 			});
 		} else {
-			if (path.extname(deskShell.appFile) == ".appfs") {
+			if (path.extname(deskShell.appFile) == ".appfs" || path.extname(deskShell.appFile) == ".exe") {
 				console.log("package file");
 				deskShell.packageFile = true;
 				appfs.Mount(deskShell.appFile,function(vfs) {			
