@@ -88,7 +88,6 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 						try {
 							deskShell.appDef = JSON.parse(data);
 							deskShell.mainFile = deskShell.appDef.main;
-							console.log(deskShell.appDef);
 						} catch(e) {
 							return reading.reject(e);
 						}
