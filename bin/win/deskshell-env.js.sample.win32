@@ -3,7 +3,7 @@
 	,"chromiumPath":"GoogleChromePortable/App/Chrome-bin/chrome.exe"
 	
 	,"deskShellExe":"deskshell.exe"
-	,"deskShellExeDebug":"deskshell-debug.exe"
+	,"deskShellExeDebug":"deskshell_debug.exe"
 	
 	,"sysAppsDir":"sys-apps/"
 	,"defaultApp":"sys-apps/demo-docs/demo-docs.desk"
