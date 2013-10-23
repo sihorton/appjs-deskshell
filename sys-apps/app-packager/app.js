@@ -232,12 +232,28 @@ var running = deskShell.startApp({
 										});
 										reader.pipe(writer);
 									} else {
-										console.log(vfs.dirs);
-										vfs._writeFooter(function() {
-											console.log("wrote footer");
-											socket.emit("packageProgress",{text:"package created: "+packagef});
-											
-										});
+										//check there is an app.desk
+										console.log("app.desk check",vfs.dirs['app.desk']);
+										if (!vfs.dirs['app.desk']) {
+											//take desk file and add it as app.desk
+											var reader = fs.createReadStream(appPackage);
+											var writer = vfs.createWriteStream("app.desk");
+											writer.on('close',function() {
+												socket.emit("packageProgress",{text:"added app.desk"});
+												vfs._writeFooter(function() {
+													console.log("wrote footer");
+													socket.emit("packageProgress",{text:"package created: "+packagef});	
+												});
+												
+											});
+											reader.pipe(writer);
+										} else {
+											vfs._writeFooter(function() {
+												console.log("wrote footer");
+												socket.emit("packageProgress",{text:"package created: "+packagef});
+												
+											});
+										}
 									}
 								}
 								addAnotherFile();
