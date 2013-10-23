@@ -233,7 +233,6 @@ var running = deskShell.startApp({
 										reader.pipe(writer);
 									} else {
 										//check there is an app.desk
-										console.log("app.desk check",vfs.dirs['app.desk']);
 										if (!vfs.dirs['app.desk']) {
 											//take desk file and add it as app.desk
 											var reader = fs.createReadStream(appPackage);
@@ -296,7 +295,8 @@ var running = deskShell.startApp({
 			var exec = require('child_process').exec,
 			child;
 
-			var nsis = "D:\\portable\\PortableApps\\NSISPortable\\App\\NSIS\\makensis.exe";
+			var nsis = __dirname+"\\NSIS\\makensis.exe";
+			console.log("nsis=",nsis);
 			var nsisFile = appFolder+"\\app.nsi";
 			
 			var appfsFile = appFolder+"\\deploy\\app.appfs";
@@ -304,52 +304,70 @@ var running = deskShell.startApp({
 
 			var exeFile = appFolder+"\\deploy\\app.exe";
 			var exeFile2 = appFolder+"\\deploy\\app.exe";
-			console.log("creating exe");
-			socket.emit("packageProgress",{text:"compiling: "+nsisFile});
-										
-			child = exec('"'+nsis+'" "'+nsisFile+'"',function(error,stdout,sterr) {
-				if (error) {
-					console.log(error);
-				} else {
-					console.log(stdout);
-					console.log(sterr);
+			
+			function check() {
+				var checkingAppSample = Q.defer();
+				fs.exists(nsisFile,function(exists) {
+					if (!exists) {
+						fs.readFile(__dirname+"/app.sample.nsi", 'utf8', function (err, data) {
+							fs.writeFile(nsisFile, data,function(err) {
+								checkingAppSample.resolve();
+							}); 
+						});
+					} else {
+						checkingAppSample.resolve();
+					}
+				});
+				return checkingAppSample.promise;
+			}
+			check().then(function() {
+				console.log("creating exe");
+				socket.emit("packageProgress",{text:"compiling: "+nsisFile});
+				console.log('"'+nsis+'" "'+nsisFile+'"');
+				child = exec('"'+nsis+'" "'+nsisFile+'"',function(error,stdout,sterr) {
+					if (error) {
+						console.log(error);
+					} else {
+						console.log(stdout);
+						console.log(sterr);
 
-						
-						
-					var stats = fs.statSync(exeFile);
-					socket.emit("packageProgress",{text:"copying package"});
-					var out = fs.createWriteStream(outf);
-					fs.createReadStream(appfsFile).pipe(out);
-					out.on('close',function() {
-						appfs.Mount(outf,function(vfs) {			
-							console.log("opening appfs");
-							//console.log(vfs.dirs);
-							socket.emit("packageProgress",{text:"adjusting file offsets"});
-			
-							vfs.moveOffset(stats.size,function() {
-								//we now have a completed package...
-								//create exe.
-								console.log("creating exe package");
-								socket.emit("packageProgress",{text:"merging package into exe"});
-			
-								console.log('copy /b "'+exeFile+'"+"'+outf+'" "'+exeFile2+'"');
-								child = exec('copy /b "'+exeFile+'"+"'+outf+'" "'+exeFile2+'"',function(error,stdout,sterr) {
-									if (error) {
-										console.log(error);
-									} else {
-										console.log(stdout);
-										console.log(sterr);
-										//clean up
-										fs.unlink(outf);
-										console.log("exe created" + exeFile);
-										socket.emit("packageProgress",{text:"exe created: "+exeFile});
-											
-									}
+							
+							
+						var stats = fs.statSync(exeFile);
+						socket.emit("packageProgress",{text:"copying package"});
+						var out = fs.createWriteStream(outf);
+						fs.createReadStream(appfsFile).pipe(out);
+						out.on('close',function() {
+							appfs.Mount(outf,function(vfs) {			
+								console.log("opening appfs");
+								//console.log(vfs.dirs);
+								socket.emit("packageProgress",{text:"adjusting file offsets"});
+				
+								vfs.moveOffset(stats.size,function() {
+									//we now have a completed package...
+									//create exe.
+									console.log("creating exe package");
+									socket.emit("packageProgress",{text:"merging package into exe"});
+				
+									console.log('copy /b "'+exeFile+'"+"'+outf+'" "'+exeFile2+'"');
+									child = exec('copy /b "'+exeFile+'"+"'+outf+'" "'+exeFile2+'"',function(error,stdout,sterr) {
+										if (error) {
+											console.log(error);
+										} else {
+											console.log(stdout);
+											console.log(sterr);
+											//clean up
+											fs.unlink(outf);
+											console.log("exe created" + exeFile);
+											socket.emit("packageProgress",{text:"exe created: "+exeFile});
+												
+										}
+									});
 								});
-							});
-						})
-					});
-				}
+							})
+						});
+					}
+				});
 			});
 		});
 	});
