@@ -12,9 +12,9 @@
 			deskShell.fs_browser = 0
 
 			function MakeCallBackToNode (fs_browser_, funcName_) {
-				return function () {	
+				return function (fileName) {	
 					//alert(funcName_);
-					var toSendData = {proxy: fs_browser_, funcName: funcName_, arguments_ : "C:\\temp\\hello.txt"};
+					var toSendData = {proxy: fs_browser_, funcName: funcName_, arguments_ : fileName};
 					alert(toSendData.proxy + toSendData.funcName);
 					deskShell.socket.emit('call-function', toSendData);
 				};
@@ -49,9 +49,9 @@
 
 			deskShell.callProxyFunction_browser = function() {
 				//alert(deskShell.fs_browser)
-				var module = document.getElementById("file-name").value;
-				if(module) {
-					deskShell.bridge[deskShell.fs_browser]["readFile"]();
+				var fileName = document.getElementById("file-name").value;
+				if(fileName) {
+					deskShell.bridge[deskShell.fs_browser]["readFile"](fileName);
 				} else {
 					alert("Which file to read man ?? WrItE in box");
 				}
