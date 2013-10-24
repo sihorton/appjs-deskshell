@@ -1,0 +1,16 @@
+{
+    "name": "hello_world",
+    "author": "https://github.com/ashishnegi/",
+    "description": "A demo of using appjs-deskshell for hello_world.",
+    "licence": "MIT",
+    "width": "400",
+    "height": "600",
+    "frontend": "chromium",
+    "backend": "node",
+    "htdocs": "htdocs",
+    "main": "app.js",
+    "version": "0.1",
+    "v": "0.1",
+    "defaultLocation": "index.htm",
+    "appSocket":true
+}
