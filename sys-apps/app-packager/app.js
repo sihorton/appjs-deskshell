@@ -3,7 +3,8 @@ var path = require("path")
 	,appfs = require("sihorton-vfs")
 	,path = require("path")
 ;
-
+var cryptoStreamer = require("./node_modules/sihorton-vfs/crypto-streamer.js");
+var b64Streamer = require('./node_modules/sihorton-vfs/base64-streamer.js');
 var config = {
 	packageExt:'.appfs'
 	,deployFolder:'deploy'
@@ -218,7 +219,7 @@ var running = deskShell.startApp({
 							fs.unlink(appFolder+packagef,function() {
 							appfs.Mount(appFolder+packagef,function(vfs) {
 								if (appInfo['scramble']) {
-									vfs.pipe = "deskshell";
+									vfs.pipe = "deskshell       ";
 								}
 								var filepos=files.length;
 								var addAnotherFile = function() {
@@ -233,8 +234,10 @@ var running = deskShell.startApp({
 											socket.emit("packageProgress",{text:"added "+writepackageFile});
 											addAnotherFile();
 										});
-										if (appInfo.scramble && writepackageFile != "app.desk") {
-											cryptoStreamer.encryptStream(reader,'deskshell').pipe(writer);
+										if (appInfo.scramble) {
+											var b64encode = b64Streamer.Encoder();
+											reader.pipe(b64encode);
+											cryptoStreamer.encryptStream(b64encode,vfs.pipe).pipe(writer);
 										} else {
 											reader.pipe(writer);
 										}
@@ -254,7 +257,11 @@ var running = deskShell.startApp({
 												});
 												
 											});
-											reader.pipe(writer);
+											if (appInfo.scramble) {
+												cryptoStreamer.encryptStream(reader,vfs.pipe).pipe(writer);
+											} else {
+												reader.pipe(writer);
+											}
 										} else {
 											vfs._writeFooter(function() {
 												console.log("wrote footer");
