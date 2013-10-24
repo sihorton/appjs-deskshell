@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>Hello World</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/deskShell/clientApi.js"></script>
+		<script type="text/javascript">
+			deskShell.socket.on('world', function(string) {
+				alert("some_message for you from node world : \n" + string);
+			});
+			function XX () {
+				var x = "abc";
+				var proxyObject = {};
+				proxyObject[x] = function() {
+					alert(x);
+				};
+				proxyObject.abc();
+			}
+		</script>
+	</head>
+<body>
+<h2>Hello World Demo</h2>
+<button onclick="deskShell.socket.emit('hello');">Say Hello To Node</button>
+<p></p>
+<button onclick="deskShell.exitApp();">close</button>
+<button onclick="XX();">DynamicFunction</button>
+</body></html>
