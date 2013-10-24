@@ -217,6 +217,9 @@ var running = deskShell.startApp({
 							var packagef = '/'+config.deployFolder+'/app.appfs';
 							fs.unlink(appFolder+packagef,function() {
 							appfs.Mount(appFolder+packagef,function(vfs) {
+								if (appInfo['scramble']) {
+									vfs.pipe = "deskshell";
+								}
 								var filepos=files.length;
 								var addAnotherFile = function() {
 									filepos--;
@@ -230,7 +233,13 @@ var running = deskShell.startApp({
 											socket.emit("packageProgress",{text:"added "+writepackageFile});
 											addAnotherFile();
 										});
-										reader.pipe(writer);
+										if (appInfo.scramble && writepackageFile != "app.desk") {
+											cryptoStreamer.encryptStream(reader,'deskshell').pipe(writer);
+										} else {
+											reader.pipe(writer);
+										}
+										
+										
 									} else {
 										//check there is an app.desk
 										if (!vfs.dirs['app.desk']) {
@@ -335,6 +344,7 @@ var running = deskShell.startApp({
 							
 						var stats = fs.statSync(exeFile);
 						socket.emit("packageProgress",{text:"copying package"});
+						
 						var out = fs.createWriteStream(outf);
 						fs.createReadStream(appfsFile).pipe(out);
 						out.on('close',function() {
@@ -377,7 +387,6 @@ var running = deskShell.startApp({
 
 //Support function to scan dir recursively
 var walk = function(dir, done, exclude, basePath, silent) {
-console.log("basePath",basePath);
 
   var results = [];
   if (!basePath) basePath = dir.length+1;
