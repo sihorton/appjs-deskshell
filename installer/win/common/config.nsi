@@ -1,4 +1,4 @@
-!define PRODUCT_VERSION "0.8.13"
+!define PRODUCT_VERSION "0.8.14"
 !define PRODUCT_PUBLISHER "sihorton"
 !define PRODUCT_WEB_SITE "http://github.com/sihorton/appjs-deskshell"
 

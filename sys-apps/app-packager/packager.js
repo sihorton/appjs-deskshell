@@ -54,8 +54,10 @@ fs.stat(process.argv[2], function(err, stats) {
 						'bin':'bin'
 						,'node_modules':'node_modules'
 						,'deploy':'deploy'
+						,'.git':'.git'
 					}
 					console.log(appFolder);
+					var cryptoStreamer = require('./node_modules/sihorton-vfs/crypto-streamer.js');
 					walk(appFolder,function(err,files) {
 						if (err) {
 							process.stdout.write('Error:' + err);
@@ -64,6 +66,9 @@ fs.stat(process.argv[2], function(err, stats) {
 							//delete existing and create new package file...
 							fs.unlink(appFolder+'/'+config.deployFolder+'/app.appfs',function() {
 							appfs.Mount(appFolder+'/'+config.deployFolder+'/app.appfs',function(vfs) {
+								if (appInfo.scramble) {
+									vfs.pipe = "deskshell";
+								}
 								var filepos=files.length;
 								var addAnotherFile = function() {
 									filepos--;
@@ -76,7 +81,12 @@ fs.stat(process.argv[2], function(err, stats) {
 											console.log("wrote "+packageFile);
 											addAnotherFile();
 										});
-										reader.pipe(writer);
+										if (appInfo.scramble) {
+											var encStream = cryptoStreamer.encryptStream(reader,vfs.pipe);
+											encStream.pipe(writer);
+										} else {
+											reader.pipe(writer);
+										}
 									} else {
 										console.log(vfs.dirs);
 										vfs._writeFooter(function() {
@@ -131,7 +141,9 @@ fs.stat(process.argv[2], function(err, stats) {
 
 
 //Support function to scan dir recursively
+//Support function to scan dir recursively
 var walk = function(dir, done, exclude, basePath, silent) {
+
   var results = [];
   if (!basePath) basePath = dir.length+1;
   fs.readdir(dir, function(err, list) {
@@ -141,7 +153,8 @@ var walk = function(dir, done, exclude, basePath, silent) {
     list.forEach(function(file) {
       file = dir + '/' + file;
 	  	  fs.stat(file, function(err, stat) {
-			if (exclude[file.substring(basePath)]) {
+			//console.log("exclude?",file.substring(basePath.length+1));
+			if (exclude[file.substring(basePath.length+1)]) {
 				//process.stdout.write("excluding:"+file.substring(basePath)+'\n');
 				if (!--pending) done(null, results);
 			} else {
