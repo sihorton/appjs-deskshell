@@ -1,3 +1,9 @@
 [submodule "bin/mac/Deskshell.app/Contents/php_modules/phpws"]
 	path = bin/mac/Deskshell.app/Contents/php_modules/phpws
 	url = https://github.com/Devristo/phpws.git
+[submodule "bin/win/node_modules/sihorton-vfs"]
+    path = bin/win/node_modules/sihorton-vfs
+    url = https://github.com/sihorton/sihorton-vfs.git
+[submodule "sys-apps/app-packager/node_modules/sihorton-vfs"]
+    path = sys-apps/app-packager/node_modules/sihorton-vfs
+    url = https://github.com/sihorton/sihorton-vfs.git
