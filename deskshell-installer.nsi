@@ -85,10 +85,12 @@ NotInstalled:
 FunctionEnd
 
 Section "deskshell" SEC01
+        var /Global RunFile
   SetShellVarContext all
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   CreateDirectory "$INSTDIR"
+  
 ;create a little text file to tell deskshell it is the first time it is run after an install
 ;here we can then update the environment config and options.
 ;  File "${COMMON_DIR}\first-run.txt"
@@ -117,6 +119,19 @@ Section "deskshell" SEC01
   ;install version info and launch / auto update.
   File "deskshell.exe"
   File "deskshell_debug.exe"
+  
+  ;only way to tell installer to run app after install since we have to escalate privilege to run
+  IfFileExists '$INSTDIR\run.txt' ReadRunFile NoRunFile
+ReadRunFile:
+  FileOpen $5 "$INSTDIR\run.txt" r
+  FileRead $5 $RunFile
+  FileClose $5
+
+  Exec '"$INSTDIR\deskshell.exe" $RunFile'
+NoRunFile:
+  Delete "$INSTDIR\run.txt"
+
+  
   
   ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Source Application"
   ${registerExtension} "$INSTDIR\deskshell.exe" ".appfs" "DeskShell Application"

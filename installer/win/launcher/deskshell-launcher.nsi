@@ -15,7 +15,7 @@
 
 RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
-OutFile "..\..\..\deskshell2.exe"
+OutFile "..\..\..\deskshell.exe"
 Icon "deskshell.ico"
 ShowInstDetails hide
 
@@ -34,7 +34,8 @@ Section "MainSection" SEC01
      Call GetParameters
      Pop $2
 
-     nsExec::Exec '"$MYPATH\bin\win\node.exe" "$MYPATH\bin\win\deskshell.js"'
+     nsExec::Exec '"$MYPATH\bin\win\node.exe" "$MYPATH\bin\win\deskshell.js" $2'
+     Quit
 SectionEnd
 
 Section -AdditionalIcons
