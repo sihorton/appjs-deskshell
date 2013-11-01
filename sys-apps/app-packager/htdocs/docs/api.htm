@@ -26,17 +26,19 @@
 			 <div class="span4">
 				 <ul class="nav nav-list">
 					<li class="nav-header">Documentation</li>
-					<li class="active"><a href="intro.htm">Intro</a></li>
+					<li><a href="intro.htm">Intro</a></li>
 					<li><a href="fileformat.htm">File format</a></li>
 					<li><a href="compatability.htm">Compatability</a></li>
 					<li><a href="packagetypes.htm">Package Types</a></li>
-					<li><a href="api.htm">Api</a></li>
+					<li class="active"><a href="api.htm">Api</a></li>
 				</ul>
 			 </div>
 			 <div class="span8">
 				 <h3>AppFS Api</h3>
 				 
-				 TODO
+				 <code>deskShell.appDir</code> Folder application is running from. Works if you are running inside a package or not.
+				 <code>deskShell.appfs</code> NodeJS FS style module for accessing files served from the package if running from a package. 
+				 If you are running outside of a package this will be a standard fs module.
 
 				</div>
 			</div>

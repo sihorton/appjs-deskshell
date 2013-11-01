@@ -26,8 +26,8 @@
 			 <div class="span4">
 				 <ul class="nav nav-list">
 					<li class="nav-header">Documentation</li>
-					<li class="active"><a href="intro.htm">Intro</a></li>
-					<li><a href="fileformat.htm">File format</a></li>
+					<li><a href="intro.htm">Intro</a></li>
+					<li class="active"><a href="fileformat.htm">File format</a></li>
 					<li><a href="compatability.htm">Compatability</a></li>
 					<li><a href="packagetypes.htm">Package Types</a></li>
 					<li><a href="api.htm">Api</a></li>
@@ -35,30 +35,24 @@
 			 </div>
 			 <div class="span8">
 				 <h3>File format</h3>
-				 <p>
-				 It is important that you understand the main concept of packaged applications 
-				 so you understand their limitations. Deskshell provides you with a virtual file
-				 system (AppFS) that contains all of your application files. The api that you get
-				 works in the same way as the nodejs fs module. It has the same methods and parameters
-				 wherever possible. This means that you can exchange the AppFS module for the fs module.
-				 When you run and application from disk this is exactly what happens, the AppFS module
-				 just passes all commands onto the fs module.
-				 </p>
-				 <p>
-				 When you run from inside a packaged app however instead of looking for files on disk
-				 AppFS will serve files from inside the package file. If you read files then you should not
-				 mark any difference when you app is running from your local folder or when it is running
-				 from a package file. However writing is a different case. The file format for a packaged
-				 application is an append only file format. This means that everytime you write to a file
-				 the WHOLE FILE gets added to the end of the package file. So if you modify the same file
-				 three times, the file will exist in the package file 3 times but you will only be able
-				 to access the last version of it. It is possible to compact the package file and what 
-				 will then occur is that the entire package file will be copied but all repeated files
-				 will be disguarded.
-				 </p>
-				 <p>
-				 This design lets us have high performance for reading files which is all you need to
-				 do once you have deployed your application.
+				 The deskshell packager will take all of your application files and place them into one file:
+				 <code>app.appfs</code><br/>
+				 This file can then be used to run your application. Deskshell provides a virtual file system
+				 (AppFS) that gives you access to your files. It has the same methods as nodejs fs module but
+				 operates on files from the package. If run from outside the package then it will give you access
+				 to the application files on disk. When reading files you should not notice any difference between running inside and outside of a 
+				 package file. 
+				 <h3>Writing Files</h3>
+				 <p>It is possible to write files inside a package however this is strongly discouraged. It is possible
+				 to use the normal nodejs fs module to write files directly to the folder that the application is running from.
+				 This is the recommended way for dealing with data files that your application needs.</p>
+				 
+				 The virtual file system that appfs uses is an append only file format. This means that everytime you write
+				 to a file a new copy of the file will be created at the end of the package. If you write to a file 3 times
+				 you will therefore have 3 copies of that file in the package (only the last one is accessible). This allows
+				 reading to be high performance but package files should be treated as read only to get the best use out of them.
+				 
+				 
 				 </p>
 				 <p>
 				 As long as you understand this limitation then you won't run into any problems. You can 
