@@ -10,13 +10,12 @@
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_LANGUAGE "English"
 
-
 ;!include "..\common\LogicLib.nsh"
 !include "SupportFunctions.nsi"
 
 RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
-OutFile "..\..\..\deskshell_debug.exe"
+OutFile "..\..\..\deskshell2.exe"
 Icon "deskshell.ico"
 ShowInstDetails hide
 
@@ -35,15 +34,7 @@ Section "MainSection" SEC01
      Call GetParameters
      Pop $2
 
-     ${If} $2 == ''
-         ;Exec '"$MYPATH\bin\win\node.exe" "$MYPATH\sys-apps\env.js" "$MYPATH/sys-apps/default/default.desk"'
-         Exec '"$MYPATH\bin\win\node.exe" "$MYPATH\bin\win\deskshell.js"'
-        ;MessageBox MB_OK '$MYPATH\bin\win\node.exe "$MYPATH/sys-apps/default/default.desk"'
-     ${Else}
-         Exec '$MYPATH\bin\win\node.exe "$MYPATH\bin\win\deskshell.js" $2'
-         ;MessageBox MB_OK '$MYPATH\bin\win\node.exe $2'
-    ${EndIf}
-    
+     nsExec::Exec '"$MYPATH\bin\win\node.exe" "$MYPATH\bin\win\deskshell.js"'
 SectionEnd
 
 Section -AdditionalIcons
