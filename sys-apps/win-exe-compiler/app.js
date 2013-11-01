@@ -221,8 +221,17 @@ var running = deskShell.startApp({
 								var packagef = '/'+config.deployFolder+'/app.exe.appfs';
 								fs.unlink(appFolder+packagef,function() {
 								appfs.Mount(appFolder+packagef,function(vfs) {
-									if (appInfo['scramble']) {
-										vfs.pipe = "deskshell       ";
+									switch(appInfo['package']) {
+										case 'scramble':
+											vfs.pipe = "deskshell       ";
+										break;
+										case 'fast':
+											vfs.pipe = 'none            ';
+										break;
+										case 'standard':
+										default:
+											vfs.pipe = 'standard        ';
+										break; 
 									}
 									var filepos=files.length;
 									var addAnotherFile = function() {
@@ -237,12 +246,20 @@ var running = deskShell.startApp({
 												socket.emit("packageProgress",{text:"added "+writepackageFile});
 												addAnotherFile();
 											});
-											if (appInfo.scramble) {
-												var b64encode = b64Streamer.Encoder();
-												reader.pipe(b64encode);
-												cryptoStreamer.encryptStream(b64encode,vfs.pipe).pipe(writer);
-											} else {
-												reader.pipe(writer);
+											switch(appInfo['package']) {
+												case "scramble":
+													var b64encode = b64Streamer.Encoder();
+													reader.pipe(b64encode);
+													cryptoStreamer.encryptStream(b64encode,vfs.pipe).pipe(writer);
+												break;
+												case "fast":
+													reader.pipe(writer);
+												break;
+												case "standard":
+												default:
+													var b64encode = b64Streamer.Encoder();
+													reader.pipe(b64encode).pipe(writer);
+												break;
 											}
 											
 											
@@ -262,11 +279,19 @@ var running = deskShell.startApp({
 													});
 													
 												});
-												if (appInfo.scramble) {
+												switch(appInfo['package']) {
+												case "scramble":
 													cryptoStreamer.encryptStream(reader,vfs.pipe).pipe(writer);
-												} else {
+												break;
+												case "fast":
 													reader.pipe(writer);
-												}
+												break;
+												case "standard":
+												default:
+													var b64encode = b64Streamer.Encoder();
+													reader.pipe(b64encode).pipe(writer);
+												break;
+											}
 											} else {
 												vfs._writeFooter(function() {
 													console.log("wrote footer");

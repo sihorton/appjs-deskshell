@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell Exe Compiler</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+				<ul class="nav">
+                    <li><a href="../index.htm">Start</a></li>
+                    <li  class="active"><a href="intro.htm">Docs</a></li>
+                    <li><a href="../editapp.htm">Edit App</a></li>
+                    <li><a href="../compile.htm">Compile App</a></li>
+                 </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Documentation</li>
+					<li><a href="intro.htm">Intro</a></li>
+					<li class="active"><a href="app.nsi.htm">app.nsi</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>app.nsi</h3>
+ 
+<p>
+
+The first time you compile your application you will get a new file "app.nsi" appear.
+This is the file used to compile your executable. It is a simple text file with a slightly exotic syntax. 
+The beginning of an example file is shown below:</p>
+<pre><code>
+/**
+* Change settings below to set information about your application. 
+* Uncomment VIAddVersionKey lines if needed.
+* This file is an nsis installer file. http://nsis.sourceforge.net/
+*/
+!define PRODUCT_NAME "DeskshellApp"
+!define PRODUCT_VERSION "0.1.0"
+!define PRODUCT_PUBLISHER "sihorton"
+!define PRODUCT_WEB_SITE "http://github.com/sihorton/appjs-deskshell"
+VIProductVersion "${PRODUCT_VERSION}.0.0"
+VIAddVersionKey ProductName "${PRODUCT_NAME}"
+VIAddVersionKey Comments "Deskshell - desktop applications built with html5 technology."
+;VIAddVersionKey CompanyName company
+;VIAddVersionKey LegalCopyright legal
+VIAddVersionKey FileDescription "${PRODUCT_NAME}"
+VIAddVersionKey FileVersion "${PRODUCT_VERSION}"
+VIAddVersionKey ProductVersion "${PRODUCT_VERSION}"
+VIAddVersionKey InternalName "${PRODUCT_NAME}"
+;VIAddVersionKey LegalTrademarks ""
+VIAddVersionKey OriginalFilename "${PRODUCT_NAME}.exe"
+
+;executable name
+OutFile "deploy/app.exe"
+;icon to use for your executable
+Icon "htdocs/favicon.ico"
+
+
+
+/**
+* Deskshell install information, no need to change.
+*/
+</code></pre>
+There is additional contents after the above banner but this does not need to be altered.
+It is hopefully quite easy to simply edit product name, version, publisher and other information
+so it matches your application. You can select an icon to use for your exe by changing the 
+<code>Icon "htdocs/favicon.ico"</code> line. If you don't use a favicon in your application and that file
+is missing then it won't be able to be compiled, the application requires an icon to be able to be compiled.
+				</div>
+			</div>
+		
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+		 </div>
