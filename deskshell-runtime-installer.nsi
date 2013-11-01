@@ -92,8 +92,14 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR"
   CreateDirectory "$INSTDIR"
   
+  CreateDirectory "$INSTDIR\sys-apps"
   ;SetOutPath "$INSTDIR\sys-apps"
   ;File /r /x ".git" "sys-apps\"
+
+  CreateDirectory "$INSTDIR\sys-apps\demo-docs"
+  SetOutPath "$INSTDIR\sys-apps\"
+  File /r /x ".git" "installer\demo-docs"
+
 
   CreateDirectory "$INSTDIR\node_modules\"
   SetOutPath "$INSTDIR\node_modules"
