@@ -1,0 +1,15 @@
+{
+    "name": "exe-compiler",
+    "author": "sihorton",
+    "description": "Compile deskshell applications to windows executables.",
+    "licence": "MIT",
+    "width": "900",
+    "height": "600",
+    "frontend": "chromium",
+    "backend": "node",
+    "htdocs": "htdocs",
+    "defaultLocation": "index.htm",
+    "main": "app.js",
+    "version": "0.1",
+    "v": "0.1"
+}
