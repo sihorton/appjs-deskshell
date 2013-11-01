@@ -4,7 +4,8 @@
 *
 * @author: sihorton
 */
-!define PRODUCT_NAME "Deskshell"
+!define PRODUCT_NAME "Deskshell-Runtime"
+!define PRODUCT_LOC_NAME "Deskshell"
 
 !define COMMON_DIR "installer\win\common"
 !define WIN_DIR "bin\win"
@@ -20,7 +21,7 @@ WriteINIStr "${FILENAME}.url" "InternetShortcut" "URL" "${URL}"
 !macroend
 
 ; Welcome page
-!insertmacro MUI_PAGE_WELCOME
+;!insertmacro MUI_PAGE_WELCOME
 
 ; Components page
 ;!insertmacro MUI_PAGE_COMPONENTS
@@ -28,21 +29,21 @@ WriteINIStr "${FILENAME}.url" "InternetShortcut" "URL" "${URL}"
 ;!insertmacro MUI_PAGE_DIRECTORY
 ; Start menu page
 var ICONS_GROUP
-!define MUI_STARTMENUPAGE_NODISABLE
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Deskshell"
-!define MUI_STARTMENUPAGE_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
-!define MUI_STARTMENUPAGE_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
-!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "${PRODUCT_STARTMENU_REGVAL}"
-!insertmacro MUI_PAGE_STARTMENU Application $ICONS_GROUP
+;!define MUI_STARTMENUPAGE_NODISABLE
+;!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Deskshell"
+;!define MUI_STARTMENUPAGE_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
+;!define MUI_STARTMENUPAGE_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
+;!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "${PRODUCT_STARTMENU_REGVAL}"
+;!insertmacro MUI_PAGE_STARTMENU Application $ICONS_GROUP
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
 ;!define MUI_FINISHPAGE_TEXT ""
-!define MUI_FINISHPAGE_RUN
-!define MUI_FINISHPAGE_RUN_TEXT "Run ${PRODUCT_NAME} docs and demos app"
-!define MUI_FINISHPAGE_RUN_FUNCTION "Launch-deskshell"
+;!define MUI_FINISHPAGE_RUN
+;!define MUI_FINISHPAGE_RUN_TEXT "Run ${PRODUCT_NAME} docs and demos app"
+;!define MUI_FINISHPAGE_RUN_FUNCTION "Launch-deskshell"
 ;!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\${PROFILE_DIR_DEST}\install-readme.txt"
-!insertmacro MUI_PAGE_FINISH
+;!insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_INSTFILES
@@ -57,11 +58,11 @@ RequestExecutionLevel admin
 Name "${PRODUCT_NAME}"
 ;_${PRODUCT_VERSION}
 OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}-install.exe"
-InstallDir "$LOCALAPPDATA\${PRODUCT_NAME}"
+InstallDir "$LOCALAPPDATA\${PRODUCT_LOC_NAME}"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails hide
 ShowUnInstDetails hide
-
+AutoCloseWindow true
 Function .onInit
   Var /GLOBAL DelDir
   ;try to see if it is running--
@@ -90,15 +91,15 @@ Section "deskshell" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   CreateDirectory "$INSTDIR"
- 
-  SetOutPath "$INSTDIR\sys-apps"
-  File /r /x ".git" "sys-apps\"
+  
+  ;SetOutPath "$INSTDIR\sys-apps"
+  ;File /r /x ".git" "sys-apps\"
 
   CreateDirectory "$INSTDIR\node_modules\"
   SetOutPath "$INSTDIR\node_modules"
   File /r /x ".git" "node_modules\"
 
- CreateDirectory "$INSTDIR\bin\node_modules\"
+  CreateDirectory "$INSTDIR\bin\node_modules\"
   SetOutPath "$INSTDIR\bin\node_modules"
   File /r /x ".git" "bin\node_modules\"
 
@@ -108,11 +109,11 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR\bin\win"
   File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
   File "${COMMON_DIR}\..\deskshell-updater.exe"
-  File "${COMMON_DIR}\installer-version.txt"
+  File /oname=installer-version.txt "${COMMON_DIR}\installer-runtime-version.txt"
   
 
 ;create directory for user apps.
-  CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
+  ;CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
 
   SetOutPath "$INSTDIR"
   
@@ -139,31 +140,31 @@ NoRunFile:
   ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-back" "DeskShell Backend Application"
 
 ; Shortcuts
-  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-  CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\deskshell-updater.lnk" "$INSTDIR\bin\win\deskshell-updater.exe"
-  CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\My Deskshell Apps.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
-  CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\NewAppWizard.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\app-wizard\app-wizard.desk"
-  CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\Docs.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\demo-docs\demo-docs.desk"
+  ;!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+  ;CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
+  ;CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
+  ;CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\deskshell-updater.lnk" "$INSTDIR\bin\win\deskshell-updater.exe"
+  ;CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
+  ;CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\My Deskshell Apps.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
+  ;CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\NewAppWizard.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\app-wizard\app-wizard.desk"
+  ;CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\Docs.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\demo-docs\demo-docs.desk"
 
-  !insertmacro MUI_STARTMENU_WRITE_END
+  ;!insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 
 
 
 Section -AdditionalIcons
-  SetShellVarContext all
-  SetOutPath $INSTDIR
-  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-
-  !insertmacro CreateInternetShortcut \
-      "$SMPROGRAMS\$ICONS_GROUP\Website.url" \
-      "https://github.com/sihorton/appjs-deskshell/"
-
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\Uninstall.lnk" "$INSTDIR\uninst.exe"
-  !insertmacro MUI_STARTMENU_WRITE_END
+  ;SetShellVarContext all
+  ;SetOutPath $INSTDIR
+  ;!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+;
+;  !insertmacro CreateInternetShortcut \
+;      "$SMPROGRAMS\$ICONS_GROUP\Website.url" \
+;      "https://github.com/sihorton/appjs-deskshell/"
+;
+;  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\Uninstall.lnk" "$INSTDIR\uninst.exe"
+;  !insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 
 Section -Post
@@ -204,9 +205,8 @@ Section Uninstall
   SetShellVarContext all
   !insertmacro MUI_STARTMENU_GETFOLDER "Application" $ICONS_GROUP
 
-  Delete "$DESKTOP\${PRODUCT_NAME}.lnk"
-
-  RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
+  ;RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
+  RMDir /r "$INSTDIR\node_modules"
   RMDir /r "$INSTDIR\bin"
   RMDir /r "$INSTDIR\sys-apps"
   RMDir "$INSTDIR\bin"

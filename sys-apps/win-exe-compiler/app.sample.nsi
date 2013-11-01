@@ -5,7 +5,7 @@
 */
 !define PRODUCT_NAME "DeskshellApp"
 !define PRODUCT_VERSION "0.1.0"
-!define PRODUCT_PUBLISHER "sihorton"
+!define PRODUCT_PUBLISHER "DeskshellUser"
 !define PRODUCT_WEB_SITE "http://github.com/sihorton/appjs-deskshell"
 VIProductVersion "${PRODUCT_VERSION}.0.0"
 VIAddVersionKey ProductName "${PRODUCT_NAME}"
@@ -19,8 +19,6 @@ VIAddVersionKey InternalName "${PRODUCT_NAME}"
 ;VIAddVersionKey LegalTrademarks ""
 VIAddVersionKey OriginalFilename "${PRODUCT_NAME}.exe"
 
-;executable name
-OutFile "deploy/app.exe"
 ;icon to use for your executable
 Icon "htdocs/favicon.ico"
 
@@ -31,7 +29,7 @@ Icon "htdocs/favicon.ico"
 */
 !define PRODUCT_UPDATE_NAME "deskshell"
 !define DESKSHELL_INSTALL "$LOCALAPPDATA\Deskshell\Deskshell"
-!define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-version.txt"
+!define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-runtime-version.txt"
 !define UPDATE_NAME "deskshell-installer"
 
 !include "MUI2.nsh"
@@ -44,11 +42,16 @@ Caption "${PRODUCT_NAME}"
 Name "${PRODUCT_NAME}"
 ShowInstDetails hide
 
+;executable name
+OutFile "deploy/app.exe"
+
 Function .onInit
 	;This code will detect if deskshell is installed
 	;No need to edit this code.
     IfFileExists '${DESKSHELL_INSTALL}.exe' DeskshellInstalled DeskshellMissing
 DeskshellInstalled:
+    Call GetParameters
+    Pop $2
     Exec '${DESKSHELL_INSTALL}.exe "$EXEPATH" $2'
 	;To run your app with a console (debug) window comment out the above line and uncomment the below line.
     ;Exec '${DESKSHELL_INSTALL}_debug.exe "$EXEPATH" $2'
@@ -65,7 +68,7 @@ Section "MainSection" SEC01
     Var /GLOBAL AvailableVersion
     Var /GLOBAL NewInstaller
 
-    MessageBox MB_YESNO 'This application requires Deskshell to be able to run. Would you like to download and install it now?' IDNO stopLaunch IDYES download
+    MessageBox MB_YESNO 'This application requires the Deskshell runtime to be able to run. Would you like to download and install it now?' IDNO stopLaunch IDYES download
 stoplaunch:
     Quit
 download:
@@ -84,8 +87,50 @@ download:
      Abort
 
     doinstall:
+    Call GetParameters
+    Pop $2
+
+    FileOpen $5 "$LOCALAPPDATA\Deskshell\run.txt" w
+    FileWrite $5 '"$EXEPATH" $2'
+    FileClose $5
+
     ExecShell "open" '$TEMP\${UPDATE_NAME}.exe'
     Quit
-
 SectionEnd
 
+Function GetParameters
+
+  Push $R0
+  Push $R1
+  Push $R2
+  Push $R3
+
+  StrCpy $R2 1
+  StrLen $R3 $CMDLINE
+
+  ;Check for quote or space
+  StrCpy $R0 $CMDLINE $R2
+  StrCmp $R0 '"' 0 +3
+    StrCpy $R1 '"'
+    Goto loop
+  StrCpy $R1 " "
+
+  loop:
+    IntOp $R2 $R2 + 1
+    StrCpy $R0 $CMDLINE 1 $R2
+    StrCmp $R0 $R1 get
+    StrCmp $R2 $R3 get
+    Goto loop
+
+  get:
+    IntOp $R2 $R2 + 1
+    StrCpy $R0 $CMDLINE 1 $R2
+    StrCmp $R0 " " get
+    StrCpy $R0 $CMDLINE "" $R2
+
+  Pop $R3
+  Pop $R2
+  Pop $R1
+  Exch $R0
+
+FunctionEnd
