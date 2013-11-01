@@ -7,3 +7,6 @@
 [submodule "sys-apps/app-packager/node_modules/sihorton-vfs"]
     path = sys-apps/app-packager/node_modules/sihorton-vfs
     url = https://github.com/sihorton/sihorton-vfs.git
+[submodule "sys-apps/win-exe-compiler/node_modules/sihorton-vfs"]
+    path = sys-apps/win-exe-compiler/node_modules/sihorton-vfs
+    url = https://github.com/sihorton/sihorton-vfs.git

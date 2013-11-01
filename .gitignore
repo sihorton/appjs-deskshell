@@ -16,3 +16,5 @@
 
 /bin/mac/deskshell-bin.tgz
 /deskshell-env.js
+
+/sys-apps/win-exe-compiler/NSIS
