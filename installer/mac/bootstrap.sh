@@ -2,7 +2,7 @@
 # Heh...havent written one of these in ages - and im not talking about single wrappers.
 echo "=> Self-setup"
 ME=$(dirname "$0")
-URL="http://drag0ninstaller.tk/deskshell-bin.tgz"
+URL="http://deskshell.org/?download=mac-dev"
 cd $ME
 if [ ! -f "deskshell-bin.tgz" ]; then
 	echo "=> Downloading: $URL"

@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>ErrorHandlingDemo</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+		  var socket = io.connect('http://localhost:'+location.port);
+		  //only use for testing so you don't have to wait so long!
+		  //socket.set("heartbeat interval", 5);//check every 5 seconds
+		  socket.on('exit', function (data) {
+			console.error(data);
+			alert("Error:"+data.reason);
+		  });
+		  socket.on('disconnect', function(data) {
+			   alert('disconnected from server; reconnecting...');
+			   // and so on...
+			});
+		</script>
+	</head>
+<body>
+	<img src="deskShell.jpg"/><br/>
+	<h2>Error Handling Demo</h2>
+	<button onclick="socket.emit('makeError',{});">Generate Node Error!</button>
+	<br/>
+	<p>Launch this application from the terminal and then Ctrl+C to stop it running.</p>
+	<p>Right click and then Inspect Element to open the development tools and see nodejs errors on the console.</p>
+	<p>Errors will also create a deskshell.log file in the application directory containing the text of the error</p>
+</body>
+</html>

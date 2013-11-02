@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell Packager</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Start</a></li>
+                    <li  class="active"><a href="docs/intro.htm">Docs</a></li>
+                    <li><a href="../editapp.htm">Edit App</a></li>
+                    <li><a href="../package.htm">Package App</a></li>
+                 </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Documentation</li>
+					<li><a href="intro.htm">Intro</a></li>
+					<li><a href="fileformat.htm">File format</a></li>
+					<li><a href="compatability.htm">Compatability</a></li>
+					<li class="active"><a href="packagetypes.htm">Package Types</a></li>
+					<li><a href="api.htm">Api</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>Package Types</h3>
+				 <p>
+				 For general use you don't need to think about packaging, the default format is good for most needs.
+				 However if needed you can add a "package" property to your .desk file and specify a specialist package format.
+				 </p>
+				 <h4>Fast Package</h4>
+		<pre><code> "package":"fast",</code></pre>
+		By specifying the fast package format the raw contents of each file to be packaged will be dumped into the package one after the other.
+		This offers a very slight performance improvement, it also decreases the size of the package file by up to 40%.
+		However the file may be damaged when transferring via email / ftp / ssh if the transfer program does not transfer the
+		file exactly bit for bit.
+		<h4>Scrambled Package</h4>
+		<pre><code> "package":"scramble",</code></pre>
+Telling deskshell to scramble the package will cause it to encrypt the contents of the file making it unreadable
+to none-technical users. Study of the deskshell source code will reveal the key used to encrypt the file making it
+relatively easy to decrypt by technical users. This format is meant as a demonstration of how the package format could be
+encrypted. A closed source fork of deskshell could hide the key used to encrypt / decrypt the package contents and so
+make it more secure.
+<h4>Standard Package</h4>
+		<pre><code> "package":"standard",</code></pre>
+		Just for completeness you can also set the package format to standard. If the package property is missing from
+		the .desk file then the package will be the standard format. This format is safe for transfer via ftp / email / ssh.
+		
+		</div>
+		</div>
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+</div>

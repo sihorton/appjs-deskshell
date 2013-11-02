@@ -85,13 +85,18 @@ NotInstalled:
 FunctionEnd
 
 Section "deskshell" SEC01
+  var /Global RunFile
   SetShellVarContext all
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   CreateDirectory "$INSTDIR"
-  
+ 
   SetOutPath "$INSTDIR\sys-apps"
   File /r /x ".git" "sys-apps\"
+
+  CreateDirectory "$INSTDIR\node_modules\"
+  SetOutPath "$INSTDIR\node_modules"
+  File /r /x ".git" "node_modules\"
 
  CreateDirectory "$INSTDIR\bin\node_modules\"
   SetOutPath "$INSTDIR\bin\node_modules"
@@ -104,6 +109,7 @@ Section "deskshell" SEC01
   File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
   File "${COMMON_DIR}\..\deskshell-updater.exe"
   File "${COMMON_DIR}\installer-version.txt"
+  
 
 ;create directory for user apps.
   CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
@@ -114,7 +120,21 @@ Section "deskshell" SEC01
   File "deskshell.exe"
   File "deskshell_debug.exe"
   
-  ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Application"
+  ;only way to tell installer to run app after install since we have to escalate privilege to run
+  IfFileExists '$INSTDIR\run.txt' ReadRunFile NoRunFile
+ReadRunFile:
+  FileOpen $5 "$INSTDIR\run.txt" r
+  FileRead $5 $RunFile
+  FileClose $5
+
+  Exec '"$INSTDIR\deskshell.exe" $RunFile'
+NoRunFile:
+  Delete "$INSTDIR\run.txt"
+
+  
+  
+  ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Source Application"
+  ${registerExtension} "$INSTDIR\deskshell.exe" ".appfs" "DeskShell Application"
   ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-debug" "DeskShell Application Debug"
   ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-back" "DeskShell Backend Application"
 
@@ -122,7 +142,7 @@ Section "deskshell" SEC01
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
   CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\deskshell-updater.lnk" "$INSTDIR\deskshell-updater.exe"
+  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\deskshell-updater.lnk" "$INSTDIR\bin\win\deskshell-updater.exe"
   CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\deskshell.exe"
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\My Deskshell Apps.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
   CreateShortCut "$LOCALAPPDATA\${PRODUCT_NAME}-apps\NewAppWizard.lnk" "$LOCALAPPDATA\${PRODUCT_NAME}\sys-apps\app-wizard\app-wizard.desk"
@@ -187,9 +207,15 @@ Section Uninstall
   Delete "$DESKTOP\${PRODUCT_NAME}.lnk"
 
   RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
-  RMDir /r "$INSTDIR\"
+  RMDir /r "$INSTDIR\bin"
+  RMDir /r "$INSTDIR\sys-apps"
+  RMDir "$INSTDIR\bin"
+  Delete "$INSTDIR\deskshell.exe"
+  Delete "$INSTDIR\deskshell_debug.exe"
+  Delete "$INSTDIR\uninst.exe"
 
-   ${unregisterExtension} ".desk" "DeskShell Application"
+   ${unregisterExtension} ".desk" "DeskShell Source Application"
+   ${unregisterExtension} ".appfs" "DeskShell Application"
    ${unregisterExtension} ".desk-debug" "DeskShell Application Debug"
    ${unregisterExtension} ".desk-back" "DeskShell Backend Application"
 
@@ -201,4 +227,3 @@ SectionEnd
 Function Launch-deskshell
   Exec "$INSTDIR\deskshell.exe"
 FunctionEnd
-

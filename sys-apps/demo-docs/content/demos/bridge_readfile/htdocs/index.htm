@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<title>Bridge World</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/deskShell/clientApi.js"></script>
+		<script type="text/javascript">
+			deskShell.socket.on('world', function(string) {
+				alert("some_message for you from node world : \n" + string);
+			});
+
+			deskShell.bridge = {}
+			deskShell.fs_browser = 0
+
+			function MakeCallBackToNode (fs_browser_, funcName_) {
+				return function (fileName) {	
+					//alert(funcName_);
+					var toSendData = {proxy: fs_browser_, funcName: funcName_, arguments_ : fileName};
+					alert(toSendData.proxy + toSendData.funcName);
+					deskShell.socket.emit('call-function', toSendData);
+				};
+			}
+
+			deskShell.socket.on('require-response', function(proxyObject) {
+				//alert("Request-response received "+ proxyObject);
+				deskShell.fs_browser = proxyObject.proxy;
+				var fs_browser = deskShell.fs_browser;
+				deskShell.bridge[fs_browser] = {};
+				var keys_ = proxyObject.keys_proxy;
+				for( key in  keys_) {
+					deskShell.bridge[fs_browser][keys_[key]] = MakeCallBackToNode(fs_browser, keys_[key]);
+				}
+			});
+
+			function XX() {
+				var x = "abc";
+				alert(x);
+				var proxyObject = {};
+				proxyObject[x] = function() {
+					alert(x);
+				};
+				proxyObject.abc();
+			}
+
+			deskShell.require_browser =  function() {
+				//alert("In require");
+				console.log("in require_browser calling fs filesystem");
+				deskShell.socket.emit('require', 'fs');
+			}
+
+			deskShell.callProxyFunction_browser = function() {
+				//alert(deskShell.fs_browser)
+				var fileName = document.getElementById("file-name").value;
+				if(fileName) {
+					deskShell.bridge[deskShell.fs_browser]["readFile"](fileName);
+				} else {
+					alert("Which file to read man ?? WrItE in box");
+				}
+			}
+		</script>
+	</head>
+<body>
+<h2>Bridge Read File</h2>
+<button onclick="deskShell.socket.emit('hello');">Say Hello To Node</button>
+<p></p>
+<button onclick="deskShell.exitApp();">close</button>
+<!--<button onclick="deskShell.socket.emit('XX');">DynamicFunction</button> -->
+<p>
+	File Name : <input id="file-name" type="text" value="give-me-some-file">
+</p>
+
+<button onclick="deskShell.require_browser();">1. Get-fs-In-Browser</button>
+<p></p>
+<button onclick="deskShell.callProxyFunction_browser();">2. Call-fs-readFile-from-Browser</button>
+
+</body>
+</html>

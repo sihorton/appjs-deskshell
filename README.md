@@ -1,43 +1,50 @@
-appjs-deskshell
-===============
+Deskshell
+=========
 
-SDK for building desktop applications using html5 / css / js. A simple json file with a .desk extension launches
-a desktop app with a frontend built using web technologies. The application can communicate with a backend
-built using familiar server scripts like nodejs or php. This backend allows you to access databases,
-write to disk and do whatever you need outside of the browser sandbox.
+Deskshell is a SDK that provides a shell (as in egg shell) around web applications so that they can run on the 
+desktop. It gives you a modern HTML5 / CSS / JS frontend for your user interface, but then allows full backend 
+functionality written in popular server scripting languages that anyone can pick up like node or php 
+(more choices coming soon). This makes it possible to read and write directly to disk, 
+access databases, communicate with servers and solve the task at hand.
 
+Try it out now with the following download:
++ [Windows](http://deskshell.org?download=WindowsInstall)
++ [MacOS](http://deskshell.org?download=MacInstall)
++ Linux coming soon.
 
-Windows:
+Community:
+========
+We are a very diverse community that welcomes people who have english as a second language. We are open and welcoming
+to new people both experienced super hackers and newbies alike. We would love this project
+to be your first accepted commit to an open source project. 
+There are also many things that are not strictly coding that you
+can do, maybe you can write an example app, improve our documentation, answer questions on the forums or write a 
+tutorial. Mostly just have fun making apps and when you see something that could be better have a go at improving
+it and then share it with the community.
+
+Join us on the [mailing list](https://groups.google.com/d/forum/appjs-dev)
+
+Source Code:
 ========
 
-The quickest way to start using deskshell for windows is to download the installer. This includes an example app
-that also serves as documentation and guide for the project. http://appjs.delightfulsoftware.com/deskshell/.
-To develop the code git clone the repository and then read the bin/win/readme.txt file for further details.
+The quickest way to start is to download the distributable for your platform and try making some applications. 
+The distributable will launch an example application that also serves as documentation and guide for the project.
+To get deskshell source code:
 
-Mac:
-====
-On mac git clone the repository, then cd to installer/mac and then run setup.nsr with nodejs. If you don't already 
-have nodejs installed then install from http://nodejs.org/download/. Once installed run setup.nsr:
+    git clone https://github.com/sihorton/appjs-deskshell.git
+    
+Then look at the readme for your platform (
+[Windows Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/win) | 
+[MacOS Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac) | 
+[Linux Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/linux)
+)
 
-     node setup.nsr
-     
-The script will create a folder Deskshell.app and will pull in the source code from the bin/mac directory. It will
-then download a binary that contains all of the Chromium and other required files. The download and extraction
-can take some time so leave it running until it is complete. Leave the binary there and the next time you run
-setup it will reuse the binary from last time.
+AppJS:
+=======
 
-Once the script is complete you will then have a Deskshell.app folder that you can run. The first run of the app
-registers the .desk files and from then on you can click on a .desk file to run it.
+This project grew out of the excellent work of [Milani](https://github.com/milani), [Benvie](https://github.com/Benvie) 
+and others on the [appjs](https://github.com/appjs/appjs/) project. It is very similar in spirit and nature but
+the source code is based in javascript rather than C++ which the majority of our users are more familiar with. This 
+expands the pool of programmers that can contribute to the project and makes it more accessible for beginners. If you
+have C++ skills then you are welcome to help us on creating and improving an embedded chromium frontend for deskshell.
 
-Mac port instructions are here: https://github.com/sihorton/appjs-deskshell/tree/master/bin/mac
-
-There is a pre-built binary also available for the mac: http://appjs.delightfulsoftware.com/deskshell/ 
-
-Linux:
-============
-
-Take a look at bin/linux folder. We will release an installer in the future.
-
-
-
-See http://appjs.delightfulsoftware.com/ for my previous work on packaging appjs for windows and linux.

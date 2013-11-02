@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell Packager</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Start</a></li>
+                    <li  class="active"><a href="docs/intro.htm">Docs</a></li>
+                    <li><a href="../editapp.htm">Edit App</a></li>
+                    <li><a href="../package.htm">Package App</a></li>
+                 </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Documentation</li>
+					<li><a href="intro.htm">Intro</a></li>
+					<li><a href="fileformat.htm">File format</a></li>
+					<li class="active"><a href="compatability.htm">Compatability</a></li>
+					<li><a href="packagetypes.htm">Package Types</a></li>
+					<li><a href="api.htm">Api</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>Compatability</h3>
+				 <p>
+				 Applications should generally be able to be run from inside a package without
+				 substantial logic changes. However there are subtle differences. Generally files
+				 inside a package should only be read and not written to. While the package format
+				 provides a high performance streaming format it is very slow to write to and any change
+				 to a file will cause the entire file to be duplicated rapidly taking up large amounts of disk space.
+				 </p>
+				 <h3>Reading / Writing data files</h3>
+				 <p>To read / write data files use the fs module as normal. To get the folder that your application
+				 is running in use deskshell.appDir, e.g.
+				 <pre>
+<code>fs.readFile(deskShell.appDir+"/dat.json", 'utf8', function (err, data) {
+	console.log(data);
+});</code></pre>
+					The same applies for writing to files:
+<pre><code>fs.writeFile(deskShell.appDir+"/dat.txt", "hello world", function (err) {
+	if (err) console.log(err);
+});</code></pre>
+Using deskShell.appDir will allow your code to function correctly running directly from disk or from inside a package. 
+					
+				 </p>
+				 <h3>Reading package files</h3>
+				 To read a file from inside the package use deskShell.appfs, this provides a standard nodejs
+				 fs object, but all actions will then be performed on files from the page. Deskshell will set appfs to
+be a standard fs object if you are not running inside a package, so the same code will work without modification inside and outside of a package.
+				 To read a file:-
+<pre><code>deskShell.appfs.readFile("dat.json", 'utf8', function (err, data) {
+	console.log(data);
+});</code></pre>
+				 Note that all file reads are relative to the package so there is no need to use deskShell.appDir for these calls.
+				 <h3>Custom Node Modules</h3>
+				 If your application uses node modules then you will need to copy the modules to a "node_modules" folder
+				in the same folder that the application package is run from. To require a module you will need to specify
+				the relative path to the module rather than relying on nodejs to find the module for you:
+<pre><code>BEFORE: var ssh= require("ssh2");
+AFTER: var ssh = require(deskShell.appDir+'node_modules/ssh2');
+</code></pre>
+With this simple change your node modules will then be accessible when running directly from disk or when your
+application is running from a package file.
+<h3>Node Modules Distribution</h3>
+When you send your application package to a user you will need to provide the node_modules directory for your application.
+
+			</div>
+		</div>
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+</div>

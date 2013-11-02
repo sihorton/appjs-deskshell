@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell Packager</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Start</a></li>
+                    <li  class="active"><a href="docs/intro.htm">Docs</a></li>
+                    <li><a href="../editapp.htm">Edit App</a></li>
+                    <li><a href="../package.htm">Package App</a></li>
+                 </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Documentation</li>
+					<li><a href="intro.htm">Intro</a></li>
+					<li class="active"><a href="fileformat.htm">File format</a></li>
+					<li><a href="compatability.htm">Compatability</a></li>
+					<li><a href="packagetypes.htm">Package Types</a></li>
+					<li><a href="api.htm">Api</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>File format</h3>
+				 The deskshell packager will take all of your application files and place them into one file:
+				 <code>app.appfs</code><br/>
+				 This file can then be used to run your application. Deskshell provides a virtual file system
+				 (AppFS) that gives you access to your files. It has the same methods as nodejs fs module but
+				 operates on files from the package. If run from outside the package then it will give you access
+				 to the application files on disk. When reading files you should not notice any difference between running inside and outside of a 
+				 package file. 
+				 <h3>Writing Files</h3>
+				 <p>It is possible to write files inside a package however this is strongly discouraged. It is possible
+				 to use the normal nodejs fs module to write files directly to the folder that the application is running from.
+				 This is the recommended way for dealing with data files that your application needs.</p>
+				 
+				 The virtual file system that appfs uses is an append only file format. This means that everytime you write
+				 to a file a new copy of the file will be created at the end of the package. If you write to a file 3 times
+				 you will therefore have 3 copies of that file in the package (only the last one is accessible). This allows
+				 reading to be high performance but package files should be treated as read only to get the best use out of them.
+				 
+				 
+				 </p>
+				 <p>
+				 As long as you understand this limitation then you won't run into any problems. You can 
+				 still write to the local disk as much as you want, just use the standard fs module as you
+				 normally would.
+				 </p>
+				 <p>
+				 The technical details of the file format are extremely simple. The file just contains one
+				 file after the other appended one after the other. Then at the very end of the file there is
+				 a contents listing that specifies the offset and filename for each file.
+				 </p>
+			</div>
+		</div>
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+</div>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell SDK</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Intro</a></li>
+                    <li class="active"><a href="start.htm">Get Started</a></li>
+                    <li><a href="../docs/intro.htm">Docs</a></li>
+                    <li><a href="../demos/intro.htm">Demos</a></li>
+					<li><a href="../wiz.htm">AppWizard</a></li>
+                    <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Tutorials</li>
+					<li class="active"><a href="start.htm">Quick Start</a></li>
+					
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>Quick Start</h3>
+ <p>Download the latest deskshell release from <a href="http://deskshell.org/">deskshell.org</a></p>
+ <p>Run Deskshell and click on the "AppWizard" tab and then "Launch App Wizard"</p>
+ <img src="launchAppWizard.png"/><br/>
+ <p>This will open a new window, click on Create New App and fill in a name for the application,
+ your name and a description. Then click Create to make your application.</p>
+ <img src="createApp.png"/><br/>
+ <p>Clicking on "Launch App" will open your wonder application and "Open App Folder" will open the folder
+ to allow you to view and edit the contents.</p> 
+ <p>Screenshot showing application that was created:</p>
+ <img src="helloWorldApp.png"/><br/>
+ <p>Opening the application folder will show a .desk file, an app.js backend file and then htdocs directory.
+ </p>
+ <img src="appFolder.png"/><br/>
+ <p>The htdocs directory holds your applications front end, if you are mainly going to create an html5 application
+ then simply create your application html, css, js and other content within this directory. 
+ If you change the contents then press F5 within the deskshell application to reload the current page and
+ show the updated files. You can use jquery / bootstrap / css3 and whatever else you would like to within this folder.
+ </p>
+ <p>
+ The app.js file contains javascript that is run by nodejs this provides a "backend" to your application running
+ in deskshell that will allow it to break out of the browser sandbox and access any nodejs functionality (write
+ directly to local disk, access databases, connect via ssh to other machines etc. etc.).
+ </p>
+ <p>Simply click on the app.desk file to launch your application</p>
+ <p>To share your application with the world click on the Packager Tab after running Deskshell</p>
+ <img src="appPackager.png"/><br/>
+ <p>Clicking on Package App and then entering the full path to your .desk file will then load information
+ about the application.
+ <img src="packaging.png"/><br/>
+  Clicking Package App will then package your app for distribution. It will create an .appfs file in the
+  deploy folder. If you now email or ftp this application to others then they can install deskshell and 
+  then run your application. For windows users you can create an exe in a similar manner, when run this
+  application will install deskshell if it does not exist and then run your application.
+ <p>
+ <p>
+ Check out the Demos tab to see some example deskshell applications!
+ </p>
+ 				</div>
+			</div>
+		
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+		 </div>

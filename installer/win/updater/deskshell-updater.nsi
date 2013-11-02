@@ -30,7 +30,7 @@ Name "${PRODUCT_NAME}"
 OutFile "../${PRODUCT_NAME}.exe"
 Icon "deskshell-updater.ico"
 ShowInstDetails hide
-
+AutoCloseWindow true
 Section "MainSection" SEC01
     SetAutoClose true
     Var /GLOBAL MyPath

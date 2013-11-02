@@ -14,7 +14,7 @@
                 <div class="container">
                   <ul class="nav">
                     <li><a href="../index.htm">Intro</a></li>
-                    <li><a href="../start.htm">Get Started</a></li>
+                    <li><a href="../tutorials/start.htm">Get Started</a></li>
                     <li class="active"><a href="intro.htm">Docs</a></li>
                     <li><a href="../demos/intro.htm">Demos</a></li>
                     <li><a href="../wiz.htm">AppWizard</a></li>
@@ -92,15 +92,20 @@
 	<tr><td>openSocket</td><td>Optional, open a websocket so front end html application can send socket messages to the backend.</td></tr>
 	<tr><td>openAppWin</td><td><b>To be Depreciated</b>opens a chrome window, this should be set in the .desk file instead.</td></tr>
 	<tr><td>exitOnChromiumClose</td><td><b>To be Renamed</b>when the window closes node should stop execution, important as otherwise you will leave many running processes running.</td></tr>
-	
-	
+	<tr><td>requestHandler</td><td>Function that is passed all http requests, return true to let deskshell handle the 
+	request for you and false to handle the request yourself (deskshell takes no further action</td></tr>
+	<tr><td>user-data-dir</td><td>Directory for chromium to use as its profile directory, if not supplied then it will use
+	the standard deskshell directory.</td></tr>
 </table>
-{
+<pre><code>{
 		htdocs:__dirname+"/htdocs/"
 		,openSocket:true
 		,openAppWin:true
 		,exitOnChromiumClose:true
-	}
+		,requestHandler:function(req,res) {
+			return true;//let deskshell handle everything
+		},user-data-dir:__dirname+"/data"
+	}</code></pre>
 				</div>
 			</div>
 				<hr>

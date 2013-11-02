@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell SDK</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	<script src="/socket.io/socket.io.js"></script>
+    <script src="gaffa-todo/htdocs/scripts/app.browser.js"></script>
+	<script>
+	  var socket = io.connect('http://localhost:'+location.port);
+	  socket.on('alert', function (data) {
+		console.log(data);
+		alert(data.mess);
+	  });
+	</script>
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Intro</a></li>
+                    <li><a href="../tutorials/start.htm">Get Started</a></li>
+                    <li ><a href="../docs/intro.htm">Docs</a></li>
+                    <li class="active"><a href="intro.htm">Demos</a></li>
+					<li><a href="../wiz.htm">AppWizard</a></li>
+                    <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				<ul class="nav nav-list">
+					<li class="nav-header">Demos</li>
+						<li><a href="intro.htm">Intro</a></li>
+					<li class="nav-header">Apps</li>
+						<li><a href="html_website.htm">html website</a></li>
+					    <li><a href="gaffa_todo.htm">Gaffa Todo</a></li>
+						<li><a href="svg_clock.htm">SVG Clock Animation</a></li>
+						<li><a href="kioskDemo.htm">kiosk demo</a></li>
+						<li><a href="soundDemo.htm">sound demo</a></li>
+						<li><a href="hello_world.htm">hello world demo</a></li>
+						<li class="active"><a href="bridge_readfile.htm">bridge read_file demo</a></li>
+						<li><a href="ErrorHandlingDemo.htm">Error Handling demo</a></li>
+				
+						
+					<li class="nav-header">Snippets</li>
+						<li><a href="launchApp.htm">launchApp</a></li>
+						<li><a href="webrtc.htm">WebRTC</a></li>
+				</ul>
+			 </div>
+			 <div class="span8">
+			  <h3>Bridge Read File</h3>
+			  <h4>Bridging world - Aim High</h4>
+        		<a onclick="socket.emit('LaunchAppDebug',{relpath:'content/demos/bridge_readfile/bridge_readfile.desk'});" class="btn btn-success">Launch Demo</a>
+				
+				<a onclick="socket.emit('OpenFolder',{relpath:'content/demos/bridge_readfile/bridge_readfile.desk'});" class="btn btn-info"><i class="icon-star icon-white"></i> View Source</a>
+        </div>
+			</div>
+				<hr>
+					
+		 </div>

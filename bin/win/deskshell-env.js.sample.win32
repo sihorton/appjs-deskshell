@@ -2,12 +2,11 @@
 	"chromeDebugPort": 9223
 	,"chromiumPath":"GoogleChromePortable/App/Chrome-bin/chrome.exe"
 	
-	,"deskShellExe":"/../../deskshell.exe"
-	,"deskShellExeDebug":"/../../deskshell-debug.exe"
+	,"deskShellExe":"deskshell.exe"
+	,"deskShellExeDebug":"deskshell_debug.exe"
 	
-	,"installDir":"/../../"
-	,"sysAppsDir":"/../../sys-apps/"
-	,"defaultApp":"/../../sys-apps/demo-docs/demo-docs.desk"
+	,"sysAppsDir":"sys-apps/"
+	,"defaultApp":"sys-apps/demo-docs/demo-docs.desk"
 	
 	,"updaterPath":"deskshell-updater.exe"
 	,"platformUpdateVersionUrl":"http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-version.txt"
