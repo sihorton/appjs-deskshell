@@ -1,0 +1,15 @@
+{
+    "name": "ErrorHandlingDemo",
+    "author": "http://github.com/sihorton/",
+    "description": "An application demonstrating different error handling techniques.",
+    "licence": "MIT",
+    "width": "400",
+    "height": "600",
+    "frontend": "chromium",
+    "backend": "node",
+    "htdocs": "htdocs",
+    "defaultLocation": "index.htm",
+    "main": "app.js",
+    "version": "0.1",
+    "v": "0.1"
+}

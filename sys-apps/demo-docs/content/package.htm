@@ -11,6 +11,10 @@
 		console.log(data);
 		alert(data.mess);
 	  });
+	  socket.on('exit', function (data) {
+		console.log(data);
+		alert("exit"+data.reason);
+	  });
 	</script>
 </head>
 <body>
@@ -43,7 +47,7 @@
 	<p>On windows you can create an application executable that will run your deskshell application</p>
 	<a onclick="socket.emit('LaunchApp',{relpath:'/../win-exe-compiler/exe-compiler.desk'});" class="btn btn-large btn-success">Compile Exe Now!</a>
 	
-		 </div>
+	 </div>
 			 
 				<hr>
 					<div class="footer">
