@@ -3,6 +3,23 @@
 * it will read the application json file, setup required environment and then run the application.
 */
 process.title = "Deskshell";
+
+process.on('SIGINT', function() {
+  deskShell.rescueDeskshell('Shutting Down:Recieved SIGINT','SIGINT',function() {process.exit();});
+});
+process.on('SIGQUIT', function() {
+  deskShell.rescueDeskshell('Shutting Down:Recieved SIGQUIT','SIGQUIT',function() {process.exit();  });
+});
+process.on('SIGABRT', function() {
+  deskShell.rescueDeskshell('Shutting Down:Recieved SIGABRT','SIGABRT',function() {process.exit();  });
+});
+process.on('SIGTERM', function() {
+  deskShell.rescueDeskshell('Shutting Down:Recieved SIGTERM','SIGTERM',function() {process.exit();  });
+});
+process.on('uncaughtException',function(err) {
+	deskShell.rescueDeskshell('UncaughtException:'+(err.message||err),err);
+});
+
 var Q = require("q"),fs=require("fs"),path = require("path")
 ,appfs = require(__dirname + "/node_modules/sihorton-vfs/sihorton-vfs.js");
 GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;

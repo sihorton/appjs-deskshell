@@ -19,3 +19,5 @@
 
 /sys-apps/win-exe-compiler/NSIS
 /installer/win/Deskshell-Runtime-install.exe
+
+/sys-apps/demo-docs/content/demos/ErrorHandlingDemo/deskshell.log
