@@ -6,7 +6,7 @@
 !define PRODUCT_UPDATE_NAME "deskshell"
 
 ;url directly to github repository to find updated installer.
-!define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-version.txt"
+!define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-runtime-version.txt"
 !define UPDATE_NAME "deskshell-update-installer"
 
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -27,7 +27,7 @@ RequestExecutionLevel admin
 ;RequestExecutionLevel user
 Caption "${PRODUCT_NAME}"
 Name "${PRODUCT_NAME}"
-OutFile "../${PRODUCT_NAME}.exe"
+OutFile "../${PRODUCT_NAME}-runtime.exe"
 Icon "deskshell-updater.ico"
 ShowInstDetails hide
 

@@ -98,7 +98,7 @@ Section "deskshell" SEC01
 
   CreateDirectory "$INSTDIR\sys-apps\demo-docs"
   SetOutPath "$INSTDIR\sys-apps\"
-  File /r /x ".git" "installer\demo-docs"
+  File /r /x ".git" "installer\win\demo-docs"
 
 
   CreateDirectory "$INSTDIR\node_modules\"
@@ -114,7 +114,7 @@ Section "deskshell" SEC01
 
   SetOutPath "$INSTDIR\bin\win"
   File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
-  File "${COMMON_DIR}\..\deskshell-updater.exe"
+  File /oname=deskshell-updater.exe "${COMMON_DIR}\..\deskshell-updater-runtime.exe"
   File /oname=installer-version.txt "${COMMON_DIR}\installer-runtime-version.txt"
   
 
