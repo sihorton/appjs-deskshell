@@ -115,6 +115,7 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR\bin\win"
   File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
   File /oname=deskshell-updater.exe "${COMMON_DIR}\..\deskshell-updater-runtime.exe"
+  File "${COMMON_DIR}\..\deskshell-updater-runtime.exe"
   File /oname=installer-version.txt "${COMMON_DIR}\installer-runtime-version.txt"
   
 

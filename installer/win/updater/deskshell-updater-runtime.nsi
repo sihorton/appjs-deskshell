@@ -75,7 +75,7 @@ normalinstall:
     
 versioncompare:
 
-    FileOpen $5 "$MyPath\version.txt" r
+    FileOpen $5 "$MyPath\installer-version.txt" r
     FileRead $5 $InstalledVersion
     FileClose $5
     ${Trim} $AvailableVersion $AvailableVersion
