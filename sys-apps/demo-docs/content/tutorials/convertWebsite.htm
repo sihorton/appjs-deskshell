@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>DeskShell SDK</title>
+	<link rel="stylesheet" href="../css/bootstrap.css"  type="text/css"/>
+	
+</head>
+<body>
+	<div class="container">
+	<img src="../deskShell.jpg"/>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li><a href="../index.htm">Intro</a></li>
+                    <li class="active"><a href="start.htm">Get Started</a></li>
+                    <li><a href="../docs/intro.htm">Docs</a></li>
+                    <li><a href="../demos/intro.htm">Demos</a></li>
+					<li><a href="../wiz.htm">AppWizard</a></li>
+                    <li><a href="../package.htm">Packager</a></li>
+					<li><a href="../todo.htm">Todo</a></li>
+                  </ul>
+                </div>
+              </div>
+         </div>
+		 
+		 <div class="row">
+			 <div class="span4">
+				 <ul class="nav nav-list">
+					<li class="nav-header">Tutorials</li>
+					<li><a href="start.htm">Quick Start</a></li>
+					<li class="active"><a href="convertWebsite.htm">Convert Website</a></li>
+					
+				</ul>
+			 </div>
+			 <div class="span8">
+				 <h3>Convert Website</h3>
+<p>Deskshell can be used to take a website, html5 demo or other existing html / javascript
+application and run it on the desktop. To start create a new blank folder with the name of your
+application, then create an htdocs folder and copy your website / html5 demo / javascript application
+into the folder. Then test the application by running it in google chrome.
+</p>
+<p>
+Deskshell uses an app.js file in json format to describe an application. Here is an example
+file:
+</p>
+<pre><code>{
+    "name": "myapp1",
+    "version": "0.1",
+    "author": "email@test.com",
+    "description": "My first deskshell app",
+    "licence": "MIT",
+    "htdocs": "htdocs",
+    "frontend": "chromium-portable",
+    "backend": "none",
+    "width": "300",
+    "height": "300",
+    "defaultLocation": "index.htm"
+}</code></pre>
+<p>Place the above file in your application folder with the htdocs folder in it.
+Click on app.desk to launch htdocs/index.htm inside deskshell. If you application 
+starts with a different file then change the defaultLocation setting in the file.</p>
+
+<p>Thats as hard as it gets if you have a pure html5 / javascript application.</p>
+<p>Once you have a working application checkout the application packager and
+exe compiler to package your application for distribution.</p>
+ 				</div>
+			</div>
+		
+				<hr>
+					<div class="footer">
+					<p>&copy; 2013</p>
+					</div>
+		 </div>
