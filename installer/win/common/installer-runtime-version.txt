@@ -1,2 +1,2 @@
-0.9.22
+0.9.23
 http://deskshell.org/?download=WindowsRuntimeInstall
