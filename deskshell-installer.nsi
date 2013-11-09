@@ -209,6 +209,7 @@ Section Uninstall
   RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
   RMDir /r "$INSTDIR\bin"
   RMDir /r "$INSTDIR\sys-apps"
+  RMDir /r "$INSTDIR\node_modules"
   RMDir "$INSTDIR\bin"
   Delete "$INSTDIR\deskshell.exe"
   Delete "$INSTDIR\deskshell_debug.exe"

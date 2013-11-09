@@ -97,6 +97,7 @@ var running = deskShell.startApp({
 					,author:"changeme@example.com"
 					,htdocs:"htdocs"
 					,defaultLocation:"index.htm"
+					,exitOnAppWinClose:true
 				}
 				for(var d in defaults) {
 					if (!params[d]) params[d] = defaults[d];

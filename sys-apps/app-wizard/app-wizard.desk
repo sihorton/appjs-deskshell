@@ -11,4 +11,5 @@
     "height": "600"
 	,"defaultLocation":"index.htm"
 	,"htdocs":"/content"
+	,"exitOnAppWinClose":true
 }
