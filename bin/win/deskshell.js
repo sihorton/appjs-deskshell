@@ -30,6 +30,11 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 	deskShell
 	.loadEnv()
 	.then(function() {
+		//force chrome path upgrade (windows code)
+		if (deskShell.env['chromiumPath'] == 'GoogleChromePortable/App/Chrome-bin/chrome.exe') {
+			deskShell.env['chromiumPath'] = 'DeskshellChrome/App/Chrome-bin/deskshell-chrome.exe';
+		}
+	
 		deskShell.defaultApp = false;
 		if (process.argv.length <3) {
 			//if no args run default application.

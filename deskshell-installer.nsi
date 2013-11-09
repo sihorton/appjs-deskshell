@@ -5,6 +5,7 @@
 * @author: sihorton
 */
 !define PRODUCT_NAME "Deskshell"
+!define PRODUCT_LOC_NAME "Deskshell"
 
 !define COMMON_DIR "installer\win\common"
 !define WIN_DIR "bin\win"
@@ -57,7 +58,7 @@ RequestExecutionLevel admin
 Name "${PRODUCT_NAME}"
 ;_${PRODUCT_VERSION}
 OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}-install.exe"
-InstallDir "$LOCALAPPDATA\${PRODUCT_NAME}"
+InstallDir "$LOCALAPPDATA\${PRODUCT_LOC_NAME}"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails hide
 ShowUnInstDetails hide
@@ -70,8 +71,19 @@ Function .onInit
     MessageBox MB_OK|MB_ICONEXCLAMATION "Deskshell is running. Click ok to close the process." /SD IDOK
     KillProcDLL::KillProc "deskshell.exe"
 notRunning:
+FindProcDLL::FindProc "deskshell-chrome.exe"
+  IntCmp $R0 1 0 notRunning2
+    MessageBox MB_OK|MB_ICONEXCLAMATION "Deskshell Chrome is running. Click ok to close the process." /SD IDOK
+    KillProcDLL::KillProc "deskshell-chrome.exe"
+notRunning2:
+FunctionEnd
 
-  ReadRegStr $DelDir ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstallDir"
+Section "deskshell" SEC01
+  var /Global RunFile
+  SetShellVarContext all
+  SetOverwrite ifnewer
+  
+ReadRegStr $DelDir ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstallDir"
 
 ; Check to see if already installed
   ReadRegStr $R0 ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString"
@@ -82,12 +94,9 @@ Uninstall:
   Delete "$R0"
   RmDir "$DelDir"
 NotInstalled:
-FunctionEnd
-
-Section "deskshell" SEC01
-  var /Global RunFile
-  SetShellVarContext all
-  SetOverwrite ifnewer
+  
+  
+  
   SetOutPath "$INSTDIR"
   CreateDirectory "$INSTDIR"
  
@@ -98,7 +107,7 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR\node_modules"
   File /r /x ".git" "node_modules\"
 
- CreateDirectory "$INSTDIR\bin\node_modules\"
+  CreateDirectory "$INSTDIR\bin\node_modules\"
   SetOutPath "$INSTDIR\bin\node_modules"
   File /r /x ".git" "bin\node_modules\"
 
@@ -112,7 +121,7 @@ Section "deskshell" SEC01
   
 
 ;create directory for user apps.
-  CreateDirectory "$LOCALAPPDATA\${PRODUCT_NAME}-apps"
+  CreateDirectory "$LOCALAPPDATA\${PRODUCT_LOC_NAME}-apps"
 
   SetOutPath "$INSTDIR"
   
@@ -207,9 +216,10 @@ Section Uninstall
   Delete "$DESKTOP\${PRODUCT_NAME}.lnk"
 
   RMDir /r "$SMPROGRAMS\$ICONS_GROUP"
+  RMDir /r "$INSTDIR\node_modules"
   RMDir /r "$INSTDIR\bin"
   RMDir /r "$INSTDIR\sys-apps"
-  RMDir /r "$INSTDIR\node_modules"
+  
   RMDir "$INSTDIR\bin"
   Delete "$INSTDIR\deskshell.exe"
   Delete "$INSTDIR\deskshell_debug.exe"

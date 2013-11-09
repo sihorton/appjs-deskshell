@@ -22,3 +22,5 @@
 
 /sys-apps/demo-docs/content/demos/ErrorHandlingDemo/deskshell.log
 /installer/win/deskshell-updater-runtime.exe
+
+/bin/win/DeskshellChrome
