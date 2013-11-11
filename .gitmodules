@@ -4,12 +4,3 @@
 [submodule "node_modules/sihorton-vfs"]
     path = node_modules/sihorton-vfs
     url = https://github.com/sihorton/sihorton-vfs.git
-[submodule "bin/win/node_modules/sihorton-vfs"]
-    path = bin/win/node_modules/sihorton-vfs
-    url = https://github.com/sihorton/sihorton-vfs.git
-[submodule "sys-apps/app-packager/node_modules/sihorton-vfs"]
-    path = sys-apps/app-packager/node_modules/sihorton-vfs
-    url = https://github.com/sihorton/sihorton-vfs.git
-[submodule "sys-apps/win-exe-compiler/node_modules/sihorton-vfs"]
-    path = sys-apps/win-exe-compiler/node_modules/sihorton-vfs
-    url = https://github.com/sihorton/sihorton-vfs.git
