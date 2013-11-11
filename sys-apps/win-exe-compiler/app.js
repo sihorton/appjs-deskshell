@@ -3,8 +3,8 @@ var path = require("path")
 	,appfs = require("sihorton-vfs")
 	,path = require("path")
 ;
-var cryptoStreamer = require("./node_modules/sihorton-vfs/crypto-streamer.js");
-var b64Streamer = require('./node_modules/sihorton-vfs/base64-streamer.js');
+var cryptoStreamer = require("../../node_modules/sihorton-vfs/crypto-streamer.js");
+var b64Streamer = require('../../node_modules/sihorton-vfs/base64-streamer.js');
 var config = {
 	packageExt:'.appfs'
 	,deployFolder:'../'
