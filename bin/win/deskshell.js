@@ -21,8 +21,8 @@ process.on('uncaughtException',function(err) {
 });
 
 var Q = require("q"),fs=require("fs"),path = require("path")
-,appfs = require(__dirname + "/node_modules/sihorton-vfs/sihorton-vfs.js");
-GLOBAL.deskShell = require(__dirname + "/node_modules/deskshell-api").api;
+,appfs = require("sihorton-vfs");
+GLOBAL.deskShell = require("deskshell-api").api;
 deskShell.platformDir = __dirname+"/";
 deskShell.installDir = path.normalize(__dirname + "/../../")+"/";
 deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
