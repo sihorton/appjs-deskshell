@@ -20,7 +20,7 @@ VIAddVersionKey InternalName "${PRODUCT_NAME}"
 VIAddVersionKey OriginalFilename "${PRODUCT_NAME}.exe"
 
 ;icon to use for your executable
-Icon "htdocs/favicon.ico"
+Icon "htdocs\favicon.ico"
 
 
 
@@ -30,6 +30,7 @@ Icon "htdocs/favicon.ico"
 !define PRODUCT_UPDATE_NAME "deskshell"
 !define DESKSHELL_INSTALL "$LOCALAPPDATA\Deskshell\Deskshell"
 !define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-runtime-version.txt"
+!define NEW_VERSION_URL_PORTABLE "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-portable-version.txt"
 !define UPDATE_NAME "deskshell-installer"
 
 !include "MUI2.nsh"
@@ -88,8 +89,14 @@ Section "MainSection" SEC01
     SetAutoClose true
     Var /GLOBAL AvailableVersion
     Var /GLOBAL NewInstaller
+    Var /GLOBAL MyPath
 
-    MessageBox MB_YESNO 'This application requires the Deskshell runtime to be able to run. Would you like to download and install it now?' IDNO stopLaunch IDYES download
+	;decide if you need to install the runtime or portable version of deskshell
+    ;Call InstallRuntime
+	Call InstallPortable
+SectionEnd
+Function InstallRuntime
+MessageBox MB_YESNO 'This application requires the Deskshell runtime to be able to run. Would you like to download and install it now?' IDNO stopLaunch IDYES download
 stoplaunch:
     Quit
 download:
@@ -114,10 +121,44 @@ download:
     FileOpen $5 "$LOCALAPPDATA\Deskshell\run.txt" w
     FileWrite $5 '"$EXEPATH" $2'
     FileClose $5
-
-    ExecShell "open" '$TEMP\${UPDATE_NAME}.exe'
+    
+	ExecShell "open" '$TEMP\${UPDATE_NAME}.exe'
     Quit
-SectionEnd
+FunctionEnd
+
+Function InstallPortable
+MessageBox MB_YESNO 'This application requires the Deskshell portable to be able to run. Would you like to download and install it now?' IDNO stopLaunch IDYES download
+stoplaunch:
+    Quit
+download:
+    inetc::get /SILENT  "${NEW_VERSION_URL_PORTABLE}" "$TEMP\version-latest.txt"
+    FileOpen $4 "$TEMP\version-latest.txt" r
+    FileRead $4 $AvailableVersion
+    FileRead $4 $NewInstaller
+    FileClose $4
+
+    inetc::get "$NewInstaller" "$TEMP\${UPDATE_NAME}.exe"
+    Pop $0
+    StrCmp $0 "OK" doinstall error
+    error:
+     MessageBox MB_OK "Error:$1 when downloading $NewInstaller. Please try again."
+     Abort
+
+    doinstall:
+    Call GetParameters
+    Pop $2
+
+    FileOpen $5 "$LOCALAPPDATA\Deskshell\run.txt" w
+    FileWrite $5 '"$EXEPATH" $2'
+    FileClose $5
+    
+	Push "$EXEPATH"
+    Call GetParent
+    Call GetParent
+    Pop $MyPath
+    Exec '$TEMP\${UPDATE_NAME}.exe /D=$MyPath\deskshell'
+    Quit
+FunctionEnd
 
 Function GetParameters
 
@@ -153,5 +194,32 @@ Function GetParameters
   Pop $R2
   Pop $R1
   Exch $R0
+
+FunctionEnd
+
+Function GetParent
+
+  Exch $R0
+  Push $R1
+  Push $R2
+  Push $R3
+
+  StrCpy $R1 0
+  StrLen $R2 $R0
+
+  loop:
+    IntOp $R1 $R1 + 1
+    IntCmp $R1 $R2 get 0 get
+    StrCpy $R3 $R0 1 -$R1
+    StrCmp $R3 "\" get
+  Goto loop
+
+  get:
+    StrCpy $R0 $R0 -$R1
+
+    Pop $R3
+    Pop $R2
+    Pop $R1
+    Exch $R0
 
 FunctionEnd
