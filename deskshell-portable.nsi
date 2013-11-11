@@ -64,7 +64,6 @@ ShowInstDetails hide
 ShowUnInstDetails hide
 AutoCloseWindow true
 Function .onInit
-  ;Var /GLOBAL DelDir
   ;try to see if it is running--
   ;FindProcDLL::FindProc "deskshell.exe"
   ;IntCmp $R0 1 0 notRunning
@@ -116,7 +115,7 @@ Section "deskshell" SEC01
   File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
   File /oname=deskshell-updater.exe "${COMMON_DIR}\..\deskshell-updater-runtime.exe"
   ;File "${COMMON_DIR}\..\deskshell-updater-runtime.exe"
-  File /oname=installer-version.txt "${COMMON_DIR}\installer-runtime-version.txt"
+  File /oname=installer-version.txt "${COMMON_DIR}\installer-portable-version.txt"
   
 
 ;create directory for user apps.

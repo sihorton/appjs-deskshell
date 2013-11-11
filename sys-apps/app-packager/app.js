@@ -114,6 +114,9 @@ var running = deskShell.startApp({
 				delete params.folder;
 				
 				fs.mkdir(appFolder,function(err){
+					if (!err) {
+						appFolder += '/src';
+						fs.mkdir(appFolder,function(err){
 					try {
 						if (err && err['code'] == 'EEXIST') {
 							//folder already exists.
@@ -137,6 +140,10 @@ var running = deskShell.startApp({
 								
 							}
 						});
+					} else {
+						socket.emit('progress',{type:"error",text:err.toString()});
+					}
+				});
 					} catch(err) {
 						socket.emit('progress',{type:"error",text:err.toString()});
 					}
