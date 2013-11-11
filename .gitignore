@@ -24,3 +24,7 @@
 /installer/win/deskshell-updater-runtime.exe
 
 /bin/win/DeskshellChrome
+
+/installer/win/Deskshell-Portable.exe
+
+/installer/win/deskshell-updater-portable.exe

@@ -6,7 +6,7 @@
 !define PRODUCT_UPDATE_NAME "deskshell"
 
 ;url directly to github repository to find updated installer.
-!define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-runtime-version.txt"
+!define NEW_VERSION_URL "http://raw.github.com/sihorton/appjs-deskshell/master/installer/win/common/installer-portable-version.txt"
 !define UPDATE_NAME "deskshell-update-installer"
 
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -27,7 +27,7 @@
 RequestExecutionLevel user
 Caption "${PRODUCT_NAME}"
 Name "${PRODUCT_NAME}"
-OutFile "../${PRODUCT_NAME}-runtime.exe"
+OutFile "../${PRODUCT_NAME}-portable.exe"
 Icon "deskshell-updater.ico"
 ShowInstDetails hide
 
@@ -51,6 +51,7 @@ Section "MainSection" SEC01
 
     StrCmp $2 "checkupdates" checkupdates nothingnew
 checkupdates:
+
 ;download version info
     inetc::get /SILENT  "${NEW_VERSION_URL}" "$TEMP\version-latest.txt"
 
@@ -110,7 +111,13 @@ versioncompare:
       ;IfFileExists $R0 +1 RunUpdate
       ;ExecWait '"$R0" /S _?=$INSTDIR'
       RunUpdate:
-      Exec '$TEMP\${UPDATE_NAME}.exe'
+      Push "$EXEPATH"
+      Call GetParent
+      Call GetParent
+      Call GetParent
+      Pop $MyPath
+     
+      Exec '$TEMP\${UPDATE_NAME}.exe /D=$MyPath'
       Quit
 nothingnew:
       MessageBox MB_OK "You have the latest version."
