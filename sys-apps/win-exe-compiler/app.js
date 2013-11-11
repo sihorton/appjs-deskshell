@@ -7,7 +7,7 @@ var cryptoStreamer = require("./node_modules/sihorton-vfs/crypto-streamer.js");
 var b64Streamer = require('./node_modules/sihorton-vfs/base64-streamer.js');
 var config = {
 	packageExt:'.appfs'
-	,deployFolder:'deploy'
+	,deployFolder:'../'
 	,extractFolder:'/extract/'
 }
 
@@ -114,30 +114,38 @@ var running = deskShell.startApp({
 				delete params.folder;
 				
 				fs.mkdir(appFolder,function(err){
-					try {
-						if (err && err['code'] == 'EEXIST') {
-							//folder already exists.
-						} else {
-							console.log(err);
-						}
-						//create new application.
-						fs.writeFile(appFolder+"/"+params.name+".desk", JSON.stringify(params,null, 4) , function(err) {
-							if(err) {
-								console.log(err);
-							} else {
-								socket.emit('progress','created '+appFolder);
-								fs.mkdir(appFolder+"/"+params.htdocs,function(err){
-									socket.emit('progress',{type:"info",text:appFolder+"/"+params.htdocs});
-									
-									fs.writeFile(appFolder+"/"+params.htdocs+"/index.htm", "<html><title>"+params.name+"</title><body><h2>Hello World</h2><p>Edit me and add your content</p></body></html>" ); 
-									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({});");
-									socket.emit('AppCreated',appFolder+"/"+params.name+".desk");
-									socket.emit('progress',{type:"success",text:appFolder+"/"+params.name+".desk"});
+					if (!err) {
+						appFolder += '/src';
+						fs.mkdir(appFolder,function(err){
+							
+							try {
+								if (err && err['code'] == 'EEXIST') {
+									//folder already exists.
+								} else {
+									console.log(err);
+								}
+								//create new application.
+								fs.writeFile(appFolder+"/"+params.name+".desk", JSON.stringify(params,null, 4) , function(err) {
+									if(err) {
+										console.log(err);
+									} else {
+										socket.emit('progress','created '+appFolder);
+										fs.mkdir(appFolder+"/"+params.htdocs,function(err){
+											socket.emit('progress',{type:"info",text:appFolder+"/"+params.htdocs});
+											
+											fs.writeFile(appFolder+"/"+params.htdocs+"/index.htm", "<html><title>"+params.name+"</title><body><h2>Hello World</h2><p>Edit me and add your content</p></body></html>" ); 
+											fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({});");
+											socket.emit('AppCreated',appFolder+"/"+params.name+".desk");
+											socket.emit('progress',{type:"success",text:appFolder+"/"+params.name+".desk"});
+										});
+										
+									}
 								});
-								
+							} catch(err) {
+								socket.emit('progress',{type:"error",text:err.toString()});
 							}
 						});
-					} catch(err) {
+					} else {
 						socket.emit('progress',{type:"error",text:err.toString()});
 					}
 				});
@@ -187,7 +195,7 @@ var running = deskShell.startApp({
 			console.log(appFolder);
 			console.log(appPackage);
 			
-			fs.mkdir(appFolder+'/'+config.deployFolder, function(err) {
+			//fs.mkdir(appFolder+'/'+config.deployFolder, function(err) {
 				//if (err) console.log(err);
 				
 				
@@ -202,7 +210,7 @@ var running = deskShell.startApp({
 						console.log(e);
 					}
 				  }
-				  console.log("here");
+				  
 				  packageApp(appInfo,appFolder,appPackage);
 					function packageApp(appInfo,appFolder,appPackage) {
 						console.log(appInfo);
@@ -320,11 +328,15 @@ var running = deskShell.startApp({
 						console.log("nsis=",nsis);
 						var nsisFile = appFolder+"\\app.nsi";
 						
-						var appfsFile = appFolder+"\\deploy\\app.exe.appfs";
-						var outf = appFolder+"\\deploy\\app.appfs.temp.appfs";
-
-						var exeFile = appFolder+"\\deploy\\app.exe";
-						var exeFile2 = appFolder+"\\deploy\\app.exe";
+						//var appfsFile = appFolder+"\\deploy\\app.exe.appfs";
+						//var outf = appFolder+"\\deploy\\app.appfs.temp.appfs";
+						var appfsFile = appFolder+'/'+config.deployFolder+"\\app.exe.appfs";
+						var outf = appFolder+'/'+config.deployFolder+"\\app.appfs.temp.appfs";
+						
+						//var exeFile = appFolder+"\\deploy\\app.exe";
+						//var exeFile2 = appFolder+"\\deploy\\app.exe";
+						var exeFile = appFolder+'/'+config.deployFolder+"\\app.exe";
+						var exeFile2 = appFolder+'/'+config.deployFolder+"\\app.exe";
 						
 						function check() {
 							var checkingAppSample = Q.defer();
@@ -396,7 +408,7 @@ var running = deskShell.startApp({
 				});
 				
 				
-			});
+			//});
 			
 			
 			

@@ -43,21 +43,42 @@ Name "${PRODUCT_NAME}"
 ShowInstDetails hide
 
 ;executable name
-OutFile "deploy/app.exe"
+OutFile "../app.exe"
 
 Function .onInit
+ Var /GLOBAL DeskshellPath
 	;This code will detect if deskshell is installed
 	;No need to edit this code.
-    IfFileExists '${DESKSHELL_INSTALL}.exe' DeskshellInstalled DeskshellMissing
-DeskshellInstalled:
+
+    ;test for deskshell portable
+    StrCpy $DeskshellPath '..\deskshell\deskshell.exe'
+    IfFileExists "$DeskshellPath" LaunchDeskshell DeskshellMissing1
+    
+DeskshellMissing1:
+    ;test for deskshell portable (allow running from deploy directory
+    StrCpy $DeskshellPath '..\..\deskshell\deskshell.exe'
+    IfFileExists "$DeskshellPath" LaunchDeskshell DeskshellMissing2
+ DeskshellMissing2:
+    
+;test for deskshell portable2
+    StrCpy $DeskshellPath '..\deskshell.exe'
+    IfFileExists "$DeskshellPath" LaunchDeskshell DeskshellMissing3
+    
+ DeskshellMissing3:
+    ;test for deskshell install location
+    StrCpy $DeskshellPath "${DESKSHELL_INSTALL}.exe"
+    IfFileExists "$DeskshellPath" LaunchDeskshell DeskshellMissing
+
+LaunchDeskshell:
     Call GetParameters
     Pop $2
-    Exec '${DESKSHELL_INSTALL}.exe "$EXEPATH" $2'
-	;To run your app with a console (debug) window comment out the above line and uncomment the below line.
-    ;Exec '${DESKSHELL_INSTALL}_debug.exe "$EXEPATH" $2'
+    Exec '$DeskshellPath "$EXEPATH" $2'
+    ;To run your app with a console (debug) window comment out the above line and uncomment the below line.
+    ;Exec '${DeskshellPath}_debug.exe "$EXEPATH" $2'
     Quit
+
 DeskshellMissing:
-; continue to rest of the installer.
+; continue to rest of the installer which will offer to download and install for you.
 FunctionEnd
 
 Section "MainSection" SEC01

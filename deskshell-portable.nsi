@@ -4,8 +4,8 @@
 *
 * @author: sihorton
 */
-!define PRODUCT_NAME "Deskshell-Runtime"
-!define PRODUCT_LOC_NAME "Deskshell"
+!define PRODUCT_NAME "Deskshell-Portable"
+!define PRODUCT_LOC_NAME "Deskshell-Portable"
 
 !define COMMON_DIR "installer\win\common"
 !define WIN_DIR "bin\win"
@@ -26,7 +26,7 @@ WriteINIStr "${FILENAME}.url" "InternetShortcut" "URL" "${URL}"
 ; Components page
 ;!insertmacro MUI_PAGE_COMPONENTS
 ; Directory page
-;!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_DIRECTORY
 ; Start menu page
 var ICONS_GROUP
 ;!define MUI_STARTMENUPAGE_NODISABLE
@@ -57,8 +57,8 @@ var ICONS_GROUP
 RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
 ;_${PRODUCT_VERSION}
-OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}-install.exe"
-InstallDir "$LOCALAPPDATA\${PRODUCT_LOC_NAME}"
+OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}.exe"
+InstallDir "deskshell"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails hide
 ShowUnInstDetails hide
@@ -93,12 +93,12 @@ Section "deskshell" SEC01
   CreateDirectory "$INSTDIR"
   
   CreateDirectory "$INSTDIR\sys-apps"
-  ;SetOutPath "$INSTDIR\sys-apps"
-  ;File /r /x ".git" "sys-apps\"
+  SetOutPath "$INSTDIR\sys-apps"
+  File /r /x ".git" "sys-apps\"
 
-  CreateDirectory "$INSTDIR\sys-apps\demo-docs"
-  SetOutPath "$INSTDIR\sys-apps\"
-  File /r /x ".git" "installer\win\demo-docs"
+  ;CreateDirectory "$INSTDIR\sys-apps\demo-docs"
+  ;SetOutPath "$INSTDIR\sys-apps\"
+  ;File /r /x ".git" "installer\win\demo-docs"
 
 
   CreateDirectory "$INSTDIR\node_modules\"
@@ -141,10 +141,10 @@ NoRunFile:
 
   
   
-  ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Source Application"
-  ${registerExtension} "$INSTDIR\deskshell.exe" ".appfs" "DeskShell Application"
-  ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-debug" "DeskShell Application Debug"
-  ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-back" "DeskShell Backend Application"
+  ;${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Source Application"
+  ;${registerExtension} "$INSTDIR\deskshell.exe" ".appfs" "DeskShell Application"
+  ;${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-debug" "DeskShell Application Debug"
+  ;${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-back" "DeskShell Backend Application"
 
 ; Shortcuts
   ;!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
