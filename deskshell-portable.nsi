@@ -104,10 +104,6 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR\node_modules"
   File /r /x ".git" "node_modules\"
 
-  CreateDirectory "$INSTDIR\bin\node_modules\"
-  SetOutPath "$INSTDIR\bin\node_modules"
-  File /r /x ".git" "bin\node_modules\"
-
   CreateDirectory "$INSTDIR\bin\win\"
   CreateDirectory "$INSTDIR\bin\win\chrome-profile\"
 
