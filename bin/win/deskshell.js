@@ -23,9 +23,9 @@ process.on('uncaughtException',function(err) {
 var Q = require("q"),fs=require("fs"),path = require("path")
 ,appfs = require("sihorton-vfs");
 GLOBAL.deskShell = require("deskshell-api").api;
-deskShell.platformDir = __dirname+"/";
+deskShell.platformDir = __dirname+path.sep;
 deskShell.installDir = path.normalize(__dirname + "/../../")+"/";
-deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
+deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 	
 	deskShell
 	.loadEnv()
@@ -42,7 +42,7 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 			process.argv[2] = deskShell.installDir+deskShell.env.defaultApp;
 		}
 		deskShell.appFile = process.argv[2];
-		deskShell.appDir = path.dirname(process.argv[2]) + "/";
+		deskShell.appDir = path.dirname(process.argv[2]) + path.sep;
 		return deskShell.ifexists(deskShell.appFile);
 	}).then(function() {
 		if (deskShell.defaultApp) {
@@ -52,7 +52,7 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 				request(deskShell.env.platformUpdateVersionUrl, function(error, response, body) {
 					if (error) return console.log("update failed:"+error);
 					var lines = body.split("\n");
-					fs.readFile(__dirname+"/installer-version.txt", 'utf8', function (err, data) {
+					fs.readFile(__dirname+path.sep+"installer-version.txt", 'utf8', function (err, data) {
 						if (err) {
 							//installer version not defined, you are probably running from a git checkout.
 						} else {
@@ -61,7 +61,7 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 							if (upgradeNeeded(lines[0],lines2[0])) {
 								console.log("upgrade available, launching updater.");
 								console.log(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath));
-								require('child_process').exec(path.normalize(deskShell.platformDir + "/" +deskShell.env.updaterPath),function(error, stdout, stderr) {
+								require('child_process').exec(path.normalize(deskShell.platformDir + path.sep +deskShell.env.updaterPath),function(error, stdout, stderr) {
 									if (error) console.log("upgrade failed.");
 								});
 							} else {
@@ -78,8 +78,8 @@ deskShell.envPath = deskShell.installDir + "/deskshell-env.js";
 			console.log("handler file");
 			deskShell.appLaunchFile = deskShell.appFile;
 			var appHandler = deskShell.env.appHandlers[path.extname(deskShell.appFile)];
-			deskShell.appFile = deskShell.installDir+"plugins/"+appHandler.app;
-			deskShell.appDir = path.dirname(deskShell.appFile)+"/";
+			deskShell.appFile = deskShell.installDir+"plugins"+path.sep+appHandler.app;
+			deskShell.appDir = path.dirname(deskShell.appFile)+path.sep;
 			
 			console.log("launching handler:",deskShell.appFile);
 			//ideally handlers would actually be a package file.
