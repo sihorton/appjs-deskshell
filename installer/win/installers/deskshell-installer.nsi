@@ -6,9 +6,9 @@
 */
 !define PRODUCT_NAME "Deskshell"
 !define PRODUCT_LOC_NAME "Deskshell"
-
-!define COMMON_DIR "installer\win\common"
-!define WIN_DIR "bin\win"
+!define ROOT_DIR "..\..\..\"
+!define COMMON_DIR "${ROOT_DIR}installer\win\common"
+!define WIN_DIR "${ROOT_DIR}bin\win"
 
 !include "${COMMON_DIR}\config.nsi"
 !include "${COMMON_DIR}\register-extensions.nsh"
@@ -57,7 +57,7 @@ RequestExecutionLevel admin
 ;RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
 ;_${PRODUCT_VERSION}
-OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}-install.exe"
+OutFile "..\${PRODUCT_NAME}-install.exe"
 InstallDir "$LOCALAPPDATA\${PRODUCT_LOC_NAME}"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails hide
@@ -101,17 +101,17 @@ NotInstalled:
   CreateDirectory "$INSTDIR"
  
   SetOutPath "$INSTDIR\sys-apps"
-  File /r /x ".git" "sys-apps\"
+  File /r /x ".git" "${ROOT_DIR}sys-apps\"
 
   CreateDirectory "$INSTDIR\node_modules\"
   SetOutPath "$INSTDIR\node_modules"
-  File /r /x ".git" "node_modules\"
+  File /r /x ".git" "${ROOT_DIR}node_modules\"
 
   CreateDirectory "$INSTDIR\bin\win\"
   CreateDirectory "$INSTDIR\bin\win\chrome-profile\"
 
   SetOutPath "$INSTDIR\bin\win"
-  File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
+  File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "${ROOT_DIR}bin\win\"
   File "${COMMON_DIR}\..\deskshell-updater.exe"
   File "${COMMON_DIR}\installer-version.txt"
   
@@ -122,8 +122,8 @@ NotInstalled:
   SetOutPath "$INSTDIR"
   
   ;install version info and launch / auto update.
-  File "deskshell.exe"
-  File "deskshell_debug.exe"
+  File "${ROOT_DIR}deskshell.exe"
+  File "${ROOT_DIR}deskshell_debug.exe"
   
   ;only way to tell installer to run app after install since we have to escalate privilege to run
   IfFileExists '$INSTDIR\run.txt' ReadRunFile NoRunFile

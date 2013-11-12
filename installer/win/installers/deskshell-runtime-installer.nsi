@@ -4,11 +4,12 @@
 *
 * @author: sihorton
 */
-!define PRODUCT_NAME "Deskshell-Portable"
-!define PRODUCT_LOC_NAME "Deskshell-Portable"
+!define PRODUCT_NAME "Deskshell-Runtime"
+!define PRODUCT_LOC_NAME "Deskshell"
 
-!define COMMON_DIR "installer\win\common"
-!define WIN_DIR "bin\win"
+!define ROOT_DIR "..\..\..\"
+!define COMMON_DIR "${ROOT_DIR}installer\win\common"
+!define WIN_DIR "${ROOT_DIR}bin\win"
 
 !include "${COMMON_DIR}\config.nsi"
 !include "${COMMON_DIR}\register-extensions.nsh"
@@ -26,7 +27,7 @@ WriteINIStr "${FILENAME}.url" "InternetShortcut" "URL" "${URL}"
 ; Components page
 ;!insertmacro MUI_PAGE_COMPONENTS
 ; Directory page
-!insertmacro MUI_PAGE_DIRECTORY
+;!insertmacro MUI_PAGE_DIRECTORY
 ; Start menu page
 var ICONS_GROUP
 ;!define MUI_STARTMENUPAGE_NODISABLE
@@ -46,7 +47,7 @@ var ICONS_GROUP
 ;!insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
-;!insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_INSTFILES
 
 
 ; Language files
@@ -57,31 +58,32 @@ var ICONS_GROUP
 RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
 ;_${PRODUCT_VERSION}
-OutFile "${COMMON_DIR}\..\${PRODUCT_NAME}.exe"
-InstallDir "deskshell"
+OutFile "..\${PRODUCT_NAME}-install.exe"
+InstallDir "$LOCALAPPDATA\${PRODUCT_LOC_NAME}"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails hide
 ShowUnInstDetails hide
 AutoCloseWindow true
 Function .onInit
+  Var /GLOBAL DelDir
   ;try to see if it is running--
-  ;FindProcDLL::FindProc "deskshell.exe"
-  ;IntCmp $R0 1 0 notRunning
-  ;  MessageBox MB_OK|MB_ICONEXCLAMATION "Deskshell is running. Click ok to close the process." /SD IDOK
-  ;  KillProcDLL::KillProc "deskshell.exe"
-;notRunning:
+  FindProcDLL::FindProc "deskshell.exe"
+  IntCmp $R0 1 0 notRunning
+    MessageBox MB_OK|MB_ICONEXCLAMATION "Deskshell is running. Click ok to close the process." /SD IDOK
+    KillProcDLL::KillProc "deskshell.exe"
+notRunning:
 
-  ;ReadRegStr $DelDir ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstallDir"
+  ReadRegStr $DelDir ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstallDir"
 
 ; Check to see if already installed
-  ;ReadRegStr $R0 ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString"
-  ;IfFileExists $R0 +1 NotInstalled
+  ReadRegStr $R0 ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString"
+  IfFileExists $R0 +1 NotInstalled
   ;MessageBox MB_YESNO "${PRODUCT_NAME} is already installed, should we uninstall the existing version first?$\nNo will install over the top of the existing version." IDYES Uninstall IDNO NotInstalled
-;Uninstall:
-  ;ExecWait '"$R0" /S _?=$INSTDIR'
-  ;Delete "$R0"
-  ;RmDir "$DelDir"
-;NotInstalled:
+Uninstall:
+  ExecWait '"$R0" /S _?=$INSTDIR'
+  Delete "$R0"
+  RmDir "$DelDir"
+NotInstalled:
 FunctionEnd
 
 Section "deskshell" SEC01
@@ -92,26 +94,26 @@ Section "deskshell" SEC01
   CreateDirectory "$INSTDIR"
   
   CreateDirectory "$INSTDIR\sys-apps"
-  SetOutPath "$INSTDIR\sys-apps"
-  File /r /x ".git" "sys-apps\"
+  ;SetOutPath "$INSTDIR\sys-apps"
+  ;File /r /x ".git" "sys-apps\"
 
-  ;CreateDirectory "$INSTDIR\sys-apps\demo-docs"
-  ;SetOutPath "$INSTDIR\sys-apps\"
-  ;File /r /x ".git" "installer\win\demo-docs"
+  CreateDirectory "$INSTDIR\sys-apps\demo-docs"
+  SetOutPath "$INSTDIR\sys-apps\"
+  File /r /x ".git" "${ROOT_DIR}installer\win\demo-docs"
 
 
   CreateDirectory "$INSTDIR\node_modules\"
   SetOutPath "$INSTDIR\node_modules"
-  File /r /x ".git" "node_modules\"
+  File /r /x ".git" "${ROOT_DIR}node_modules\"
 
   CreateDirectory "$INSTDIR\bin\win\"
   CreateDirectory "$INSTDIR\bin\win\chrome-profile\"
 
   SetOutPath "$INSTDIR\bin\win"
-  File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "bin\win\"
-  File /oname=deskshell-updater.exe "${COMMON_DIR}\..\deskshell-updater-portable.exe"
+  File /r /x ".git" /x "deskshell-env.js" /x chrome-profile "${ROOT_DIR}bin\win\"
+  File /oname=deskshell-updater.exe "${COMMON_DIR}\..\deskshell-updater-runtime.exe"
   ;File "${COMMON_DIR}\..\deskshell-updater-runtime.exe"
-  File /oname=installer-version.txt "${COMMON_DIR}\installer-portable-version.txt"
+  File /oname=installer-version.txt "${COMMON_DIR}\installer-runtime-version.txt"
   
 
 ;create directory for user apps.
@@ -120,8 +122,8 @@ Section "deskshell" SEC01
   SetOutPath "$INSTDIR"
   
   ;install version info and launch / auto update.
-  File "deskshell.exe"
-  File "deskshell_debug.exe"
+  File "${ROOT_DIR}deskshell.exe"
+  File "${ROOT_DIR}deskshell_debug.exe"
   
   ;only way to tell installer to run app after install since we have to escalate privilege to run
   IfFileExists '$INSTDIR\run.txt' ReadRunFile NoRunFile
@@ -136,10 +138,10 @@ NoRunFile:
 
   
   
-  ;${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Source Application"
-  ;${registerExtension} "$INSTDIR\deskshell.exe" ".appfs" "DeskShell Application"
-  ;${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-debug" "DeskShell Application Debug"
-  ;${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-back" "DeskShell Backend Application"
+  ${registerExtension} "$INSTDIR\deskshell.exe" ".desk" "DeskShell Source Application"
+  ${registerExtension} "$INSTDIR\deskshell.exe" ".appfs" "DeskShell Application"
+  ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-debug" "DeskShell Application Debug"
+  ${registerExtension} "$INSTDIR\deskshell_debug.exe" ".desk-back" "DeskShell Backend Application"
 
 ; Shortcuts
   ;!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
@@ -169,19 +171,19 @@ Section -AdditionalIcons
 ;  !insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 
-;Section -Post
-;  SetShellVarContext all
-;  WriteUninstaller "$INSTDIR\uninst.exe"
-;  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\deskshell.exe"
-;
-;  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
-;  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstallDir" "$INSTDIR"
-;  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-;  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\deskshell.exe"
-;  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
-;  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
-;  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
-;SectionEnd
+Section -Post
+  SetShellVarContext all
+  WriteUninstaller "$INSTDIR\uninst.exe"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\deskshell.exe"
+
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstallDir" "$INSTDIR"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\deskshell.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+SectionEnd
 
 Function un.onUninstSuccess
   HideWindow
