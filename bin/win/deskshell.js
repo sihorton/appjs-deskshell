@@ -34,7 +34,10 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 		if (deskShell.env['chromiumPath'] == 'GoogleChromePortable/App/Chrome-bin/chrome.exe') {
 			deskShell.env['chromiumPath'] = 'DeskshellChrome/App/Chrome-bin/deskshell-chrome.exe';
 		}
-	
+		//old bug for people with the first releases of deskshell that have a config file that is not upgraded.
+		if (deskShell.env['deskShellExeDebug'] == 'deskshell-debug.exe') {
+			deskShell.env['deskShellExeDebug'] = 'deskshell_debug.exe';
+		}
 		deskShell.defaultApp = false;
 		if (process.argv.length <3) {
 			//if no args run default application.

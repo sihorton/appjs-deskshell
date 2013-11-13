@@ -1,2 +1,2 @@
-0.9.26
+0.9.27
 http://deskshell.org/?download=WindowsInstall

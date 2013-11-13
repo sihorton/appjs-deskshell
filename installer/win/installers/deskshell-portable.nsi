@@ -6,6 +6,7 @@
 */
 !define PRODUCT_NAME "Deskshell-Portable"
 !define PRODUCT_LOC_NAME "Deskshell-Portable"
+
 !define ROOT_DIR "..\..\..\"
 !define COMMON_DIR "${ROOT_DIR}installer\win\common"
 !define WIN_DIR "${ROOT_DIR}bin\win"
