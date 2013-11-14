@@ -58,7 +58,7 @@ var ICONS_GROUP
 RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
 ;_${PRODUCT_VERSION}
-OutFile "..\${PRODUCT_NAME}2.exe"
+OutFile "..\${PRODUCT_NAME}.exe"
 InstallDir "deskshell"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails hide

@@ -1,2 +1,2 @@
-0.9.26
-http://deskshell.org/?download=WindowsPortableInstall
+0.9.28
+http://deskshell.org/?download=WindowsPortableUpdate
