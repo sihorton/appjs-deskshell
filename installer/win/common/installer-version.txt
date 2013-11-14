@@ -1,2 +1,2 @@
-0.9.27
-http://deskshell.org/?download=WindowsInstall
+0.9.28
+http://deskshell.org/?download=WindowsUpdateInstall
