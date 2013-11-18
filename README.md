@@ -8,7 +8,7 @@ functionality written in popular server scripting languages that anyone can pick
 access databases, communicate with servers and solve the task at hand.
 
 Try it out now with the following download:
-+ [Windows](http://deskshell.org?download=WindowsInstall)
++ [Windows](http://deskshell.org?download=WindowsInstall) | [Windows Portable](http://deskshell.org?download=WindowsPortable)
 + [MacOS](http://deskshell.org?download=MacInstall)
 + Linux coming soon.
 
