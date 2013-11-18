@@ -1,11 +1,10 @@
-To get the binaries for windows:-
+There are 3 ways to get the binaries for windows:-
 
-1) Chrome
-Download http://portableapps.com/apps/internet/google_chrome_portable and extract to bin/win/GoogleChromePortable in this folder.
-create a folder "bin/win/chrome-profile" to store the chrome profile information in.
+A) You can copy the node.exe and the DeskshellChrome directory from bin/win directory in the appjs install.
+B) Download and install the windows binaries into the root directory of the project: http://deskshell.org/?download=WindowsBin
+C) You can manually download chrome from http://portableapps.com/apps/internet/google_chrome_portable and node js from http://nodejs.org/download/
+chrome should be extracted into bin/win/GoogleChromePortable and node.exe to bin/win/node.exe
 
-2) Node JS:
-Go to http://nodejs.org/download/ then select Windows Binary (.exe) 32-bit and save to bin/win/node.exe
 
 
 
