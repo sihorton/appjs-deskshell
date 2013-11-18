@@ -28,7 +28,7 @@ var Q = require("q"),fs=require("fs"),path = require("path")
 ,appfs = require("sihorton-vfs");
 GLOBAL.deskShell = require("deskshell-api").api;
 deskShell.platformDir = __dirname+path.sep;
-deskShell.installDir = path.normalize(__dirname + "/../../")+"/";
+deskShell.installDir = path.normalize(__dirname + path.sep+".."+path.sep+"..")+path.sep;
 deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 	
 	deskShell
