@@ -4,7 +4,7 @@
   "description": "SDK for developing desktop applications",
   "main": "index.js",
   "dependencies": {
-    "chrome-rDebug": "~0.0.12",
+    "chrome-rDebug": "~0.0.14",
     "deskshell-api": "~0.0.7",
     "freeport": "~1.0.2",
     "sihorton-vfs": "~0.3.3",
