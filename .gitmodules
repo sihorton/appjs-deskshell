@@ -7,3 +7,6 @@
 [submodule "node_modules/chrome-rDebug"]
     path = node_modules/chrome-rDebug
     url = https://github.com/sihorton/chrome-rDebug.git
+[submodule "node_modules/deskshell-api"]
+    path = node_modules/deskshell-api
+    url = https://github.com/sihorton/deskshell-api.git
