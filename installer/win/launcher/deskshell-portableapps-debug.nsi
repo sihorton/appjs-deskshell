@@ -16,7 +16,7 @@
 
 RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
-OutFile "..\deskshell_portablecom_debug.exe"
+OutFile "..\portableapps_com\App\deskshell_debug.exe"
 Icon "deskshell.ico"
 ShowInstDetails hide
 
@@ -37,10 +37,10 @@ Section "MainSection" SEC01
 
      ${If} $2 == ''
          ;Exec '"$MYPATH\bin\win\node.exe" "$MYPATH\sys-apps\env.js" "$MYPATH/sys-apps/default/default.desk"'
-         Exec '"$MYPATH\App\bin\win\deskshell-node.exe" "$MYPATH\App\bin\win\deskshell.js"'
+         Exec '"$MYPATH\bin\win\deskshell-node.exe" "$MYPATH\bin\win\deskshell.js"'
         ;MessageBox MB_OK '$MYPATH\bin\win\node.exe "$MYPATH/sys-apps/default/default.desk"'
      ${Else}
-         Exec '$MYPATH\App\bin\win\deskshell-node.exe "$MYPATH\App\bin\win\deskshell.js" $2'
+         Exec '$MYPATH\bin\win\deskshell-node.exe "$MYPATH\bin\win\deskshell.js" $2'
          ;MessageBox MB_OK '$MYPATH\bin\win\node.exe $2'
     ${EndIf}
     
