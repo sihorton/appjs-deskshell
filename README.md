@@ -29,9 +29,16 @@ Source Code:
 
 The quickest way to start is to download the distributable for your platform and try making some applications. 
 The distributable will launch an example application that also serves as documentation and guide for the project.
-To get deskshell source code:
+To get deskshell source code, clone the repository and get all submodules.
 
-    git clone https://github.com/sihorton/appjs-deskshell.git
+    git clone https://github.com/sihorton/appjs-deskshell.git deskshell
+    cd deskshell
+    git submodule init
+    
+If you want to get the latest versions of the node modules deskshell uses then run:
+
+    npm update
+    
     
 Then look at the readme for your platform (
 [Windows Readme](https://github.com/sihorton/appjs-deskshell/tree/master/bin/win) | 
