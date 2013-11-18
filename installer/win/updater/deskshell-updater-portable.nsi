@@ -2,7 +2,7 @@
 * check for updated installer and run it.
 */
 
-!define PRODUCT_NAME "deskshell-updater"
+!define PRODUCT_NAME "deskshell-updater-portable"
 !define PRODUCT_UPDATE_NAME "deskshell"
 
 ;url directly to github repository to find updated installer.
@@ -27,7 +27,7 @@
 RequestExecutionLevel user
 Caption "${PRODUCT_NAME}"
 Name "${PRODUCT_NAME}"
-OutFile "../${PRODUCT_NAME}-portable.exe"
+OutFile "../${PRODUCT_NAME}.exe"
 Icon "deskshell-updater.ico"
 ShowInstDetails hide
 

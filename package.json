@@ -4,7 +4,8 @@
   "description": "SDK for developing desktop applications",
   "main": "index.js",
   "dependencies": {
-    "chrome-rdebug": "~0.0.14",    "deskshell-api": "~0.0.7",
+    "chrome-rdebug": "~0.0.14",
+    "deskshell-api": "~0.0.7",
     "freeport": "~1.0.2",
     "sihorton-vfs": "~0.3.3",
     "socket.io": "~0.9.13",
