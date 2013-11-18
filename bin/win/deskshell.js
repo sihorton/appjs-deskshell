@@ -17,7 +17,11 @@ process.on('SIGTERM', function() {
   deskShell.rescueDeskshell('Shutting Down:Recieved SIGTERM','SIGTERM',function() {process.exit();  });
 });
 process.on('uncaughtException',function(err) {
-	deskShell.rescueDeskshell('UncaughtException:'+(err.message||err),err);
+  if (GLOBAL['deskShell']) {
+    deskShell.rescueDeskshell('UncaughtException:'+(err.message||err),err);
+  } else {
+    console.log(err);
+  }
 });
 
 var Q = require("q"),fs=require("fs"),path = require("path")
