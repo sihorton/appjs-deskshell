@@ -28,3 +28,7 @@
 /installer/win/deskshell-updater-portable.exe
 
 /installer/win/deskshell_portablecom_debug.exe
+
+/installer/win/portableapps_com/App/deskshell.exe
+
+/installer/win/portableapps_com/App/deskshell_debug.exe
