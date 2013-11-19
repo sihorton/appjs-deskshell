@@ -16,7 +16,7 @@
 
 RequestExecutionLevel user
 Name "${PRODUCT_NAME}"
-OutFile "..\..\..\deskshell_debug2.exe"
+OutFile "..\..\..\deskshell_debug.exe"
 Icon "deskshell.ico"
 ShowInstDetails hide
 
