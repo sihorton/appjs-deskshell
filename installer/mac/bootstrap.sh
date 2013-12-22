@@ -23,6 +23,8 @@ echo "=> Creating bundle... Be patient."
 mkdir -p Deskshell.app/Contents
 cp -Rv ../../bin/mac/deskshell_bundle/* ./Deskshell.app/Contents | while read l; do echo -n "."; done
 cp -Rv deskshell_binary_dist/* ./Deskshell.app/Contents | while read l; do echo -n "."; done
+# New: consume node_modules fodler
+cp -Rv ../../node_modules ./Deskshell.app/Contents | while read l; do echo -n "."; done
 echo
 if [ ! -d "../../bin/mac/Deskshell.app" ]; then
 	echo "=> Placing the result into the bin/mac folder"

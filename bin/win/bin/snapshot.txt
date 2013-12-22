@@ -1,0 +1,63 @@
+This snapshot was automatically generated on
+Sun, 20 Oct 2013 23:42:00 +0000
+
+Version: 5.5.5
+Branch: HEAD
+Build: Release_TS
+
+Built-in Extensions
+===========================
+Core
+bcmath
+calendar
+com_dotnet
+ctype
+date
+ereg
+filter
+ftp
+hash
+iconv
+json
+mbstring
+odbc
+pcre
+pthreads
+Reflection
+SPL
+sockets
+session
+standard
+tokenizer
+zip
+libxml
+dom
+Phar
+SimpleXML
+soap
+wddx
+xml
+xmlreader
+xmlwriter
+
+
+Dependency information:
+Module: php-cgi.exe
+===========================
+	msvcr110.dll
+
+Module: php.exe
+===========================
+	msvcr110.dll
+
+Module: php-win.exe
+===========================
+	msvcr110.dll
+
+Module: php_curl.dll
+===========================
+	libeay32.dll
+	ssleay32.dll
+	normaliz.dll
+	msvcr110.dll
+

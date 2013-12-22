@@ -10,6 +10,4 @@
 
 ## General
 - Start notating .d0v files into the bundle to make it detectable by the drag0n prototype.
-- Explore possibilites for speed/memory improvement
-- Explore more possibilites with placing Chromium and how to influence the menu even further.
 - Re-implement CocoaDialog, write simple and small nodejs/php extension to connect with it.
