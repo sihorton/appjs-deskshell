@@ -1,6 +1,6 @@
 {
 	"chromeDebugPort": 9223
-	,"chromiumPath":"GoogleChromePortable/App/Chrome-bin/chrome.exe"
+	,"chromiumPath":"DeskshellChrome/App/Chrome-bin/deskshell-chrome.exe"
 	
 	,"deskShellExe":"deskshell.exe"
 	,"deskShellExeDebug":"deskshell_debug.exe"

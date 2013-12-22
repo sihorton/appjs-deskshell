@@ -12,7 +12,7 @@
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
-
+!include "MUI2.nsh"
 
 
 !define MUI_TEXT_INSTALLING_TITLE "Downloading"
@@ -30,7 +30,7 @@ Name "${PRODUCT_NAME}"
 OutFile "../${PRODUCT_NAME}.exe"
 Icon "deskshell-updater.ico"
 ShowInstDetails hide
-AutoCloseWindow true
+
 Section "MainSection" SEC01
     SetAutoClose true
     Var /GLOBAL MyPath
@@ -75,7 +75,7 @@ normalinstall:
     
 versioncompare:
 
-    FileOpen $5 "$MyPath\version.txt" r
+    FileOpen $5 "$MyPath\installer-version.txt" r
     FileRead $5 $InstalledVersion
     FileClose $5
     ${Trim} $AvailableVersion $AvailableVersion

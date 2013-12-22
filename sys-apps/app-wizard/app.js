@@ -91,17 +91,18 @@ var running = deskShell.startApp({
 				console.log("newApp",params);
 				//create a new minimal application...
 				var defaults = {
-					folder:path.normalize(deskShell.platformDir+'\\..\\..\\..\\deskshell-apps')
+					folder:path.normalize(deskShell.platformDir+'/../../../deskshell-apps')
 					,name:'test'
 					,v:"0.1"
 					,author:"changeme@example.com"
 					,htdocs:"htdocs"
 					,defaultLocation:"index.htm"
+					,exitOnAppWinClose:true
 				}
 				for(var d in defaults) {
 					if (!params[d]) params[d] = defaults[d];
 				}
-				var appFolder = params.folder+"/"+(params.name||'test');
+				var appFolder = params.folder+path.sep+(params.name||'test');
 				
 				delete params.folder;
 				
@@ -113,18 +114,18 @@ var running = deskShell.startApp({
 							console.log(err);
 						}
 						//create new application.
-						fs.writeFile(appFolder+"/"+params.name+".desk", JSON.stringify(params,null, 4) , function(err) {
+						fs.writeFile(appFolder+path.sep+params.name+".desk", JSON.stringify(params,null, 4) , function(err) {
 							if(err) {
 								console.log(err);
 							} else {
 								socket.emit('progress','created '+appFolder);
-								fs.mkdir(appFolder+"/"+params.htdocs,function(err){
-									socket.emit('progress',{type:"info",text:appFolder+"/"+params.htdocs});
+								fs.mkdir(appFolder+path.sep+params.htdocs,function(err){
+									socket.emit('progress',{type:"info",text:appFolder+path.sep+params.htdocs});
 									
-									fs.writeFile(appFolder+"/"+params.htdocs+"/index.htm", "<html><title>"+params.name+"</title><body><h2>Hello World</h2><p>Edit me and add your content</p></body></html>" ); 
-									fs.writeFile(appFolder+"/app.js","var running = deskShell.startApp({});");
-									socket.emit('AppCreated',appFolder+"/"+params.name+".desk");
-									socket.emit('progress',{type:"success",text:appFolder+"/"+params.name+".desk"});
+									fs.writeFile(appFolder+path.sep+params.htdocs+path.sep+"index.htm", "<html><title>"+params.name+"</title><body><h2>Hello World</h2><p>Edit me and add your content</p></body></html>" ); 
+									fs.writeFile(appFolder+path.sep+"app.js","var running = deskShell.startApp({});");
+									socket.emit('AppCreated',appFolder+path.sep+params.name+".desk");
+									socket.emit('progress',{type:"success",text:appFolder+path.sep+params.name+".desk"});
 								});
 								
 							}
@@ -140,10 +141,10 @@ var running = deskShell.startApp({
 		socket.on('appExe',function(params) {
 			try {
 				console.log("appExe",params);
-				fs.readFile(__dirname+"/app.sample.nsi", 'utf8', function (err, data) {
-					fs.writeFile(params.folder+"/app.nsi", data,function(err) {
-						socket.emit('AppExeCreated',params.folder+"/app.nsi");
-						socket.emit('progress',{type:"success",text:params.folder+"/app.nsi"});
+				fs.readFile(__dirname+path.sep+"app.sample.nsi", 'utf8', function (err, data) {
+					fs.writeFile(params.folder+path.sep+"app.nsi", data,function(err) {
+						socket.emit('AppExeCreated',params.folder+path.sep+"app.nsi");
+						socket.emit('progress',{type:"success",text:params.folder+path.sep+"app.nsi"});
 					}); 
 							
 				});

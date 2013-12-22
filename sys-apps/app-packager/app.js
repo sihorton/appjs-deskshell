@@ -3,8 +3,8 @@ var path = require("path")
 	,appfs = require("sihorton-vfs")
 	,path = require("path")
 ;
-var cryptoStreamer = require("./node_modules/sihorton-vfs/crypto-streamer.js");
-var b64Streamer = require('./node_modules/sihorton-vfs/base64-streamer.js');
+var cryptoStreamer = require("../../node_modules/sihorton-vfs/crypto-streamer.js");
+var b64Streamer = require('../../node_modules/sihorton-vfs/base64-streamer.js');
 var config = {
 	packageExt:'.appfs'
 	,deployFolder:'deploy'
@@ -114,6 +114,9 @@ var running = deskShell.startApp({
 				delete params.folder;
 				
 				fs.mkdir(appFolder,function(err){
+					if (!err) {
+						appFolder += '/src';
+						fs.mkdir(appFolder,function(err){
 					try {
 						if (err && err['code'] == 'EEXIST') {
 							//folder already exists.
@@ -137,6 +140,10 @@ var running = deskShell.startApp({
 								
 							}
 						});
+					} else {
+						socket.emit('progress',{type:"error",text:err.toString()});
+					}
+				});
 					} catch(err) {
 						socket.emit('progress',{type:"error",text:err.toString()});
 					}

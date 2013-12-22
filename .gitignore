@@ -7,7 +7,6 @@
 /installer/win/deskshell-updater.exe
 
 /bin/win/deskshell-env.js
-/installer/win/dev-assoc.exe
 /installer/mac/deskshell-xtra-mac.tar.gz
 
 /installer/mac/Deskshell.app
@@ -17,7 +16,19 @@
 /bin/mac/deskshell-bin.tgz
 /deskshell-env.js
 
-/sys-apps/win-exe-compiler/NSIS
 /installer/win/Deskshell-Runtime-install.exe
 
 /sys-apps/demo-docs/content/demos/ErrorHandlingDemo/deskshell.log
+/installer/win/deskshell-updater-runtime.exe
+
+/bin/win/DeskshellChrome
+
+/installer/win/Deskshell-Portable.exe
+
+/installer/win/deskshell-updater-portable.exe
+
+/installer/win/deskshell_portablecom_debug.exe
+
+/installer/win/portableapps_com/App/deskshell.exe
+
+/installer/win/portableapps_com/App/deskshell_debug.exe

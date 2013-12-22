@@ -23,9 +23,17 @@
                 </div>
               </div>
          </div>
+		 <div class="alert">Compiler expects your src directory to be under your application, it will then place app.exe
+		 in the directory above app.desk.
+				</div>
+		<div class="alert"><b>Warning:</b>To successfully compile you are required to have an application icon. By default
+		this is defined as htdocs/favicon.ico if that file does not exist then the compilation will fail. If you want to change
+		the file then edit app.nsi after your first compile.
+				</div>
 		 <div class="hero-unit">
 			<form class="form-horizontal">
 			<div class="control-group">
+				
 				<label class="control-label" for="appFolder">Path to .desk file</label>
 				<div class="controls">
 				  <input type="text" id="appFolder">  <button type="button" class="btn" onclick="

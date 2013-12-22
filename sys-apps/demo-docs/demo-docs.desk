@@ -11,4 +11,5 @@
 	,"width":1024
 	,"height":640
 	,"htdocs":"/content"
+	,"exitOnAppWinClose":true
 }

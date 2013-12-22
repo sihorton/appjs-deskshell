@@ -12,4 +12,5 @@
     "width": "600",
     "height": "460",
 	"appSocket":true
+	,"port":19240
 }

@@ -1,0 +1,28 @@
+{
+  "name": "deskshell",
+  "version": "0.9.28",
+  "description": "SDK for developing desktop applications",
+  "main": "index.js",
+  "dependencies": {
+    "chrome-rdebug": "~0.0.14",
+    "deskshell-api": "~0.0.7",
+    "freeport": "~1.0.2",
+    "sihorton-vfs": "~0.3.3",
+    "socket.io": "~0.9.13",
+    "mime": "~1.2.11",
+    "request": "~2.27.0",
+    "q": "~0.9.7"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://sihorton@github.com/sihorton/appjs-deskshell.git"
+  },
+  "author": "sihorton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sihorton/appjs-deskshell/issues"
+  },"wiki": {
+    "url": "https://github.com/sihorton/appjs-deskshell/wiki"
+  }
+}
