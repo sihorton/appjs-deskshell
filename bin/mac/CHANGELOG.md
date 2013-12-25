@@ -2,6 +2,11 @@
 
 ## Deskshell for Mac
 
+### 19th Nov. 2013
+- Upgraded Chromium to the latest 33.x builds.
+	- Now supports OS X Maverics!
+- New Menu patch, to prevent chromium from falling apart o.o (It did, because one particular menu group was erased...sort of weird).
+
 ### 03th Oct. 2013
 - Added stable and working PHP port.
 	- PHP included with pthreads, sockets and curl extensions.

@@ -32,3 +32,5 @@
 /installer/win/portableapps_com/App/deskshell.exe
 
 /installer/win/portableapps_com/App/deskshell_debug.exe
+
+*.dmg

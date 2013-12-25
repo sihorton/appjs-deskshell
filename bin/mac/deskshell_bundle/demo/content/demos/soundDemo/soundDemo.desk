@@ -4,7 +4,7 @@
     "description": "Test of sound in deskshell.",
     "licence": "MIT",
     "frontend": "chromium",
-    "backend": "none",
+    "backend": "php",
     "htdocs": "htdocs",
 	"defaultLocation":"index.htm",
     "version": "0.1",
