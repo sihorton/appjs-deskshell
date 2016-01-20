@@ -140,11 +140,11 @@ var running = deskShell.startApp({
 								
 							}
 						});
-					} else {
+					} catch(err) {
 						socket.emit('progress',{type:"error",text:err.toString()});
 					}
 				});
-					} catch(err) {
+					} else {
 						socket.emit('progress',{type:"error",text:err.toString()});
 					}
 				});
