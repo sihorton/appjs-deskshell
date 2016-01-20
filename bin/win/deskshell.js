@@ -17,18 +17,14 @@ process.on('SIGTERM', function() {
   deskShell.rescueDeskshell('Shutting Down:Recieved SIGTERM','SIGTERM',function() {process.exit();  });
 });
 process.on('uncaughtException',function(err) {
-  if (GLOBAL['deskShell']) {
-    deskShell.rescueDeskshell('UncaughtException:'+(err.message||err),err);
-  } else {
-    console.log(err);
-  }
+	deskShell.rescueDeskshell('UncaughtException:'+(err.message||err),err);
 });
 
 var Q = require("q"),fs=require("fs"),path = require("path")
 ,appfs = require("sihorton-vfs");
 GLOBAL.deskShell = require("deskshell-api").api;
 deskShell.platformDir = __dirname+path.sep;
-deskShell.installDir = path.normalize(__dirname + path.sep+".."+path.sep+"..")+path.sep;
+deskShell.installDir = path.normalize(__dirname + "/../../")+"/";
 deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 	
 	deskShell
@@ -142,35 +138,88 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 		}
 		return reading.promise;
 	}).then(function() {
-		
-		switch(deskShell.appDef.backend) {
-			case "node":
-			case "nodejs":
-				if (deskShell.packageFile) {
-					
-					deskShell.appfs.readFile(deskShell.mainFile, 'utf8', function (err, data) {
-						try {
-							process.chdir(deskShell.appDir);
-							var oldDir = __dirname;
-							__dirname = deskShell.appDir;
-							eval(data.toString());
-							__dirname = oldDir;
-						} catch(e) {
-							throw e;
-						}
-					});
-				} else {
-					require(deskShell.mainFile);
-					
+		if (deskShell.appDef.nativeWindowsFix) {
+			var exec = require('child_process').exec;
+			if (!~process.argv.indexOf('-reboot-hack')) {
+				for(var i=0; i<process.argv.length; i++){
+					// quote path that contains space in windows
+					process.argv[i] = '"'+process.argv[i]+'"';
 				}
-			break;
-			case "none":
-				//html only backend...
-				var running = deskShell.startApp({});
-			break;
-			default:
-				return new Error("Backend not implemented:" + deskShell.appDef.backend);
-			break;
+				console.log('reboot in child process');
+				process.argv.push('-reboot-hack');				
+				var cmd = process.argv.join(' ');
+				//console.log(cmd);
+				
+				var environment = process.env;
+				exec(cmd,{cwd:null,env:null},function(error,stdout,stderr) {
+					if(error) console.log("error: "+error);
+					if(stderr) console.log("stderr: "+stderr);
+					if(stdout) console.log("stdout: "+stdout);
+				});
+				
+				//process.exit(0);
+			} else {
+				console.log('I am in child process');
+				switch(deskShell.appDef.backend) {
+					case "node":
+					case "nodejs":
+						if (deskShell.packageFile) {
+							
+							deskShell.appfs.readFile(deskShell.mainFile, 'utf8', function (err, data) {
+								try {
+									process.chdir(deskShell.appDir);
+									var oldDir = __dirname;
+									__dirname = deskShell.appDir;
+									eval(data.toString());
+									__dirname = oldDir;
+								} catch(e) {
+									throw e;
+								}
+							});
+						} else {
+							require(deskShell.mainFile);
+							
+						}
+					break;
+					case "none":
+						//html only backend...
+						var running = deskShell.startApp({});
+					break;
+					default:
+						return new Error("Backend not implemented:" + deskShell.appDef.backend);
+					break;
+				}
+			}			
+		} else {
+			switch(deskShell.appDef.backend) {
+				case "node":
+				case "nodejs":
+					if (deskShell.packageFile) {
+						
+						deskShell.appfs.readFile(deskShell.mainFile, 'utf8', function (err, data) {
+							try {
+								process.chdir(deskShell.appDir);
+								var oldDir = __dirname;
+								__dirname = deskShell.appDir;
+								eval(data.toString());
+								__dirname = oldDir;
+							} catch(e) {
+								throw e;
+							}
+						});
+					} else {
+						require(deskShell.mainFile);
+						
+					}
+				break;
+				case "none":
+					//html only backend...
+					var running = deskShell.startApp({});
+				break;
+				default:
+					return new Error("Backend not implemented:" + deskShell.appDef.backend);
+				break;
+			}		
 		}
 	}).fail(function(err) {
 		//we should popup a window or write out error to disk.
