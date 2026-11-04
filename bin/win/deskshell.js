@@ -26,7 +26,7 @@ GLOBAL.deskShell = require("deskshell-api").api;
 deskShell.platformDir = __dirname+path.sep;
 deskShell.installDir = path.normalize(__dirname + "/../../")+"/";
 deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
-	
+
 	deskShell
 	.loadEnv()
 	.then(function() {
@@ -83,7 +83,7 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 			var appHandler = deskShell.env.appHandlers[path.extname(deskShell.appFile)];
 			deskShell.appFile = deskShell.installDir+"plugins"+path.sep+appHandler.app;
 			deskShell.appDir = path.dirname(deskShell.appFile)+path.sep;
-			
+
 			console.log("launching handler:",deskShell.appFile);
 			//ideally handlers would actually be a package file.
 			deskShell.packageFile = false;
@@ -104,7 +104,7 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 			if (path.extname(deskShell.appFile) == ".appfs" || path.extname(deskShell.appFile) == ".exe") {
 				console.log("package file");
 				deskShell.packageFile = true;
-				appfs.Mount(deskShell.appFile,function(vfs) {			
+				appfs.Mount(deskShell.appFile,function(vfs) {
 					deskShell.appfs = vfs;
 					deskShell.appfs.readFile("app.desk", 'utf8', function (err, data) {
 						if (err) {
@@ -139,24 +139,19 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 		return reading.promise;
 	}).then(function() {
 		if (deskShell.appDef.nativeWindowsFix) {
-			var exec = require('child_process').exec;
+			var execFile = require('child_process').execFile;
 			if (!~process.argv.indexOf('-reboot-hack')) {
-				for(var i=0; i<process.argv.length; i++){
-					// quote path that contains space in windows
-					process.argv[i] = '"'+process.argv[i]+'"';
-				}
 				console.log('reboot in child process');
-				process.argv.push('-reboot-hack');				
-				var cmd = process.argv.join(' ');
-				//console.log(cmd);
-				
-				var environment = process.env;
-				exec(cmd,{cwd:null,env:null},function(error,stdout,stderr) {
+				// Re-launch ourselves with the same arguments, passing them as an
+				// array. execFile does not use a shell, so an argument containing a
+				// quote or shell metacharacter is delivered as a single literal
+				// argument and can no longer inject commands.
+				execFile(process.argv[0], process.argv.slice(1).concat('-reboot-hack'),function(error,stdout,stderr) {
 					if(error) console.log("error: "+error);
 					if(stderr) console.log("stderr: "+stderr);
 					if(stdout) console.log("stdout: "+stdout);
 				});
-				
+
 				//process.exit(0);
 			} else {
 				console.log('I am in child process');
@@ -164,7 +159,7 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 					case "node":
 					case "nodejs":
 						if (deskShell.packageFile) {
-							
+
 							deskShell.appfs.readFile(deskShell.mainFile, 'utf8', function (err, data) {
 								try {
 									process.chdir(deskShell.appDir);
@@ -178,7 +173,7 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 							});
 						} else {
 							require(deskShell.mainFile);
-							
+
 						}
 					break;
 					case "none":
@@ -189,13 +184,13 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 						return new Error("Backend not implemented:" + deskShell.appDef.backend);
 					break;
 				}
-			}			
+			}
 		} else {
 			switch(deskShell.appDef.backend) {
 				case "node":
 				case "nodejs":
 					if (deskShell.packageFile) {
-						
+
 						deskShell.appfs.readFile(deskShell.mainFile, 'utf8', function (err, data) {
 							try {
 								process.chdir(deskShell.appDir);
@@ -209,7 +204,7 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 						});
 					} else {
 						require(deskShell.mainFile);
-						
+
 					}
 				break;
 				case "none":
@@ -219,7 +214,7 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 				default:
 					return new Error("Backend not implemented:" + deskShell.appDef.backend);
 				break;
-			}		
+			}
 		}
 	}).fail(function(err) {
 		//we should popup a window or write out error to disk.
@@ -237,7 +232,7 @@ deskShell.envPath = deskShell.installDir + path.sep+ "deskshell-env.js";
 		}
 		fs.appendFile("deskshell.log", errortext, function(err) {});
 	});
-	
+
 /**
 * Compare requested version number against installed version number
 * and return true if an upgrade is needed.
